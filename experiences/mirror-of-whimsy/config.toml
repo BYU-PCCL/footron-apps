@@ -4,5 +4,5 @@ description = "See yourself in a whole new way!"
 long_description = "What would you like like as a pile of bananas? Explore how our LIDAR sensors can transform you in rather unique ways."
 type = "capture"
 load_time = 8
-lifetime = 600
+lifetime = 601
 path = "Windows/SmokyHumans.exe"
