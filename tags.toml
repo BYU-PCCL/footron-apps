@@ -46,3 +46,9 @@ experiences = [
   "welcome",
   "photo-op"
 ]
+
+[misc]
+title = "Miscellaneous"
+experiences = [
+  "welcome"
+]
