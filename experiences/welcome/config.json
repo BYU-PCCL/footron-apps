@@ -1,0 +1,12 @@
+{
+    "id": "welcome",
+    "type": "web",
+    "title": "Welcome, students!",
+    "description": "A welcome message for students",
+    "long_description": "A welcome message for students",
+    "artist": "David Wingate",
+    "action_hints": ["explore more"],
+    "layout": "full",
+    "lifetime": 180,
+    "queueable": true
+}
