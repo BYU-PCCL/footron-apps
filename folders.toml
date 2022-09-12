@@ -28,9 +28,3 @@ description = "Use the Wall to celeberate graduation!"
 tags = [ "graduation" ]
 featured = "graduation"
 visible = false
-
-[misc]
-title = "Miscellaneous"
-description = "A few miscellaneous things"
-tags = [ "misc" ]
-featured = "welcome"

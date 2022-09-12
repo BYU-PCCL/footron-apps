@@ -8,5 +8,6 @@
     "action_hints": ["explore more"],
     "layout": "full",
     "lifetime": 180,
-    "queueable": true
+    "queueable": false,
+    "unlisted": true
 }
