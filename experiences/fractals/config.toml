@@ -1,0 +1,8 @@
+id = "fractals"
+title = "3D Fractals"
+description = "Interactively explore 3D fractals!"
+long_description = "This visualization generates 3D fractals in real time. Try changing the parameters!"
+type = "capture"
+load_time = 8
+lifetime = 180
+path = "Windows/Fractals.exe"
