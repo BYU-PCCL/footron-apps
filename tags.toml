@@ -16,7 +16,8 @@ experiences = [
   "fluid",
   "pong4",
   "your-campus",
-  "sorting"
+  "sorting",
+  "fractals"
 ]
 
 [game]
