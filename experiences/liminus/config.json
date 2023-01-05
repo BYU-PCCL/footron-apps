@@ -1,0 +1,10 @@
+{
+    "id": "liminus",
+    "title": "Liminus: The Silent Guard",
+    "description": "Built by BYU students! Souls on their perilous journey through the afterlife are left defenseless against the hungry darkness without the protective guidance of the Shepherds. Locate your flock, protect them from wolves, and guide them safely back home with your array of abilities and powers in Liminus: The Silent Guard.",
+    "artist": "BYU Animation",
+    "type": "capture",
+    "lifetime": 360,
+    "queueable": false,
+    "path": "WindowsNoEditor/Shepherds.exe"
+}
