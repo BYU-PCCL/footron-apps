@@ -7,5 +7,6 @@
     "action_hints": ["change the number of particles", "change the speed"],
     "layout": "full",
     "image_id": "pccl/app_wind:0.5",
-    "lifetime": 270
+    "lifetime": 270,
+    "queueable": false
 }

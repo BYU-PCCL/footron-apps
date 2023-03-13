@@ -5,5 +5,6 @@
     "description": "This game plays itself.<br><br>Each cell has four simple rules that determine whether it lives or dies, but the patterns these cells create together can be very complex. Mathematician John Conway created this cellular automaton in 1970.",
     "action_hints": ["change the speed"],
     "artist": "Chris Luangrath, Vin Howe",
-    "lifetime": 90
+    "lifetime": 90,
+    "queueable": false
 }

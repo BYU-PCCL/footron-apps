@@ -9,5 +9,6 @@
     "image_id": "pccl/app_stylegan2:0.9",
     "load_time": 7,
     "layout": "full",
-    "lifetime": 270
+    "lifetime": 270,
+    "queueable": false
 }
