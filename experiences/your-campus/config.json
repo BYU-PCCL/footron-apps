@@ -6,5 +6,6 @@
     "type": "capture",
     "load_time": 5,
     "lifetime": 600,
-    "path": "Windows/YourCampus.exe"
+    "path": "Windows/YourCampus.exe",
+    "queueable": false
 }

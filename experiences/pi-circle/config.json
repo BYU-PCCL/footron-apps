@@ -5,5 +5,5 @@
     "description": "Find out how the digits of pi co-occur",
     "layout": "full",
     "lifetime": 240,
-    "queueable": false
+    "queueable": true
 }

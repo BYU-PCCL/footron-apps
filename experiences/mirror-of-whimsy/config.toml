@@ -6,3 +6,4 @@ type = "capture"
 load_time = 8
 lifetime = 601
 path = "Windows/SmokyHumans.exe"
+queueable = false
