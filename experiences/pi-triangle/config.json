@@ -1,0 +1,9 @@
+{
+    "id": "pi-walk",
+    "type": "web",
+    "title": "Pi With Triangles",
+    "description": "How well can you approximate pi with triangles?",
+    "layout": "full",
+    "lifetime": 180,
+    "queueable": true
+}
