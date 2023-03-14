@@ -9,5 +9,5 @@
     "type": "video",
     "layout": "wide",
     "filename": "video.mp4",
-    "queueable": false,
+    "queueable": false
 }
