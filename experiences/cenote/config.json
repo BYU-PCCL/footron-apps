@@ -8,5 +8,6 @@
     "scrubbing": true,
     "type": "video",
     "layout": "wide",
-    "filename": "video.mp4"
+    "filename": "video.mp4",
+    "queueable": false
 }

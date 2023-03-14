@@ -8,5 +8,6 @@
     "type": "video",
     "layout": "wide",
     "scrubbing": true,
-    "filename": "taijitu.mp4"
+    "filename": "taijitu.mp4",
+    "queueable": false
 }
