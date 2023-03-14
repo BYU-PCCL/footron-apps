@@ -7,5 +7,6 @@
     "collection": "animations",
     "scrubbing": true,
     "type": "video",
-    "filename": "grendel.mp4"
+    "filename": "grendel.mp4",
+    "queueable": false
 }

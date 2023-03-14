@@ -7,5 +7,6 @@
     "collection": "animations",
     "type": "video",
     "scrubbing": true,
-    "filename": "video.mp4"
+    "filename": "video.mp4",
+    "queueable": false
 }
