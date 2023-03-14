@@ -1,6 +1,6 @@
 [pi-day]
 title = "Celebrate Pi Day"
-experiences = [ "pi", "pi-circle", "pi-walk" ]
+experiences = [ "pi", "pi-circle", "pi-walk", "pi-triangle" ]
 
 [interactive]
 title = "Interactive Experiences"
