@@ -8,5 +8,5 @@
     "type": "video",
     "scrubbing": true,
     "filename": "video.mp4",
-    "queueable": false
+    "queueable": true
 }
