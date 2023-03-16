@@ -5,5 +5,5 @@
     "description": "What happens if you use the digits of pi to try and make art?",
     "layout": "full",
     "lifetime": 180,
-    "queueable": true
+    "queueable": false
 }

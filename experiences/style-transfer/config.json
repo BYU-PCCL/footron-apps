@@ -8,5 +8,5 @@
     "image_id": "pccl/app_styletransfer:0.6",
     "load_time": 5,
     "lifetime": 270,
-    "queueable": false
+    "queueable": true
 }
