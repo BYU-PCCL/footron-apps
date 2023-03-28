@@ -1,16 +1,16 @@
 @font-face {
   font-family: "Urbanist";
-  src: url("Urbanist-Medium.ttf") format("truetype");
+  src: url("./Urbanist-Medium.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "IBMPlexMono";
-  src: url("IBMPlexMono-Light.ttf") format("truetype");
+  src: url("./IBMPlexMono-Light.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "SairaCondensed";
-  src: url("SairaCondensed-Medium.ttf") format("truetype");
+  src: url("./SairaCondensed-Medium.ttf") format("truetype");
 }
 
 * {
