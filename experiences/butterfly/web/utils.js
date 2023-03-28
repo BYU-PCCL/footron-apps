@@ -1,5 +1,5 @@
-import { setup as updateMain } from "./main"
-import { setup as updateMath } from "./math"
+import { setup as updateMain } from "./main.js"
+import { setup as updateMath } from "./math.js"
 
 export let config = {
   count: 1000, // the only editable value so far

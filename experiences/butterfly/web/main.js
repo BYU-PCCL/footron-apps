@@ -1,12 +1,11 @@
-import { evaluate_cmap } from "./colormaps"
-import { pendulums, update, updateGeometry } from "./math"
-import { config } from "./utils"
+import { evaluate_cmap } from "./colormaps.js"
+import { pendulums, update, updateGeometry } from "./math.js"
+import { config } from "./utils.js"
 
 var { count } = config
 
 /* THREE setup */
 
-import * as THREE from "three"
 // import Stats from "stats.js"
 
 const scene = new THREE.Scene()
