@@ -18,7 +18,7 @@ const ControlsComponent = () => {
 
   const updatePendulumCount = useCallback(
     async (event, value) => {
-      await sendMessage({ type: "pendulums", value: value })
+      await sendMessage({ type: "count", value: value })
     },
     [sendMessage]
   )
