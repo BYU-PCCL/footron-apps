@@ -16,16 +16,9 @@ const containerStyle = css`
 const ControlsComponent = () => {
   const { sendMessage } = useMessaging()
 
-  const updatePendulumCount = useCallback(
+  const updateCellCount = useCallback(
     async (event, value) => {
-      await sendMessage({ type: "count", value: value })
-    },
-    [sendMessage]
-  )
-
-  const updateGravity = useCallback(
-    async (event, value) => {
-      await sendMessage({ type: "g", value: value })
+      await sendMessage({ type: "cells", value: value })
     },
     [sendMessage]
   )
@@ -33,26 +26,15 @@ const ControlsComponent = () => {
   return (
     <div css={containerStyle}>
       <p>
-        <b>Change the number of pendulums!</b>
+        <b>Change the number of cells!</b>
       </p>
       <Slider
         min={0}
         max={1}
-        onChange={updatePendulumCount}
+        onChange={updateCellCount}
         step={0.05}
         marks
-        defaultValue={0.45} // 10,000 pendulums
-      />
-      <p>
-        <b>Change the value of gravity!</b>
-      </p>
-      <Slider
-        min={0}
-        max={1}
-        onChange={updateGravity}
-        step={0.05}
-        marks
-        defaultValue={0.5} // 9.81
+        defaultValue={0.45} // 21 cells
       />
     </div>
   )

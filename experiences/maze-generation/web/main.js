@@ -170,7 +170,7 @@ function drawMaze(Maze, x, y, title) {
 }
 
 function drawSolutionLine(Maze, square1, square2, x, y) {
-  strokeWeight(cellSize / 2 > 5 ? 5 : (cellSize - borderSize) / 2)
+  strokeWeight(cellSize / 2 > 5 ? 5 : (cellSize - borderSize) / 3)
   stroke("red")
 
   let xPos1 = x + Maze.getX(square1) * cellSize + cellSize / 2
