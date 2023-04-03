@@ -86,13 +86,13 @@ function draw() {
     "Random Traversal"
   )
 
-  // FRAMERATE
+  // // FRAMERATE
 
-  push()
-  fill("#fff")
-  textSize(20)
-  text(Math.floor(frameRate()), windowWidth - 250, windowHeight - 50)
-  pop()
+  // push()
+  // fill("#fff")
+  // textSize(20)
+  // text(Math.floor(frameRate()), windowWidth - 250, windowHeight - 50)
+  // pop()
 }
 
 function drawMaze(Maze, x, y, title) {
