@@ -18,7 +18,8 @@ experiences = [
   "your-campus",
   "sorting",
   "fractals",
-  "butterfly"
+  "butterfly",
+  "maze-generation"
 ]
 
 [game]
