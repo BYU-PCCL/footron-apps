@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "Urbanist";
+  src: url("./Urbanist-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SairaCondensed";
+  src: url("./SairaCondensed-Medium.ttf") format("truetype");
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 2736px;
+  height: 1216px;
+  background: #343434;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#sidebar {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 684px; /* 25 percent */
+  height: 1216px;
+}
+
+#sidebar-title {
+  text-align: center;
+  padding: 10px;
+  font-size: 3rem;
+  color: white;
+  font-family: Urbanist;
+}
+
+#sidebar-content {
+  padding: 40px;
+  font-size: 1.25rem;
+  color: white;
+  font-family: SairaCondensed;
+}

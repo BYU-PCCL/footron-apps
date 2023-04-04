@@ -1,0 +1,10 @@
+{
+  "id": "maze-generation",
+  "type": "web",
+  "title": "Visualizing Maze Generation Algorithms",
+  "description": "Different maze generation algorithms behave in unique ways",
+  "action_hints": ["change maze size"],
+  "layout": "full",
+  "lifetime": 180,
+  "queueable": true
+}
