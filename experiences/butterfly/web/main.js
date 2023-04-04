@@ -2,16 +2,17 @@ import { evaluate_cmap } from "./colormaps.js"
 import { pendulums, update, updateGeometry } from "./math.js"
 import { config } from "./utils.js"
 
-var { count } = config
-
 /* THREE setup */
 
 // import Stats from "stats.js"
 
+let windowWidth = 2736
+let windowHeight = 1216
+
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(
   40, // degrees
-  window.innerWidth / window.innerHeight, // aspect ratio
+  windowWidth / windowHeight, // aspect ratio
   1, // near
   100 // far
 )
@@ -28,7 +29,7 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance"
 })
 
-renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.setSize(2736, 1216)
 document.body.appendChild(renderer.domElement)
 
 export function setup() {
@@ -76,20 +77,18 @@ export function setup() {
 
   let opacity = 1
 
-  if (count > 50) {
+  if (config.count > 50) {
     opacity = 0.9
   }
-  if (count > 100) {
+  if (config.count > 100) {
     opacity = 0.75
   }
-  if (count > 1000) {
+  if (config.count > 1000) {
     opacity = 0.5
   }
-  if (count > 10000) {
+  if (config.count > 10000) {
     opacity = 0.2
   }
-
-  console.log(opacity)
 
   var material = new THREE.LineBasicMaterial({
     vertexColors: true,

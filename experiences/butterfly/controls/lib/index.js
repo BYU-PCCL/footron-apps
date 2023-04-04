@@ -18,7 +18,14 @@ const ControlsComponent = () => {
 
   const updatePendulumCount = useCallback(
     async (event, value) => {
-      await sendMessage({ type: "pendulums", value: value })
+      await sendMessage({ type: "count", value: value })
+    },
+    [sendMessage]
+  )
+
+  const updateGravity = useCallback(
+    async (event, value) => {
+      await sendMessage({ type: "g", value: value })
     },
     [sendMessage]
   )
@@ -34,7 +41,18 @@ const ControlsComponent = () => {
         onChange={updatePendulumCount}
         step={0.05}
         marks
-        defaultValue={1}
+        defaultValue={0.45} // 10,000 pendulums
+      />
+      <p>
+        <b>Change the value of gravity!</b>
+      </p>
+      <Slider
+        min={0}
+        max={1}
+        onChange={updateGravity}
+        step={0.05}
+        marks
+        defaultValue={0.5} // 9.81
       />
     </div>
   )

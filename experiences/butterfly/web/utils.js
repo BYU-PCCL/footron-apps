@@ -2,7 +2,7 @@ import { setup as updateMain } from "./main.js"
 import { setup as updateMath } from "./math.js"
 
 export let config = {
-  count: 1000, // the only editable value so far
+  count: 50000, // the only editable value so far
   g: 9.81,
   speed: 0.05,
   friction: 0.0004,
@@ -14,25 +14,32 @@ export let config = {
   defaultTheta2: 90
 }
 
-// setTimeout(() => {
-//   config.count = 5
-//   updateMath()
-//   updateMain()
-// }, 1000)
-// config.count = 5
-
 function messageHandler(message) {
+  console.log(message)
   const handlers = {
-    pendulums: pendulumCountHandler
+    count: (value) => roundToNearestTen(Math.pow(value * Math.cbrt(100000), 3)), // scale between 1 and 100000
+    g: (value) => 9.81 * 2 * value // slider starts at 0.5
   }
 
-  handlers[message.type](message.value)
+  config[message.type] = handlers[message.type](message.value)
+
+  updateMath()
+  updateMain()
 }
 
-function pendulumCountHandler(value) {
-  console.log(value)
-  config.count = Math.pow(Math.floor(value * Math.cbrt(100000)), 3) // scale between 1 and 100000
+function roundToNearestTen(num) {
+  if (num < 10) {
+    return 10
+  } else if (num < 100) {
+    return Math.ceil(num / 10) * 10
+  } else if (num < 1000) {
+    return Math.ceil(num / 100) * 100
+  } else {
+    return Math.ceil(num / 1000) * 1000
+  }
 }
+
+window.messageHandler = messageHandler // purely for local testing
 
 const client = new FootronMessaging.Messaging()
 client.mount()
