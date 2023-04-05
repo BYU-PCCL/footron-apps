@@ -20,7 +20,6 @@ let SIZE = windowHeight / 2.75
 
 let ORIGIN_X = windowWidth - (windowWidth * 0.75) / 2 // move it to the right to make space for explanatory sidebar
 let ORIGIN_Y = windowHeight / 2
-let DENSITY = config.cells // number of rows, number of columns
 
 let urbanist,
   cellSize,
@@ -34,24 +33,43 @@ function preload() {
   urbanist = loadFont("./Urbanist-Medium.ttf")
 }
 
+let finishedMazes = {
+  backtracker: false,
+  traversal: false,
+  prim: false,
+  wilson: false
+}
+
+let currentTimeoutDeleter
+
 export function setup() {
   createCanvas(windowWidth, windowHeight)
   noSmooth()
   textFont(urbanist)
 
-  DENSITY = config.cells
+  let DENSITY = config.cells
   cellSize = SIZE / DENSITY
   borderSize = cellSize / 5
 
-  recursiveBacktrackerMaze = new BacktrackerMaze(DENSITY)
-  randomTraversalMaze = new RandomTraversalMaze(DENSITY)
-  primMaze = new PrimMaze(DENSITY)
-  wilsonMaze = new WilsonMaze(DENSITY)
+  recursiveBacktrackerMaze = new BacktrackerMaze(DENSITY, () => {
+    finishedMazes.backtracker = true
+  })
+  randomTraversalMaze = new RandomTraversalMaze(DENSITY, () => {
+    finishedMazes.traversal = true
+  })
+  primMaze = new PrimMaze(DENSITY, () => {
+    finishedMazes.prim = true
+  })
+  wilsonMaze = new WilsonMaze(DENSITY, () => {
+    finishedMazes.wilson = true
+  })
 
   recursiveBacktrackerMaze.generate()
   randomTraversalMaze.generate()
   primMaze.generate()
   wilsonMaze.generate()
+
+  if (currentTimeoutDeleter) clearTimeout(currentTimeoutDeleter)
 }
 
 function draw() {
@@ -93,6 +111,26 @@ function draw() {
   // textSize(20)
   // text(Math.floor(frameRate()), windowWidth - 250, windowHeight - 50)
   // pop()
+
+  if (
+    finishedMazes.backtracker &&
+    finishedMazes.traversal &&
+    finishedMazes.prim &&
+    finishedMazes.wilson
+  ) {
+    finishedMazes = {
+      backtracker: false,
+      traversal: false,
+      prim: false,
+      wilson: false
+    }
+    if (currentTimeoutDeleter) clearTimeout(currentTimeoutDeleter)
+
+    currentTimeoutDeleter = setTimeout(() => {
+      config.cells = Math.ceil(Math.random() * 100)
+      setup()
+    }, 10000)
+  }
 }
 
 function drawMaze(Maze, x, y, title) {
@@ -174,7 +212,7 @@ function drawSolutionLine(Maze, square1, square2, x, y) {
   stroke("red")
 
   let xPos1 = x + Maze.getX(square1) * cellSize + cellSize / 2
-  let yPos1 = y + Maze.getY(square1, DENSITY) * cellSize + cellSize / 2
+  let yPos1 = y + Maze.getY(square1) * cellSize + cellSize / 2
 
   let xPos2 = x + Maze.getX(square2) * cellSize + cellSize / 2
   let yPos2 = y + Maze.getY(square2) * cellSize + cellSize / 2

@@ -58,5 +58,6 @@ export default class WilsonMaze extends Maze {
     }
 
     this.solveRecursively()
+    this.onFinish()
   }
 }

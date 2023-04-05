@@ -63,5 +63,6 @@ export default class PrimMaze extends Maze {
     }
 
     this.solveRecursively()
+    this.onFinish()
   }
 }

@@ -1,6 +1,7 @@
 export default class Maze {
-  constructor(density = 10) {
+  constructor(density = 10, onFinish) {
     this.density = density
+    this.onFinish = onFinish
 
     this.cells = [...Array(density * density)].map((_, i) => 0) // distance from origin. first cell is 1 away. 0 means not attached
     this.cellMap = [...Array(density * density)].map((_, i) => []) // An array mapping each cell to its "children"

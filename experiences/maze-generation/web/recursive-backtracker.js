@@ -38,5 +38,6 @@ export default class BacktrackerMaze extends Maze {
 
     // Though this is redundant, it will be more visually consistent with the other mazes
     this.solveRecursively()
+    this.onFinish()
   }
 }

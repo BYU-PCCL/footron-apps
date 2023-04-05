@@ -2,14 +2,11 @@ import { setup as updateMain } from "./main.js"
 
 export let config = {
   cells: 20, // the only editable value so far
-  backtracker: true,
-  traversal: true,
-  prim: true,
+  backtracker: true, // show backtracker maze
+  traversal: true, // show traversal maze
+  prim: true, // etc.
   wilson: true
 }
-
-export let isAutomaticMode = true // true or false
-let deleteTimeout
 
 function messageHandler(message) {
   const handlers = {
@@ -19,16 +16,6 @@ function messageHandler(message) {
   config[message.type] = handlers[message.type](message.value)
 
   console.log(`Set ${message.type} to ${config[message.type]}`)
-
-  isAutomaticMode = false
-
-  if (deleteTimeout) clearTimeout(deleteTimeout)
-
-  deleteTimeout = setTimeout(() => {
-    isAutomaticMode = true
-    config.cells = 20
-    updateMain()
-  }, 20000)
 
   updateMain()
 }

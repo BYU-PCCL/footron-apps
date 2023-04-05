@@ -38,5 +38,6 @@ export default class RandomTraversalMaze extends Maze {
     }
 
     this.solveRecursively()
+    this.onFinish()
   }
 }
