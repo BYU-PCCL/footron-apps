@@ -3,11 +3,6 @@
   src: url("./Urbanist-Medium.ttf") format("truetype");
 }
 
-@font-face {
-  font-family: "SairaCondensed";
-  src: url("./SairaCondensed-Medium.ttf") format("truetype");
-}
-
 body,
 html {
   margin: 0;
@@ -38,5 +33,5 @@ html {
   padding: 40px;
   font-size: 1.25rem;
   color: white;
-  font-family: SairaCondensed;
+  font-family: Urbanist;
 }
