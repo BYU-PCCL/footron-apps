@@ -1,3 +1,5 @@
+import { config } from "./config.js"
+
 export default class Maze {
   constructor(density = 10, onFinish) {
     this.density = density
@@ -20,19 +22,20 @@ export default class Maze {
     this.maxDistance = 1
 
     this.step = 0 // calculating pauses
+    this.bufferStep = 0 // for fractional speeds
   }
 
   async takeStep() {
-    this.step += 1
+    this.step++
 
-    let area = this.density * this.density
-    if (this.density <= 20) {
-      await pause()
-    } else if (this.density < 40) {
-      if (this.step % 3 == 0) await pause()
-    } else {
-      if ((area % this.step) / 10 == 0) await pause()
-    }
+    let pauseEvery = 1
+
+    if (this.density > 20)
+      pauseEvery = Math.floor(
+        ((this.density * this.density * this.density) / 8000) * config.speed
+      )
+
+    if (this.step % pauseEvery === 0) await pause(this.density)
   }
 
   getX(el) {
@@ -161,10 +164,17 @@ export default class Maze {
   }
 }
 
-function pause(length = 0) {
+function pause(density) {
+  let pauseLength = 0
+
+  if (density < 20) {
+    pauseLength =
+      Math.pow(20 - density, 5) / 10000 / (config.speed * config.speed) // easing function
+  }
+
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve()
-    }, length)
+    }, pauseLength)
   )
 }

@@ -3,12 +3,21 @@
   src: url("./Urbanist-Medium.ttf") format("truetype");
 }
 
+:root {
+  --maze-size: 550px;
+  --sidebar-size: 456px;
+  --screen-width: 2736px;
+  --screen-height: 1216px;
+  --inner-width: calc(var(--screen-width) - var(--sidebar-size));
+  --gutter: calc((var(--inner-width) - (var(--maze-size) * 3)) / 4);
+}
+
 body,
 html {
   margin: 0;
   padding: 0;
-  width: 2736px;
-  height: 1216px;
+  width: var(--screen-width);
+  height: var(--screen-height);
   background: #343434;
   z-index: 0;
   overflow: hidden;
@@ -17,21 +26,47 @@ html {
 #sidebar {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
-  width: 684px; /* 25 percent */
-  height: 1216px;
+  width: var(--sidebar-size); /* 1/6 */
+  height: var(--screen-height);
 }
 
 #sidebar-title {
   text-align: center;
-  padding: 10px;
-  font-size: 3rem;
+  padding: 40px;
+  font-size: 48px;
   color: white;
   font-family: Urbanist;
 }
 
 #sidebar-content {
+  margin-top: -40px;
   padding: 40px;
-  font-size: 1.25rem;
+  font-size: 28px;
   color: white;
   font-family: Urbanist;
+}
+
+.container.show-three {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  left: calc(var(--sidebar-size) + var(--gutter) / 2);
+  top: 950px;
+  vertical-align: text-top;
+  width: calc(var(--inner-width) - var(--gutter));
+}
+
+.container.show-three > #wilsons-description {
+  display: none;
+}
+
+.container.show-three > div {
+  width: var(--maze-size);
+  margin: auto;
+  margin-top: 0px;
+  font-size: 24px;
+  color: white;
+  font-family: Urbanist;
+  display: inline-block;
+  box-sizing: border-box;
 }

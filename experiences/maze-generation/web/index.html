@@ -17,6 +17,13 @@
       }
     </script>
     <script src="./p5.min.js" type="text/javascript"></script>
+    <link
+      rel="preload"
+      href="./Urbanist-Medium.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
   </head>
   <body>
     <div id="sidebar">
@@ -37,40 +44,31 @@
         bottom-right corner. The solution is calculated and drawn in red once
         the maze is finished.
         <br /><br />
-
-        To the right we visualize four algorithms. Here's a brief explanation of
-        each:
-
-        <ol>
-          <li>
-            The <strong>Recursive Backtracker</strong> algorithm works by
-            "walking" randomly across the grid and adding unvisited cells to the
-            maze. If it hits a cell that's part of the maze, it backtracks until
-            it finds an adjacent unvisited cell.
-          </li>
-          <br />
-          <li>
-            <strong>Prim's Algorithm</strong> initializes each possible
-            connection between vertices with a random weight. It chooses the
-            next cell to add by getting all of the adjacent cells to the current
-            grid and picking the one with the smallest weight.
-          </li>
-          <br />
-          <li>
-            <strong>Wilson's Algorithm</strong> picks a random unvisited cell,
-            then performs a loop-erased random walk until it collides with the
-            grid. It becomes inefficient with large maze sizes.
-          </li>
-          <br />
-          <li>
-            The <strong>Random Traversal</strong> algorithm chooses the next
-            cell by picking a random cell out of all the adjacent cells to the
-            current grid.
-          </li>
-        </ol>
       </div>
     </div>
-
+    <div class="container show-three">
+      <div id="recursive-backtracker-description">
+        The <strong>Recursive Backtracker</strong> algorithm works by "walking"
+        randomly across the grid and adding unvisited cells to the maze. If it
+        hits a cell that's part of the maze, it backtracks until it finds an
+        adjacent unvisited cell.
+      </div>
+      <div id="prims-description">
+        <strong>Prim's Algorithm</strong> initializes each possible connection
+        between vertices with a random weight. It chooses the next cell to add
+        by getting all of the adjacent cells to the current grid and picking the
+        one with the smallest weight.
+      </div>
+      <div id="wilsons-description">
+        <strong>Wilson's Algorithm</strong> picks a random unvisited cell, then
+        performs a loop-erased random walk until it collides with the grid. It
+        becomes inefficient with large maze sizes.
+      </div>
+      <div id="random-traversal-description">
+        The <strong>Random Traversal</strong> algorithm chooses the next cell by
+        picking a random cell out of all the adjacent cells to the current grid.
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

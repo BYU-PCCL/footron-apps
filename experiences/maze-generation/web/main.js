@@ -13,12 +13,12 @@ const DRAW_SOLUTION = true
 let windowWidth = 2736
 let windowHeight = 1216
 
-let xOffset = 100 // space between mazes
-let yOffset = 60
+let SIZE = 550
 
-let SIZE = windowHeight / 2.75
+let innerWidth = (windowWidth * 5) / 6
+let xOffset = (innerWidth - SIZE * 3) / 4 // the "gutters" between the mazes
 
-let ORIGIN_X = windowWidth - (windowWidth * 0.75) / 2 // move it to the right to make space for explanatory sidebar
+let ORIGIN_X = windowWidth - innerWidth // move it to the right to make space for explanatory sidebar
 let ORIGIN_Y = windowHeight / 2
 
 let urbanist,
@@ -40,7 +40,7 @@ let finishedMazes = {
   wilson: false
 }
 
-let currentTimeoutDeleter
+export let currentTimeoutDeleter
 
 export function setup() {
   createCanvas(windowWidth, windowHeight)
@@ -68,8 +68,6 @@ export function setup() {
   randomTraversalMaze.generate()
   primMaze.generate()
   wilsonMaze.generate()
-
-  if (currentTimeoutDeleter) clearTimeout(currentTimeoutDeleter)
 }
 
 function draw() {
@@ -78,33 +76,26 @@ function draw() {
 
   drawMaze(
     recursiveBacktrackerMaze,
-    ORIGIN_X - SIZE - xOffset,
-    ORIGIN_Y - SIZE - yOffset,
+    ORIGIN_X + xOffset,
+    ORIGIN_Y - SIZE / 2,
     "Recursive Backtracker"
   )
 
   drawMaze(
     primMaze,
-    ORIGIN_X + xOffset,
-    ORIGIN_Y - SIZE - yOffset,
+    ORIGIN_X + SIZE + xOffset * 2,
+    ORIGIN_Y - SIZE / 2,
     "Prim's Algorithm"
   )
 
   drawMaze(
-    wilsonMaze,
-    ORIGIN_X - SIZE - xOffset,
-    ORIGIN_Y + yOffset,
-    "Wilson's Algorithm"
-  )
-
-  drawMaze(
     randomTraversalMaze,
-    ORIGIN_X + xOffset,
-    ORIGIN_Y + yOffset,
+    ORIGIN_X + SIZE * 2 + xOffset * 3,
+    ORIGIN_Y - SIZE / 2,
     "Random Traversal"
   )
 
-  // // FRAMERATE
+  // FRAMERATE
 
   // push()
   // fill("#fff")
@@ -115,8 +106,7 @@ function draw() {
   if (
     finishedMazes.backtracker &&
     finishedMazes.traversal &&
-    finishedMazes.prim &&
-    finishedMazes.wilson
+    finishedMazes.prim
   ) {
     finishedMazes = {
       backtracker: false,
@@ -124,10 +114,16 @@ function draw() {
       prim: false,
       wilson: false
     }
-    if (currentTimeoutDeleter) clearTimeout(currentTimeoutDeleter)
+    console.log("All mazes completed")
+    if (currentTimeoutDeleter) {
+      console.log("Got here")
+      clearTimeout(currentTimeoutDeleter)
+    }
 
     currentTimeoutDeleter = setTimeout(() => {
-      config.cells = Math.ceil(Math.random() * 100)
+      console.log("Location 2")
+
+      config.cells = Math.ceil(Math.random() * 99) + 1 // minimum 2
       setup()
     }, 10000)
   }
@@ -208,8 +204,13 @@ function drawMaze(Maze, x, y, title) {
 }
 
 function drawSolutionLine(Maze, square1, square2, x, y) {
-  strokeWeight(cellSize / 2 > 5 ? 5 : (cellSize - borderSize) / 3)
-  stroke("red")
+  let sWeight = (cellSize - borderSize) / 3
+
+  if (sWeight > 10) sWeight = 10
+
+  strokeWeight(sWeight)
+
+  stroke("#BF1A2F") // red
 
   let xPos1 = x + Maze.getX(square1) * cellSize + cellSize / 2
   let yPos1 = y + Maze.getY(square1) * cellSize + cellSize / 2

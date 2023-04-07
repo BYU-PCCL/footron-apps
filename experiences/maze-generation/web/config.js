@@ -1,7 +1,8 @@
-import { setup as updateMain } from "./main.js"
+import { setup as updateMain, currentTimeoutDeleter } from "./main.js"
 
 export let config = {
-  cells: 20, // the only editable value so far
+  cells: 21, // the only editable value so far,
+  speed: 1,
   backtracker: true, // show backtracker maze
   traversal: true, // show traversal maze
   prim: true, // etc.
@@ -17,6 +18,7 @@ function messageHandler(message) {
 
   console.log(`Set ${message.type} to ${config[message.type]}`)
 
+  if (currentTimeoutDeleter) clearTimeout(currentTimeoutDeleter)
   updateMain()
 }
 
