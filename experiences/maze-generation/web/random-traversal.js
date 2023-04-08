@@ -4,6 +4,7 @@ export default class RandomTraversalMaze extends Maze {
   constructor(...args) {
     super(...args)
 
+    this.id = "traversal"
     this.visitedCells = [0]
   }
 
@@ -24,20 +25,14 @@ export default class RandomTraversalMaze extends Maze {
     ]
   }
 
-  async generate() {
-    while (this.cells.includes(0)) {
-      await this.takeStep()
+  async nextStep() {
+    await this.delay()
+    let [nextCellParent, nextCell] = this.getNextCell()
 
-      let [nextCellParent, nextCell] = this.getNextCell()
+    // add the cell to the tree
+    this.addPath(nextCellParent, nextCell)
 
-      // add the cell to the tree
-      this.addPath(nextCellParent, nextCell)
-
-      // add the cell to the visited cells array
-      this.visitedCells.push(nextCell)
-    }
-
-    this.solveRecursively()
-    this.onFinish()
+    // add the cell to the visited cells array
+    this.visitedCells.push(nextCell)
   }
 }

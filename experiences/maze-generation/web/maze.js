@@ -1,9 +1,8 @@
 import { config } from "./config.js"
 
 export default class Maze {
-  constructor(density = 10, onFinish) {
+  constructor(density = 10) {
     this.density = density
-    this.onFinish = onFinish
 
     this.cells = [...Array(density * density)].map((_, i) => 0) // distance from origin. first cell is 1 away. 0 means not attached
     this.cellMap = [...Array(density * density)].map((_, i) => []) // An array mapping each cell to its "children"
@@ -18,6 +17,7 @@ export default class Maze {
     this.cells[0] = 1
 
     this.solution = [] // solution. We'll fill this in later.
+    this.completed = false
 
     this.maxDistance = 1
 
@@ -25,7 +25,7 @@ export default class Maze {
     this.bufferStep = 0 // for fractional speeds
   }
 
-  async takeStep() {
+  async delay() {
     this.step++
 
     let pauseEvery = 1
@@ -36,6 +36,16 @@ export default class Maze {
       )
 
     if (this.step % pauseEvery === 0) await pause(this.density)
+  }
+
+  async generate() {
+    while (this.cells.includes(0)) {
+      await this.nextStep()
+    }
+
+    this.solveRecursively()
+    this.displaySolution()
+    this.completed = true
   }
 
   getX(el) {
@@ -161,6 +171,11 @@ export default class Maze {
         history.pop()
       }
     }
+  }
+
+  displaySolution() {
+    const spanElement = document.querySelector(`#${this.id}-title span`)
+    spanElement.innerHTML = `Solution length: ${this.solution.length}`
   }
 }
 

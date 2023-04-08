@@ -24,6 +24,13 @@
       type="font/ttf"
       crossorigin
     />
+    <link
+      rel="preload"
+      href="./Urbanist-Bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
   </head>
   <body>
     <div id="sidebar">
@@ -46,28 +53,46 @@
         <br /><br />
       </div>
     </div>
-    <div class="container show-three">
-      <div id="recursive-backtracker-description">
-        The <strong>Recursive Backtracker</strong> algorithm works by "walking"
-        randomly across the grid and adding unvisited cells to the maze. If it
-        hits a cell that's part of the maze, it backtracks until it finds an
-        adjacent unvisited cell.
-      </div>
-      <div id="prims-description">
-        <strong>Prim's Algorithm</strong> initializes each possible connection
-        between vertices with a random weight. It chooses the next cell to add
-        by getting all of the adjacent cells to the current grid and picking the
-        one with the smallest weight.
-      </div>
-      <div id="wilsons-description">
-        <strong>Wilson's Algorithm</strong> picks a random unvisited cell, then
-        performs a loop-erased random walk until it collides with the grid. It
-        becomes inefficient with large maze sizes.
-      </div>
-      <div id="random-traversal-description">
-        The <strong>Random Traversal</strong> algorithm chooses the next cell by
-        picking a random cell out of all the adjacent cells to the current grid.
-      </div>
+    <div id="backtracker">
+      The <span>Recursive Backtracker</span> algorithm works by "walking"
+      randomly across the grid and adding unvisited cells to the maze. If it
+      hits a cell that's part of the maze, it backtracks until it finds an
+      adjacent unvisited cell.
+    </div>
+    <div id="prim">
+      <span>Prim's Algorithm</span> initializes each possible connection between
+      vertices with a random weight. It chooses the next cell to add by getting
+      all of the adjacent cells to the current grid and picking the one with the
+      smallest weight.
+    </div>
+    <div id="wilson">
+      <span>Wilson's Algorithm</span> picks a random unvisited cell, then
+      performs a loop-erased random walk until it collides with the grid. It
+      becomes inefficient with large maze sizes.
+    </div>
+    <div id="traversal">
+      The <span>Random Traversal</span> algorithm chooses the next cell by
+      picking a random cell out of all the adjacent cells to the current grid.
+    </div>
+    <div id="backtracker-title">
+      Recursive Backtracker
+      <br />
+      <span>Solution length: ...</span>
+    </div>
+    <div id="prim-title">
+      Prim's Algorithm
+      <br />
+      <span>Solution length: ...</span>
+    </div>
+    <div id="wilson-title">
+      Wilson's Algorithm
+      <br />
+      <span>Solution length: ...</span>
+    </div>
+    <div id="traversal-title">
+      Random Traversal
+      <br />
+      <span>Solution length: ...</span>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
