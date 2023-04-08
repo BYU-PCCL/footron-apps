@@ -136,26 +136,11 @@ function draw() {
     let [recursiveBacktrackerMaze, primMaze, randomTraversalMaze] =
       mazesToGenerate
 
-    drawMaze(
-      recursiveBacktrackerMaze,
-      ORIGIN_X + gutter,
-      centeredY,
-      "Recursive Backtracker"
-    )
+    drawMaze(recursiveBacktrackerMaze, ORIGIN_X + gutter, centeredY)
 
-    drawMaze(
-      primMaze,
-      ORIGIN_X + SIZE + gutter * 2,
-      centeredY,
-      "Prim's Algorithm"
-    )
+    drawMaze(primMaze, ORIGIN_X + SIZE + gutter * 2, centeredY)
 
-    drawMaze(
-      randomTraversalMaze,
-      ORIGIN_X + SIZE * 2 + gutter * 3,
-      centeredY,
-      "Random Traversal"
-    )
+    drawMaze(randomTraversalMaze, ORIGIN_X + SIZE * 2 + gutter * 3, centeredY)
   }
 
   // FRAMERATE

@@ -1,8 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
-import React, { useCallback } from "react"
+import React, { useCallback, useState } from "react"
 import { useMessaging } from "@footron/controls-client"
-import { Slider } from "@material-ui/core"
+import {
+  Slider,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel
+} from "@material-ui/core"
 
 const containerStyle = css`
   padding: 16px;
@@ -23,6 +30,23 @@ const ControlsComponent = () => {
     [sendMessage]
   )
 
+  const updateSpeed = useCallback(
+    async (event, value) => {
+      await sendMessage({ type: "speed", value: value })
+    },
+    [sendMessage]
+  )
+
+  const updateMazeFocus = useCallback(
+    async (event, value) => {
+      await sendMessage({ type: "focusMaze", value: value })
+      setMazeFocus(value)
+    },
+    [sendMessage]
+  )
+
+  const [mazeFocus, setMazeFocus] = useState(false)
+
   return (
     <div css={containerStyle}>
       <p>
@@ -36,6 +60,53 @@ const ControlsComponent = () => {
         marks
         defaultValue={0.45} // 21 cells
       />
+      <p>
+        <b>Change the speed!</b>
+      </p>
+      <Slider
+        min={0}
+        max={1}
+        onChange={updateSpeed}
+        step={0.5}
+        marks
+        defaultValue={0.5} // normal speed
+      />
+      <p>
+        <b>Focus on one specific maze</b>
+      </p>
+      <FormControl component="fieldset">
+        <RadioGroup
+          name="focus-maze"
+          value={mazeFocus}
+          onChange={updateMazeFocus} // call messaging, then update with useState
+        >
+          <FormControlLabel
+            value={false}
+            control={<Radio />}
+            label="Show multiple mazes"
+          />
+          <FormControlLabel
+            value="backtracker"
+            control={<Radio />}
+            label="Recursive Backtracker"
+          />
+          <FormControlLabel
+            value="traversal"
+            control={<Radio />}
+            label="Random Traversal"
+          />
+          <FormControlLabel
+            value="prim"
+            control={<Radio />}
+            label="Prim's Algorithm"
+          />
+          <FormControlLabel
+            value="wilson"
+            control={<Radio />}
+            label="Wilson's Algorithm"
+          />
+        </RadioGroup>
+      </FormControl>
     </div>
   )
 }
