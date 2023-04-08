@@ -28,12 +28,13 @@ export default class Maze {
   async delay() {
     this.step++
 
-    let pauseEvery = 1
+    let pauseEvery = Math.floor(Math.pow(this.density, 3) / Math.pow(20, 3))
 
-    if (this.density > 20)
-      pauseEvery = Math.floor(
-        ((this.density * this.density * this.density) / 8000) * config.speed
-      )
+    if (config.speed === "slow") pauseEvery = Math.floor(pauseEvery / 10)
+
+    if (config.speed === "fast") pauseEvery *= 3
+
+    if (pauseEvery < 1) pauseEvery = 1
 
     if (this.step % pauseEvery === 0) await pause(this.density)
   }
@@ -182,9 +183,10 @@ export default class Maze {
 function pause(density) {
   let pauseLength = 0
 
-  if (density < 20) {
-    pauseLength =
-      Math.pow(20 - density, 5) / 10000 / (config.speed * config.speed) // easing function
+  if (config.speed === "slow" && density < 50) {
+    pauseLength = Math.pow(50 - density, 1.5) // easing function
+  } else if (config.speed === "normal") {
+    pauseLength = (1 / Math.log10(density)) * 30 // easing function
   }
 
   return new Promise((resolve) =>

@@ -1,9 +1,9 @@
 import { setup as updateMain } from "./main.js"
 
 export let config = {
-  cells: 21, // the only editable value so far,
-  speed: 1,
-  focusMaze: "prim"
+  cells: 4, // the only editable value so far,
+  speed: "slow", // 'fast', 'normal', 'slow'
+  focusMaze: false
 }
 
 function messageHandler(message) {
