@@ -1,4 +1,4 @@
-import { config } from "./utils.js"
+import { config } from "./config.js"
 
 /* CONSTANTS */
 

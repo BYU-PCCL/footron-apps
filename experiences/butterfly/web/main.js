@@ -1,6 +1,6 @@
 import { evaluate_cmap } from "./colormaps.js"
 import { pendulums, update, updateGeometry } from "./math.js"
-import { config } from "./utils.js"
+import { config } from "./config.js"
 
 /* THREE setup */
 
