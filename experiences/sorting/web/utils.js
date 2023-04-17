@@ -1,6 +1,6 @@
 const mergeSortElmt = document.getElementById("merge-parent");
 const insertionElmt = document.getElementById("insertion-parent");
-const selectionElmt = document.getElementById("selection-parent");
+const quickElmt = document.getElementById("quick-parent");
 const bubbleSortElmt = document.getElementById("bubble-parent");
 
 function draw_slice(sketch, total, index, radius, clr) {
@@ -41,7 +41,7 @@ export let config = {
     completeStatus: [false, false, false, false],
     restartCallbacks: [],
     complete(index, restart) {
-        // indices: merge = 0, insertion = 1, selection = 2, bubble = 3
+        // indices: merge = 0, insertion = 1, quick = 2, bubble = 3
         this.completeStatus[index] = true;
         this.restartCallbacks.push(restart);
         console.log(this.completeStatus)
@@ -78,7 +78,7 @@ function speedHandler(value) {
 }
 
 function checkBoxHandler(value) {
-    const elements = [bubbleSortElmt, insertionElmt, selectionElmt, mergeSortElmt];
+    const elements = [bubbleSortElmt, insertionElmt, quickElmt, mergeSortElmt];
     for (let i = 0; i < 4; i++) {
         elements[i].style.display = value[i] === false ? "none" : "block"
     }
