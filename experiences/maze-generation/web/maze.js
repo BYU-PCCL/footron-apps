@@ -1,3 +1,5 @@
+import { config } from "./config.js"
+
 export default class Maze {
   constructor(density = 10) {
     this.density = density
@@ -15,23 +17,36 @@ export default class Maze {
     this.cells[0] = 1
 
     this.solution = [] // solution. We'll fill this in later.
+    this.completed = false
 
     this.maxDistance = 1
 
     this.step = 0 // calculating pauses
+    this.bufferStep = 0 // for fractional speeds
   }
 
-  async takeStep() {
-    this.step += 1
+  async delay() {
+    this.step++
 
-    let area = this.density * this.density
-    if (this.density <= 20) {
-      await pause()
-    } else if (this.density < 40) {
-      if (this.step % 3 == 0) await pause()
-    } else {
-      if ((area % this.step) / 10 == 0) await pause()
+    let pauseEvery = Math.floor(Math.pow(this.density, 3) / Math.pow(20, 3))
+
+    if (config.speed === "slow") pauseEvery = Math.floor(pauseEvery / 10)
+
+    if (config.speed === "fast") pauseEvery *= 3
+
+    if (pauseEvery < 1) pauseEvery = 1
+
+    if (this.step % pauseEvery === 0) await pause(this.density)
+  }
+
+  async generate() {
+    while (this.cells.includes(0)) {
+      await this.nextStep()
     }
+
+    this.solveRecursively()
+    this.displaySolution()
+    this.completed = true
   }
 
   getX(el) {
@@ -158,12 +173,25 @@ export default class Maze {
       }
     }
   }
+
+  displaySolution() {
+    const spanElement = document.querySelector(`#${this.id}-title span`)
+    spanElement.innerHTML = `Solution length: ${this.solution.length}`
+  }
 }
 
-function pause(length = 0) {
+function pause(density) {
+  let pauseLength = 0
+
+  if (config.speed === "slow" && density < 50) {
+    pauseLength = Math.pow(50 - density, 1.5) // easing function
+  } else if (config.speed === "normal") {
+    pauseLength = (1 / Math.log10(density)) * 30 // easing function
+  }
+
   return new Promise((resolve) =>
     setTimeout(() => {
       resolve()
-    }, length)
+    }, pauseLength)
   )
 }

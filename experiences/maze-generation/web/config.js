@@ -1,36 +1,27 @@
 import { setup as updateMain } from "./main.js"
 
 export let config = {
-  cells: 20, // the only editable value so far
-  backtracker: true,
-  traversal: true,
-  prim: true,
-  wilson: true
+  cells: 20, // the only editable value so far,
+  speed: "normal", // 'fast', 'normal', 'slow'
+  focusMaze: false
 }
-
-export let isAutomaticMode = true // true or false
-let deleteTimeout
 
 function messageHandler(message) {
   const handlers = {
-    cells: (value) => round(Math.pow(value * 10, 2)) // scale between 1 and 100
+    cells: (value) => round(Math.pow(value * 10, 2)), // scale between 1 and 100
+    speed: (value) => {
+      if (value === 0) return "slow"
+      if (value === 1) return "fast"
+      return "normal"
+    },
+    focusMaze: (value) => value
   }
 
   config[message.type] = handlers[message.type](message.value)
 
   console.log(`Set ${message.type} to ${config[message.type]}`)
 
-  isAutomaticMode = false
-
-  if (deleteTimeout) clearTimeout(deleteTimeout)
-
-  deleteTimeout = setTimeout(() => {
-    isAutomaticMode = true
-    config.cells = 20
-    updateMain()
-  }, 20000)
-
-  updateMain()
+  if (message.type !== "speed") updateMain() // changes to speed shouldn't cause a re-render
 }
 
 function round(num) {

@@ -13,89 +13,168 @@ const DRAW_SOLUTION = true
 let windowWidth = 2736
 let windowHeight = 1216
 
-let xOffset = 100 // space between mazes
-let yOffset = 60
+export let SIZE = 550
 
-let SIZE = windowHeight / 2.75
+let sidebarSize = 456
+let innerWidth = windowWidth - sidebarSize
+let gutter = (innerWidth - SIZE * 3) / 4 // the "gutters" between the mazes
 
-let ORIGIN_X = windowWidth - (windowWidth * 0.75) / 2 // move it to the right to make space for explanatory sidebar
+let ORIGIN_X = windowWidth - innerWidth // move it to the right to make space for explanatory sidebar
 let ORIGIN_Y = windowHeight / 2
-let DENSITY = config.cells // number of rows, number of columns
 
-let urbanist,
-  cellSize,
-  borderSize,
-  recursiveBacktrackerMaze,
-  randomTraversalMaze,
-  primMaze,
-  wilsonMaze
+let cellSize, borderSize
 
-function preload() {
-  urbanist = loadFont("./Urbanist-Medium.ttf")
+let mazeDescriptions = {
+  backtracker: document.getElementById("backtracker"),
+  traversal: document.getElementById("traversal"),
+  prim: document.getElementById("prim"),
+  wilson: document.getElementById("wilson")
+}
+
+let mazeTitles = {
+  backtracker: document.getElementById("backtracker-title"),
+  traversal: document.getElementById("traversal-title"),
+  prim: document.getElementById("prim-title"),
+  wilson: document.getElementById("wilson-title")
+}
+
+let mazes = {
+  backtracker: BacktrackerMaze,
+  traversal: RandomTraversalMaze,
+  prim: PrimMaze,
+  wilson: WilsonMaze
+}
+
+let currentTimeoutDeleter
+
+let mazeIsCompleted = false
+let mazesToGenerate
+
+function showMazeMetaLarge(id) {
+  mazeDescriptions[id].style.display = "inline-block"
+  mazeDescriptions[id].style.top = windowHeight / 2 + 100 + "px"
+  mazeDescriptions[id].style.width = innerWidth - SIZE - 200 - 200 + "px"
+  mazeDescriptions[id].style.left = sidebarSize + SIZE + 200 + 100 + "px"
+  mazeDescriptions[id].className = "large"
+
+  mazeTitles[id].style.display = "inline-block"
+  mazeTitles[id].style.top = windowHeight / 2 - 200 + "px" // 30 - borderSize + "px"
+  mazeTitles[id].style.width = innerWidth - SIZE - 200 + "px"
+  mazeTitles[id].style.left = sidebarSize + SIZE + 200 + "px"
+  mazeTitles[id].className = "large"
+
+  const spanElement = document.querySelector(`#${id}-title span`)
+  spanElement.innerHTML = "Solution length: ..."
+}
+
+function showMazeMetaSmall(id, left) {
+  mazeDescriptions[id].style.display = "inline-block"
+  mazeDescriptions[id].style.top = windowHeight / 2 + SIZE / 2 + 50 + "px"
+  mazeDescriptions[id].style.width = SIZE + "px"
+  mazeDescriptions[id].style.left = left + "px"
+  mazeDescriptions[id].className = "small"
+
+  mazeTitles[id].style.display = "inline-block"
+  mazeTitles[id].style.top = 200 + "px"
+  mazeTitles[id].style.width = SIZE + "px"
+  mazeTitles[id].style.left = left + "px"
+  mazeTitles[id].className = "small"
+
+  const spanElement = document.querySelector(`#${id}-title span`)
+  spanElement.innerHTML = "Solution length: ..."
 }
 
 export function setup() {
   createCanvas(windowWidth, windowHeight)
   noSmooth()
-  textFont(urbanist)
 
-  DENSITY = config.cells
+  if (currentTimeoutDeleter) {
+    clearTimeout(currentTimeoutDeleter)
+  }
+
+  SIZE = config.focusMaze ? 1050 : 550
+  let DENSITY = config.cells
   cellSize = SIZE / DENSITY
   borderSize = cellSize / 5
+  mazeIsCompleted = false
 
-  recursiveBacktrackerMaze = new BacktrackerMaze(DENSITY)
-  randomTraversalMaze = new RandomTraversalMaze(DENSITY)
-  primMaze = new PrimMaze(DENSITY)
-  wilsonMaze = new WilsonMaze(DENSITY)
+  for (const id in mazeDescriptions) {
+    mazeDescriptions[id].style.display = "none"
+    mazeTitles[id].style.display = "none"
+  }
 
-  recursiveBacktrackerMaze.generate()
-  randomTraversalMaze.generate()
-  primMaze.generate()
-  wilsonMaze.generate()
+  if (config.focusMaze) {
+    showMazeMetaLarge(config.focusMaze)
+  } else {
+    showMazeMetaSmall("backtracker", sidebarSize + gutter)
+    showMazeMetaSmall("prim", sidebarSize + SIZE + gutter * 2)
+    showMazeMetaSmall("traversal", sidebarSize + SIZE * 2 + gutter * 3)
+  }
+
+  mazesToGenerate = config.focusMaze
+    ? [new mazes[config.focusMaze](DENSITY)]
+    : [
+        new BacktrackerMaze(DENSITY),
+        new PrimMaze(DENSITY),
+        new RandomTraversalMaze(DENSITY)
+      ]
+
+  mazesToGenerate.forEach((maze) => {
+    maze.generate()
+  })
 }
 
 function draw() {
   // PAGE BACKGROUND
   background("#99a2af")
 
-  drawMaze(
-    recursiveBacktrackerMaze,
-    ORIGIN_X - SIZE - xOffset,
-    ORIGIN_Y - SIZE - yOffset,
-    "Recursive Backtracker"
-  )
+  let centeredY = ORIGIN_Y - SIZE / 2
 
-  drawMaze(
-    primMaze,
-    ORIGIN_X + xOffset,
-    ORIGIN_Y - SIZE - yOffset,
-    "Prim's Algorithm"
-  )
+  if (mazesToGenerate.length === 1) {
+    drawMaze(mazesToGenerate[0], sidebarSize + 200, centeredY)
+  } else {
+    let [recursiveBacktrackerMaze, primMaze, randomTraversalMaze] =
+      mazesToGenerate
 
-  drawMaze(
-    wilsonMaze,
-    ORIGIN_X - SIZE - xOffset,
-    ORIGIN_Y + yOffset,
-    "Wilson's Algorithm"
-  )
+    drawMaze(recursiveBacktrackerMaze, ORIGIN_X + gutter, centeredY)
 
-  drawMaze(
-    randomTraversalMaze,
-    ORIGIN_X + xOffset,
-    ORIGIN_Y + yOffset,
-    "Random Traversal"
-  )
+    drawMaze(primMaze, ORIGIN_X + SIZE + gutter * 2, centeredY)
 
-  // // FRAMERATE
+    drawMaze(randomTraversalMaze, ORIGIN_X + SIZE * 2 + gutter * 3, centeredY)
+  }
+
+  // FRAMERATE
 
   // push()
   // fill("#fff")
   // textSize(20)
   // text(Math.floor(frameRate()), windowWidth - 250, windowHeight - 50)
   // pop()
+
+  // CHECK IF ALL MAZES ARE COMPLETED
+  if (!mazeIsCompleted) {
+    let completed = true
+
+    for (var i = 0; i < mazesToGenerate.length; i++) {
+      if (!mazesToGenerate[i].completed) completed = false
+    }
+
+    if (completed) {
+      console.log("completed")
+      mazeIsCompleted = true
+      if (currentTimeoutDeleter) {
+        clearTimeout(currentTimeoutDeleter)
+      }
+
+      currentTimeoutDeleter = setTimeout(() => {
+        config.cells = Math.ceil(Math.random() * 99) + 1 // minimum 2
+        setup()
+      }, 10000)
+    }
+  }
 }
 
-function drawMaze(Maze, x, y, title) {
+function drawMaze(Maze, x, y) {
   // MAZE CELLS
   push()
   Maze.cells.forEach((distance, position) => {
@@ -156,25 +235,20 @@ function drawMaze(Maze, x, y, title) {
     pop()
   }
 
-  // MAZE TITLE
-  push()
-  fill("white")
-  textSize(30)
-  textAlign(CENTER)
-  text(
-    title + ": " + (Maze.solution.length ? Maze.solution.length : "..."),
-    x + SIZE / 2,
-    y - 30
-  )
-  pop()
+  // MAZE EXPLANATION
 }
 
 function drawSolutionLine(Maze, square1, square2, x, y) {
-  strokeWeight(cellSize / 2 > 5 ? 5 : (cellSize - borderSize) / 3)
-  stroke("red")
+  let sWeight = (cellSize - borderSize) / 3
+
+  if (sWeight > 10) sWeight = 10
+
+  strokeWeight(sWeight)
+
+  stroke("#BF1A2F") // red
 
   let xPos1 = x + Maze.getX(square1) * cellSize + cellSize / 2
-  let yPos1 = y + Maze.getY(square1, DENSITY) * cellSize + cellSize / 2
+  let yPos1 = y + Maze.getY(square1) * cellSize + cellSize / 2
 
   let xPos2 = x + Maze.getX(square2) * cellSize + cellSize / 2
   let yPos2 = y + Maze.getY(square2) * cellSize + cellSize / 2
@@ -201,6 +275,5 @@ function drawSquare(Maze, distance, position, x, y) {
 
 // The below is necessary to use type="module"
 
-window.preload = preload
 window.setup = setup
 window.draw = draw

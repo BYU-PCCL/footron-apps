@@ -4,59 +4,56 @@ export default class WilsonMaze extends Maze {
   constructor(...args) {
     super(...args)
 
+    this.id = "wilson"
     this.tree = [0] // cells we've visited
   }
 
-  async generate() {
+  async nextStep() {
     let cells = this.cells
 
-    while (cells.includes(0)) {
-      let unvisitedCell = this.getRandomUnvisitedSquare()
-      let path = [unvisitedCell] // Array<cellNumber>
+    let unvisitedCell = this.getRandomUnvisitedSquare()
+    let path = [unvisitedCell] // Array<cellNumber>
 
-      let reconnects = false
+    let reconnects = false
 
-      while (!reconnects) {
-        await this.takeStep()
+    while (!reconnects) {
+      await this.delay()
 
-        let possibleCells = this.getAllAdjacentSquares(path[path.length - 1])
+      let possibleCells = this.getAllAdjacentSquares(path[path.length - 1])
 
-        // Randomly choose the next cell out of the candidates
-        let nextCell =
-          possibleCells[Math.floor(Math.random() * possibleCells.length)]
+      // Randomly choose the next cell out of the candidates
+      let nextCell =
+        possibleCells[Math.floor(Math.random() * possibleCells.length)]
 
-        // If the next cell is part of the tree, connect it!
-        if (this.tree.includes(nextCell)) {
-          reconnects = true
-          this.tree = this.tree.concat(path)
+      // If the next cell is part of the tree, connect it!
+      if (this.tree.includes(nextCell)) {
+        reconnects = true
+        this.tree = this.tree.concat(path)
 
-          path.reverse() // path from the UST, to the unvisited cell
+        path.reverse() // path from the UST, to the unvisited cell
 
-          path.forEach((cell, i) => {
-            if (i === 0) {
-              this.addPath(nextCell, cell)
-            } else {
-              this.addPath(path[i - 1], cell)
-            }
-          })
-
-          // Otherwise, there's a loop. Clear the looped portion of the path.
-        } else if (path.includes(nextCell)) {
-          let cellsToClear = path.slice(path.indexOf(nextCell) + 1, path.length)
-
-          for (var i = 0; i < cellsToClear.length; i++) {
-            cells[cellsToClear[i]] = 0
+        path.forEach((cell, i) => {
+          if (i === 0) {
+            this.addPath(nextCell, cell)
+          } else {
+            this.addPath(path[i - 1], cell)
           }
+        })
 
-          path = path.slice(0, path.indexOf(nextCell) + 1) // leave the first "nextCell" in the path
-        } else {
-          path.push(nextCell)
-          // so we can color it orange
-          cells[nextCell] = "path"
+        // Otherwise, there's a loop. Clear the looped portion of the path.
+      } else if (path.includes(nextCell)) {
+        let cellsToClear = path.slice(path.indexOf(nextCell) + 1, path.length)
+
+        for (var i = 0; i < cellsToClear.length; i++) {
+          cells[cellsToClear[i]] = 0
         }
+
+        path = path.slice(0, path.indexOf(nextCell) + 1) // leave the first "nextCell" in the path
+      } else {
+        path.push(nextCell)
+        // so we can color it orange
+        cells[nextCell] = "path"
       }
     }
-
-    this.solveRecursively()
   }
 }

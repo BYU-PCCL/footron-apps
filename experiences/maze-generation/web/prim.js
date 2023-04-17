@@ -6,6 +6,7 @@ export default class PrimMaze extends Maze {
   constructor(...args) {
     super(...args)
 
+    this.id = "prim"
     this.visitedCells = [0]
     this.cellWeights = [...Array(this.density * this.density)].map((_, i) => [])
 
@@ -49,19 +50,14 @@ export default class PrimMaze extends Maze {
     return possibleNextCells[nextCellIndex]
   }
 
-  async generate() {
-    while (this.cells.includes(0)) {
-      await this.takeStep()
+  async nextStep() {
+    await this.delay()
+    let [nextCellParent, nextCell] = this.getNextCell()
 
-      let [nextCellParent, nextCell] = this.getNextCell()
+    // add the cell to the tree
+    this.addPath(nextCellParent, nextCell)
 
-      // add the cell to the tree
-      this.addPath(nextCellParent, nextCell)
-
-      // add the cell to the visited cells array
-      this.visitedCells.push(nextCell)
-    }
-
-    this.solveRecursively()
+    // add the cell to the visited cells array
+    this.visitedCells.push(nextCell)
   }
 }
