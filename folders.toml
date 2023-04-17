@@ -27,4 +27,4 @@ title = "Graduation"
 description = "Use the Wall to celeberate graduation!"
 tags = [ "graduation" ]
 featured = "graduation"
-visible = false
+visible = true

@@ -1,0 +1,10 @@
+{
+  "id": "butterfly",
+  "type": "web",
+  "title": "Double Pendulums Butterfly Effect",
+  "description": "Small changes in pendulum angle cause big changes",
+  "action_hints": ["change the number of pendulums"],
+  "layout": "full",
+  "lifetime": 180,
+  "queueable": true
+}

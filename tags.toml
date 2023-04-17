@@ -17,7 +17,9 @@ experiences = [
   "pong4",
   "your-campus",
   "sorting",
-  "fractals"
+  "fractals",
+  "butterfly",
+  "maze-generation"
 ]
 
 [game]

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Congratulations!</title>
+    <link rel="stylesheet" href="./style.css" />
+
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script src="fader.js" type="text/javascript"></script>
+    <script src="do_scene.js" type="text/javascript"></script>
+    <script src="footron-messaging.development.js" type="text/javascript"></script>
+
+  </head>
+  <body>
+    <audio loop></audio>
+    <canvas id="kenburns"></canvas>
+
+    <div id="name" class="namediv">Use the QR code to<br>find your name</div>
+
+    <div class="banner"></div>
+
+    <div id="text" class="text">Congratulations, CS Graduates!</div>
+
+    <!-- two blanks to provide a bit of a pause at the beginning -->
+    <div class='fader'><div class='text2'></div></div>
+    <div class='fader'><div class='text2'></div></div>
+
+    <!-- cut and paste the output of formatter.py here -->
+<div id='name_0' class='fader'><div class='text2'>Trevor Ah Sue, BS</div></div>
+<div id='name_1' class='fader'><div class='text2'>Zachary Alger, BS</div></div>
+<div id='name_2' class='fader'><div class='text2'>Adam Allred, BS</div></div>
+<div id='name_3' class='fader'><div class='text2'>Paden Allsup, BS</div></div>
+<div id='name_4' class='fader'><div class='text2'>Rand Alrabadi, BS</div></div>
+<div id='name_5' class='fader'><div class='text2'>Alexis Alvarez, BS</div></div>
+<div id='name_6' class='fader'><div class='text2'>Jacob Amosa, BS</div></div>
+<div id='name_7' class='fader'><div class='text2'>Brigham Andersen, BS</div></div>
+<div id='name_8' class='fader'><div class='text2'>Connor Anderson, PHD</div></div>
+<div id='name_9' class='fader'><div class='text2'>Corban Anderson, BS</div></div>
+<div id='name_10' class='fader'><div class='text2'>Jason Anderson, BS</div></div>
+<div id='name_11' class='fader'><div class='text2'>Thalia Archibald, BS</div></div>
+<div id='name_12' class='fader'><div class='text2'>Jacob Armenta, BS</div></div>
+<div id='name_13' class='fader'><div class='text2'>Ryan Arnesen, BS</div></div>
+<div id='name_14' class='fader'><div class='text2'>Kurumi Asano, BS</div></div>
+<div id='name_15' class='fader'><div class='text2'>Trevor Ashby, BS</div></div>
+<div id='name_16' class='fader'><div class='text2'>Jenna Atkinson, BS</div></div>
+<div id='name_17' class='fader'><div class='text2'>Jacob Ballard, BS</div></div>
+<div id='name_18' class='fader'><div class='text2'>Nolan Barry, BS</div></div>
+<div id='name_19' class='fader'><div class='text2'>McKay Barton, BS</div></div>
+<div id='name_20' class='fader'><div class='text2'>Jacob Bastian, BS</div></div>
+<div id='name_21' class='fader'><div class='text2'>Avery Bates, BS</div></div>
+<div id='name_22' class='fader'><div class='text2'>Miles Batey, BS</div></div>
+<div id='name_23' class='fader'><div class='text2'>Carson Baughan, BS</div></div>
+<div id='name_24' class='fader'><div class='text2'>Drew Bayles, BS</div></div>
+<div id='name_25' class='fader'><div class='text2'>Josh Bedwell, BS</div></div>
+<div id='name_26' class='fader'><div class='text2'>James Spencer Belnap, BS</div></div>
+<div id='name_27' class='fader'><div class='text2'>Jeanpierre Bendezu Ortega, BS</div></div>
+<div id='name_28' class='fader'><div class='text2'>Nathaniel Benham, BS</div></div>
+<div id='name_29' class='fader'><div class='text2'>Alec Bingham, BS</div></div>
+<div id='name_30' class='fader'><div class='text2'>Benjamin Bischoff, BS</div></div>
+<div id='name_31' class='fader'><div class='text2'>Madeline Bisel, BS</div></div>
+<div id='name_32' class='fader'><div class='text2'>Sam Bishop, BS</div></div>
+<div id='name_33' class='fader'><div class='text2'>Ryan Black, BS</div></div>
+<div id='name_34' class='fader'><div class='text2'>Andrew Bonnett, BS</div></div>
+<div id='name_35' class='fader'><div class='text2'>Devin Bowman, BS</div></div>
+<div id='name_36' class='fader'><div class='text2'>Sid Bradshaw, BS</div></div>
+<div id='name_37' class='fader'><div class='text2'>Sean Brady, BS</div></div>
+<div id='name_38' class='fader'><div class='text2'>Michael Bramwell, BS</div></div>
+<div id='name_39' class='fader'><div class='text2'>Spencer Brosnahan, BS</div></div>
+<div id='name_40' class='fader'><div class='text2'>Alex Brown, BS</div></div>
+<div id='name_41' class='fader'><div class='text2'>Kimberly Brown, BS</div></div>
+<div id='name_42' class='fader'><div class='text2'>Michael Brown, BS</div></div>
+<div id='name_43' class='fader'><div class='text2'>Joe Brundage, BS</div></div>
+<div id='name_44' class='fader'><div class='text2'>Harrison Burgess, BS</div></div>
+<div id='name_45' class='fader'><div class='text2'>Anne Burt, BS</div></div>
+<div id='name_46' class='fader'><div class='text2'>Forrest Burton, BS</div></div>
+<div id='name_47' class='fader'><div class='text2'>Nathan Byers, BS</div></div>
+<div id='name_48' class='fader'><div class='text2'>Jerome Campbell, BS</div></div>
+<div id='name_49' class='fader'><div class='text2'>Lucas Castro, BS</div></div>
+<div id='name_50' class='fader'><div class='text2'>Carolynn Chang, BS</div></div>
+<div id='name_51' class='fader'><div class='text2'>Kirsten Alexandra Chapman, BS</div></div>
+<div id='name_52' class='fader'><div class='text2'>Garrett Charles, BS</div></div>
+<div id='name_53' class='fader'><div class='text2'>Jungjin Cho, BS</div></div>
+<div id='name_54' class='fader'><div class='text2'>Rikki Choi, BS</div></div>
+<div id='name_55' class='fader'><div class='text2'>Adara Christensen, BS</div></div>
+<div id='name_56' class='fader'><div class='text2'>Ammon Christensen, BS</div></div>
+<div id='name_57' class='fader'><div class='text2'>Jacob Christensen, BS</div></div>
+<div id='name_58' class='fader'><div class='text2'>Cameron Churchill, BS</div></div>
+<div id='name_59' class='fader'><div class='text2'>Noah Cindrich, BS</div></div>
+<div id='name_60' class='fader'><div class='text2'>Nathan Clark, BS</div></div>
+<div id='name_61' class='fader'><div class='text2'>Spring Cullen, MS</div></div>
+<div id='name_62' class='fader'><div class='text2'>Jared Curtis, BS</div></div>
+<div id='name_63' class='fader'><div class='text2'>Megan Dahl, BS</div></div>
+<div id='name_64' class='fader'><div class='text2'>James Dansie, BS</div></div>
+<div id='name_65' class='fader'><div class='text2'>Dallin Davis, BS</div></div>
+<div id='name_66' class='fader'><div class='text2'>Ethan Davis, BS</div></div>
+<div id='name_67' class='fader'><div class='text2'>Tade Davis, BS</div></div>
+<div id='name_68' class='fader'><div class='text2'>Theo Dawson, BS</div></div>
+<div id='name_69' class='fader'><div class='text2'>Lexi Delorey, BS</div></div>
+<div id='name_70' class='fader'><div class='text2'>Jack Demke, MS</div></div>
+<div id='name_71' class='fader'><div class='text2'>Luqi Deng, BS</div></div>
+<div id='name_72' class='fader'><div class='text2'>Michael Didier, BS</div></div>
+<div id='name_73' class='fader'><div class='text2'>Teiresias Downing, BS</div></div>
+<div id='name_74' class='fader'><div class='text2'>Jake Dustin, BS</div></div>
+<div id='name_75' class='fader'><div class='text2'>Devin Eastmond, BS</div></div>
+<div id='name_76' class='fader'><div class='text2'>Nathan Edwards, BS</div></div>
+<div id='name_77' class='fader'><div class='text2'>Kyle Ellingson, BS</div></div>
+<div id='name_78' class='fader'><div class='text2'>Kye Elliott, BS</div></div>
+<div id='name_79' class='fader'><div class='text2'>Bradley English, BS</div></div>
+<div id='name_80' class='fader'><div class='text2'>Carlos Evelo, BS</div></div>
+<div id='name_81' class='fader'><div class='text2'>Spencer Fairchild, BS</div></div>
+<div id='name_82' class='fader'><div class='text2'>Brady Farley, BS</div></div>
+<div id='name_83' class='fader'><div class='text2'>Tammy Farnsworth, BS</div></div>
+<div id='name_84' class='fader'><div class='text2'>Travis Feller, BS</div></div>
+<div id='name_85' class='fader'><div class='text2'>Calvin Fischer, BS</div></div>
+<div id='name_86' class='fader'><div class='text2'>James Fitzgerald, BS</div></div>
+<div id='name_87' class='fader'><div class='text2'>Davis Forster, BS</div></div>
+<div id='name_88' class='fader'><div class='text2'>Austin Foster, BS</div></div>
+<div id='name_89' class='fader'><div class='text2'>Brandon Fowler, BS</div></div>
+<div id='name_90' class='fader'><div class='text2'>Jason Fox, BS</div></div>
+<div id='name_91' class='fader'><div class='text2'>Benjamin Frodsham, BS</div></div>
+<div id='name_92' class='fader'><div class='text2'>Todd Froisland, BS</div></div>
+<div id='name_93' class='fader'><div class='text2'>Duncan Furgeson, MS</div></div>
+<div id='name_94' class='fader'><div class='text2'>Kate Gammon, BS</div></div>
+<div id='name_95' class='fader'><div class='text2'>Siqi Gao, MS</div></div>
+<div id='name_96' class='fader'><div class='text2'>Fernando Garcia, BS</div></div>
+<div id='name_97' class='fader'><div class='text2'>Cyrus Gatrell, BS</div></div>
+<div id='name_98' class='fader'><div class='text2'>Jacob Gehrett, BS</div></div>
+<div id='name_99' class='fader'><div class='text2'>Easton Gibson, BS</div></div>
+<div id='name_100' class='fader'><div class='text2'>Nathan Gillis, BS</div></div>
+<div id='name_101' class='fader'><div class='text2'>Corbin Gollaher, BS</div></div>
+<div id='name_102' class='fader'><div class='text2'>Manuel Gordillo, BS</div></div>
+<div id='name_103' class='fader'><div class='text2'>Ben Grant, BS</div></div>
+<div id='name_104' class='fader'><div class='text2'>Rachel Grant, BS</div></div>
+<div id='name_105' class='fader'><div class='text2'>Kade Greenburg, BS</div></div>
+<div id='name_106' class='fader'><div class='text2'>Haley Greer, BS</div></div>
+<div id='name_107' class='fader'><div class='text2'>Aimee Gundersen, BS</div></div>
+<div id='name_108' class='fader'><div class='text2'>Kyle Gwilliam, BS</div></div>
+<div id='name_109' class='fader'><div class='text2'>Dallin Hagman, MS</div></div>
+<div id='name_110' class='fader'><div class='text2'>Will Hainsworth, BS</div></div>
+<div id='name_111' class='fader'><div class='text2'>Abby Hales, BS</div></div>
+<div id='name_112' class='fader'><div class='text2'>Eliza Hales, BS</div></div>
+<div id='name_113' class='fader'><div class='text2'>Justin Hales, BS</div></div>
+<div id='name_114' class='fader'><div class='text2'>Cara Hamilton, BS</div></div>
+<div id='name_115' class='fader'><div class='text2'>Conner Hammond, BS</div></div>
+<div id='name_116' class='fader'><div class='text2'>Jake Hamzawi, BS</div></div>
+<div id='name_117' class='fader'><div class='text2'>Benjamin Harden, BS</div></div>
+<div id='name_118' class='fader'><div class='text2'>Craig Harris, BS</div></div>
+<div id='name_119' class='fader'><div class='text2'>Jacob Harris, BS</div></div>
+<div id='name_120' class='fader'><div class='text2'>David Hart, PHD</div></div>
+<div id='name_121' class='fader'><div class='text2'>David Hawley, BS</div></div>
+<div id='name_122' class='fader'><div class='text2'>Kirsten Hema, BS</div></div>
+<div id='name_123' class='fader'><div class='text2'>Dallin Henderson, BS</div></div>
+<div id='name_124' class='fader'><div class='text2'>Jeonghaeng Heo, BS</div></div>
+<div id='name_125' class='fader'><div class='text2'>Allyse Hettinger, BS</div></div>
+<div id='name_126' class='fader'><div class='text2'>Josh Higgins, BS</div></div>
+<div id='name_127' class='fader'><div class='text2'>Joshua Higgins, MS</div></div>
+<div id='name_128' class='fader'><div class='text2'>Jordan Higham, BS</div></div>
+<div id='name_129' class='fader'><div class='text2'>Justin Hill, BS</div></div>
+<div id='name_130' class='fader'><div class='text2'>Kevin Hillyard, BS</div></div>
+<div id='name_131' class='fader'><div class='text2'>Braeden Hintze, BS</div></div>
+<div id='name_132' class='fader'><div class='text2'>Andrew Hirschi, BS</div></div>
+<div id='name_133' class='fader'><div class='text2'>Joel Hirschmann, BS</div></div>
+<div id='name_134' class='fader'><div class='text2'>Brian Holderness, BS</div></div>
+<div id='name_135' class='fader'><div class='text2'>Chad Holmes, BS</div></div>
+<div id='name_136' class='fader'><div class='text2'>Jared Householder, BS</div></div>
+<div id='name_137' class='fader'><div class='text2'>Analeigh Howard, BS</div></div>
+<div id='name_138' class='fader'><div class='text2'>Stephen Howard, MS</div></div>
+<div id='name_139' class='fader'><div class='text2'>Jackie Hu, BS</div></div>
+<div id='name_140' class='fader'><div class='text2'>Benjamin Humphries, BS</div></div>
+<div id='name_141' class='fader'><div class='text2'>Caleb Hunt, BS</div></div>
+<div id='name_142' class='fader'><div class='text2'>Samuel Hunter, BS</div></div>
+<div id='name_143' class='fader'><div class='text2'>Wesley Ijams, BS</div></div>
+<div id='name_144' class='fader'><div class='text2'>Riley Isom, BS</div></div>
+<div id='name_145' class='fader'><div class='text2'>Kaleah Jackson, BS</div></div>
+<div id='name_146' class='fader'><div class='text2'>Brendan Jensen, BS</div></div>
+<div id='name_147' class='fader'><div class='text2'>Connor Jensen, BS</div></div>
+<div id='name_148' class='fader'><div class='text2'>Kyungwoo Jo, BS</div></div>
+<div id='name_149' class='fader'><div class='text2'>Adam Johnson, BS</div></div>
+<div id='name_150' class='fader'><div class='text2'>Eric Jorgensen, BS</div></div>
+<div id='name_151' class='fader'><div class='text2'>Hongjoon Jun, BS</div></div>
+<div id='name_152' class='fader'><div class='text2'>Tyler Karren, MS</div></div>
+<div id='name_153' class='fader'><div class='text2'>Truman Kautzman, BS</div></div>
+<div id='name_154' class='fader'><div class='text2'>Adnan Khayyat, BS</div></div>
+<div id='name_155' class='fader'><div class='text2'>Braeden Kilburn, BS</div></div>
+<div id='name_156' class='fader'><div class='text2'>Munseok Kim, BS</div></div>
+<div id='name_157' class='fader'><div class='text2'>Taeho Kim, BS</div></div>
+<div id='name_158' class='fader'><div class='text2'>YoungChan Kim, BS</div></div>
+<div id='name_159' class='fader'><div class='text2'>Briana King, BS</div></div>
+<div id='name_160' class='fader'><div class='text2'>Elli King, BS</div></div>
+<div id='name_161' class='fader'><div class='text2'>Branden Kinghorn, BS</div></div>
+<div id='name_162' class='fader'><div class='text2'>Gregory Knapp, BS</div></div>
+<div id='name_163' class='fader'><div class='text2'>Ben Knight, BS</div></div>
+<div id='name_164' class='fader'><div class='text2'>Savannah Knight, BS</div></div>
+<div id='name_165' class='fader'><div class='text2'>Divya Kusuluri, BS</div></div>
+<div id='name_166' class='fader'><div class='text2'>Jeremy Lakey, BS</div></div>
+<div id='name_167' class='fader'><div class='text2'>Stephen Lambert, MS</div></div>
+<div id='name_168' class='fader'><div class='text2'>Mark Larsen, BS</div></div>
+<div id='name_169' class='fader'><div class='text2'>Nathan Larsen, BS</div></div>
+<div id='name_170' class='fader'><div class='text2'>Dominic Lauricella, BS</div></div>
+<div id='name_171' class='fader'><div class='text2'>Drayton Lavender, BS</div></div>
+<div id='name_172' class='fader'><div class='text2'>Brandon Vinh Le, BS</div></div>
+<div id='name_173' class='fader'><div class='text2'>Maxwell Lenker, BS</div></div>
+<div id='name_174' class='fader'><div class='text2'>Thomas Leonard, BS</div></div>
+<div id='name_175' class='fader'><div class='text2'>Jeremy Lewis, BS</div></div>
+<div id='name_176' class='fader'><div class='text2'>Koby Lewis, BS</div></div>
+<div id='name_177' class='fader'><div class='text2'>Jongwoo Lim, BS</div></div>
+<div id='name_178' class='fader'><div class='text2'>Jordan Lin, BS</div></div>
+<div id='name_179' class='fader'><div class='text2'>Tyler Little, BS</div></div>
+<div id='name_180' class='fader'><div class='text2'>Ethan Low, BS</div></div>
+<div id='name_181' class='fader'><div class='text2'>Josh Mann, BS</div></div>
+<div id='name_182' class='fader'><div class='text2'>Tyler Mansell, BS</div></div>
+<div id='name_183' class='fader'><div class='text2'>Elias Maple, BS</div></div>
+<div id='name_184' class='fader'><div class='text2'>Samuel Marberger, BS</div></div>
+<div id='name_185' class='fader'><div class='text2'>Zachary Marshall, BS</div></div>
+<div id='name_186' class='fader'><div class='text2'>Brennan Martin, BS</div></div>
+<div id='name_187' class='fader'><div class='text2'>Jax Matthews, BS</div></div>
+<div id='name_188' class='fader'><div class='text2'>JC May, BS</div></div>
+<div id='name_189' class='fader'><div class='text2'>Trevor McClellan, BS</div></div>
+<div id='name_190' class='fader'><div class='text2'>Jason McDonald, BS</div></div>
+<div id='name_191' class='fader'><div class='text2'>Ethan McKague, BS</div></div>
+<div id='name_192' class='fader'><div class='text2'>Nathan McMurray, BS</div></div>
+<div id='name_193' class='fader'><div class='text2'>Jesse Melville, BS</div></div>
+<div id='name_194' class='fader'><div class='text2'>Will Melville, MS</div></div>
+<div id='name_195' class='fader'><div class='text2'>Irvin Mendoza Rojas, BS</div></div>
+<div id='name_196' class='fader'><div class='text2'>Chris Mero, BS</div></div>
+<div id='name_197' class='fader'><div class='text2'>Zack Mertz, BS</div></div>
+<div id='name_198' class='fader'><div class='text2'>Lance Meurs, BS</div></div>
+<div id='name_199' class='fader'><div class='text2'>Zack Meyer, BS</div></div>
+<div id='name_200' class='fader'><div class='text2'>Kristopher Miles, BS</div></div>
+<div id='name_201' class='fader'><div class='text2'>Ben Millett, BS</div></div>
+<div id='name_202' class='fader'><div class='text2'>Jacob Moberly, BS</div></div>
+<div id='name_203' class='fader'><div class='text2'>Cameron Molen, BS</div></div>
+<div id='name_204' class='fader'><div class='text2'>Ameilya Monson, BS</div></div>
+<div id='name_205' class='fader'><div class='text2'>Cole Monson, BS</div></div>
+<div id='name_206' class='fader'><div class='text2'>Kekoapoaono Montalbo, BS</div></div>
+<div id='name_207' class='fader'><div class='text2'>Jamison Moody, MS</div></div>
+<div id='name_208' class='fader'><div class='text2'>Jae Moon, BS</div></div>
+<div id='name_209' class='fader'><div class='text2'>Neal Munson, MS</div></div>
+<div id='name_210' class='fader'><div class='text2'>Cori Nally, BS</div></div>
+<div id='name_211' class='fader'><div class='text2'>Yeganeh Nasiri, MS</div></div>
+<div id='name_212' class='fader'><div class='text2'>Tustin Neilson, BS</div></div>
+<div id='name_213' class='fader'><div class='text2'>Jonathan Nelson, BS</div></div>
+<div id='name_214' class='fader'><div class='text2'>Stephen Nelson, MS</div></div>
+<div id='name_215' class='fader'><div class='text2'>Steven Nelson, BS</div></div>
+<div id='name_216' class='fader'><div class='text2'>Aadesh Neupane, PHD</div></div>
+<div id='name_217' class='fader'><div class='text2'>Sam Nichols, BS</div></div>
+<div id='name_218' class='fader'><div class='text2'>Logan Nielsen, MS</div></div>
+<div id='name_219' class='fader'><div class='text2'>Jacob Nuttall, BS</div></div>
+<div id='name_220' class='fader'><div class='text2'>Ryan Ogden, BS</div></div>
+<div id='name_221' class='fader'><div class='text2'>Suguru Onda, MS</div></div>
+<div id='name_222' class='fader'><div class='text2'>Dylan Packham, BS</div></div>
+<div id='name_223' class='fader'><div class='text2'>Inoh Pak, BS</div></div>
+<div id='name_224' class='fader'><div class='text2'>Rembrand Pardo Castro, BS</div></div>
+<div id='name_225' class='fader'><div class='text2'>Joe Paris, BS</div></div>
+<div id='name_226' class='fader'><div class='text2'>Jaeyoung Park, BS</div></div>
+<div id='name_227' class='fader'><div class='text2'>Sihnyoung Park, BS</div></div>
+<div id='name_228' class='fader'><div class='text2'>Ethan Payne, BS</div></div>
+<div id='name_229' class='fader'><div class='text2'>Jeremy Payne, BS</div></div>
+<div id='name_230' class='fader'><div class='text2'>Zach Payne, BS</div></div>
+<div id='name_231' class='fader'><div class='text2'>Ethan Pedersen, MS</div></div>
+<div id='name_232' class='fader'><div class='text2'>Mark Pedersen, BS</div></div>
+<div id='name_233' class='fader'><div class='text2'>Connor Stephen Pemberton, BS</div></div>
+<div id='name_234' class='fader'><div class='text2'>Amadeus Peterson, BS</div></div>
+<div id='name_235' class='fader'><div class='text2'>Joseph Peterson, BS</div></div>
+<div id='name_236' class='fader'><div class='text2'>Maddie Petty, BS</div></div>
+<div id='name_237' class='fader'><div class='text2'>Britton Player, BS</div></div>
+<div id='name_238' class='fader'><div class='text2'>Ryan Poertner, BS</div></div>
+<div id='name_239' class='fader'><div class='text2'>Clay Poffenberger, BS</div></div>
+<div id='name_240' class='fader'><div class='text2'>Ammon Quackenbush, BS</div></div>
+<div id='name_241' class='fader'><div class='text2'>PJ Rape Jr, BS</div></div>
+<div id='name_242' class='fader'><div class='text2'>Josh Rathke, BS</div></div>
+<div id='name_243' class='fader'><div class='text2'>Isaac Raval, BS</div></div>
+<div id='name_244' class='fader'><div class='text2'>Gabriel Reed, BS</div></div>
+<div id='name_245' class='fader'><div class='text2'>Riley Reed, BS</div></div>
+<div id='name_246' class='fader'><div class='text2'>David Reynolds, BS</div></div>
+<div id='name_247' class='fader'><div class='text2'>Michael Richards, MS</div></div>
+<div id='name_248' class='fader'><div class='text2'>Jack Richardson, BS</div></div>
+<div id='name_249' class='fader'><div class='text2'>Joshua Richardson, BS</div></div>
+<div id='name_250' class='fader'><div class='text2'>Nathan William Riches, BS</div></div>
+<div id='name_251' class='fader'><div class='text2'>Tyler Richey, BS</div></div>
+<div id='name_252' class='fader'><div class='text2'>Kaleb Rigg, BS</div></div>
+<div id='name_253' class='fader'><div class='text2'>Jason Roberts, BS</div></div>
+<div id='name_254' class='fader'><div class='text2'>Brian Robinson, MS</div></div>
+<div id='name_255' class='fader'><div class='text2'>Tyson Rodriguez, BS</div></div>
+<div id='name_256' class='fader'><div class='text2'>Ignacio Rodriguez de Almeida, BS</div></div>
+<div id='name_257' class='fader'><div class='text2'>Adam Rollins, BS</div></div>
+<div id='name_258' class='fader'><div class='text2'>Eric Rose, BS</div></div>
+<div id='name_259' class='fader'><div class='text2'>Jared Rossberg, BS</div></div>
+<div id='name_260' class='fader'><div class='text2'>Mark Roth, MS</div></div>
+<div id='name_261' class='fader'><div class='text2'>Nate Roylance, BS</div></div>
+<div id='name_262' class='fader'><div class='text2'>Matthew Russon, BS</div></div>
+<div id='name_263' class='fader'><div class='text2'>Ken Ruth, BS</div></div>
+<div id='name_264' class='fader'><div class='text2'>Adam Ryan, BS</div></div>
+<div id='name_265' class='fader'><div class='text2'>Christopher Rytting, PHD</div></div>
+<div id='name_266' class='fader'><div class='text2'>Mitchell Saatkamp, BS</div></div>
+<div id='name_267' class='fader'><div class='text2'>Noah Schill, BS</div></div>
+<div id='name_268' class='fader'><div class='text2'>Joseph Scholl, BS</div></div>
+<div id='name_269' class='fader'><div class='text2'>Heather Schone, BS</div></div>
+<div id='name_270' class='fader'><div class='text2'>Trevor Schwantes, MS</div></div>
+<div id='name_271' class='fader'><div class='text2'>Jake Searle, BS</div></div>
+<div id='name_272' class='fader'><div class='text2'>Jarod Searle, BS</div></div>
+<div id='name_273' class='fader'><div class='text2'>Kierra Searle, BS</div></div>
+<div id='name_274' class='fader'><div class='text2'>Daniel Segrera, MS</div></div>
+<div id='name_275' class='fader'><div class='text2'>Ben Shafer, BS</div></div>
+<div id='name_276' class='fader'><div class='text2'>Alex Shaw, MS</div></div>
+<div id='name_277' class='fader'><div class='text2'>Xinru Shen, BS</div></div>
+<div id='name_278' class='fader'><div class='text2'>Bryan Nishan Sheranian, BS</div></div>
+<div id='name_279' class='fader'><div class='text2'>Taylor Shiozawa, BS</div></div>
+<div id='name_280' class='fader'><div class='text2'>Ammon Shurtz, BS</div></div>
+<div id='name_281' class='fader'><div class='text2'>Michael Skonnard, BS</div></div>
+<div id='name_282' class='fader'><div class='text2'>Brenden Smith, BS</div></div>
+<div id='name_283' class='fader'><div class='text2'>Russell Smith, BS</div></div>
+<div id='name_284' class='fader'><div class='text2'>Skyler Smith, BS</div></div>
+<div id='name_285' class='fader'><div class='text2'>Teikn Smith, BS</div></div>
+<div id='name_286' class='fader'><div class='text2'>Rebekah Sowards, BS</div></div>
+<div id='name_287' class='fader'><div class='text2'>Eric Spencer, BS</div></div>
+<div id='name_288' class='fader'><div class='text2'>Brad Spendlove, PHD</div></div>
+<div id='name_289' class='fader'><div class='text2'>Ella Catherine Spigarelli, BS</div></div>
+<div id='name_290' class='fader'><div class='text2'>Thomas Stansel, BS</div></div>
+<div id='name_291' class='fader'><div class='text2'>Andy Staples, BS</div></div>
+<div id='name_292' class='fader'><div class='text2'>Dakota Stevens, BS</div></div>
+<div id='name_293' class='fader'><div class='text2'>Kyle Storey, MS</div></div>
+<div id='name_294' class='fader'><div class='text2'>Casey Strong, BS</div></div>
+<div id='name_295' class='fader'><div class='text2'>Jared Strong, BS</div></div>
+<div id='name_296' class='fader'><div class='text2'>John Swingle, BS</div></div>
+<div id='name_297' class='fader'><div class='text2'>Daniel Taylor, BS</div></div>
+<div id='name_298' class='fader'><div class='text2'>Hayden Taylor, BS</div></div>
+<div id='name_299' class='fader'><div class='text2'>Jacob Taylor, BS</div></div>
+<div id='name_300' class='fader'><div class='text2'>Bethaly Tenango Anaya, BS</div></div>
+<div id='name_301' class='fader'><div class='text2'>Michael Teuscher, BS</div></div>
+<div id='name_302' class='fader'><div class='text2'>Stewart Thompson, BS</div></div>
+<div id='name_303' class='fader'><div class='text2'>JJ Thorley, BS</div></div>
+<div id='name_304' class='fader'><div class='text2'>Alexa Urrea, BS</div></div>
+<div id='name_305' class='fader'><div class='text2'>Victor Velasco, BS</div></div>
+<div id='name_306' class='fader'><div class='text2'>Payton Viloria, BS</div></div>
+<div id='name_307' class='fader'><div class='text2'>Ethan Taylor Walch, BS</div></div>
+<div id='name_308' class='fader'><div class='text2'>Acacia Warner, BS</div></div>
+<div id='name_309' class='fader'><div class='text2'>Adam Warnick, BS</div></div>
+<div id='name_310' class='fader'><div class='text2'>Ammon Warnick, BS</div></div>
+<div id='name_311' class='fader'><div class='text2'>Caleb Washburn, BS</div></div>
+<div id='name_312' class='fader'><div class='text2'>Jasmine Webb, BS</div></div>
+<div id='name_313' class='fader'><div class='text2'>Kai Weight, BS</div></div>
+<div id='name_314' class='fader'><div class='text2'>Danny Wensel, BS</div></div>
+<div id='name_315' class='fader'><div class='text2'>Paul Wertenbaker, BS</div></div>
+<div id='name_316' class='fader'><div class='text2'>Chris West, BS</div></div>
+<div id='name_317' class='fader'><div class='text2'>Chase Westhoff, BS</div></div>
+<div id='name_318' class='fader'><div class='text2'>Reagan Weston, BS</div></div>
+<div id='name_319' class='fader'><div class='text2'>Angel Wheelwright, BS</div></div>
+<div id='name_320' class='fader'><div class='text2'>Brigham Whitaker, BS</div></div>
+<div id='name_321' class='fader'><div class='text2'>Haley Wiese, BS</div></div>
+<div id='name_322' class='fader'><div class='text2'>Josh Willis, BS</div></div>
+<div id='name_323' class='fader'><div class='text2'>Josh Wilson, BS</div></div>
+<div id='name_324' class='fader'><div class='text2'>Lexie Wilsted, BS</div></div>
+<div id='name_325' class='fader'><div class='text2'>Grant Windsor, BS</div></div>
+<div id='name_326' class='fader'><div class='text2'>Jinxin Yu, BS</div></div>
+<div id='name_327' class='fader'><div class='text2'>Xin Zhao, MS</div></div>
+
+<script>
+
+var curpin = "";
+var curtimer;
+
+function messageHandler(message) {
+    console.log( "GOT MESSAGE:", message );
+    stop_fading();
+    $( "#name_" + curpin ).children().fadeOut();
+    $( "#name_" + message ).children().fadeIn();
+    curpin = message;
+    clearTimeout( curtimer );
+    curtimer = setTimeout( function(){ $( ".fader" ).children().fadeOut(); resume_fading(); }, 60000 );
+}
+
+var client;
+
+      function start() {
+          fader_set_defaults( {
+              in: 200,
+              stay: 1200,
+              out: 200,
+              delaynext:1700
+          });
+          fader_start();
+
+	  // "songs/pavane.webm",
+
+	  songs = [
+	      ["songs/bach_air.webm", 0.5],
+	      ["songs/canon.webm", 1.0],
+	      ["songs/eine.webm", 0.4],
+	      ["songs/pomp_loop.mp3", 1.0],
+	      ["songs/swan.webm", 1.0],
+	      ["songs/xerxes.webm", 1.0],
+	  ]
+
+	  var randomIndex = Math.floor(Math.random() * songs.length);
+	  var song = songs[randomIndex];
+	  document.querySelector("audio").src = song[0];
+	  document.querySelector("audio").loop = true;
+	  document.querySelector("audio").volume = song[1];
+	  document.querySelector("audio").play();
+	  console.log( "Playing " + song );
+
+	  console.log( "Starting messaging..." );
+	  client = new FootronMessaging.Messaging();
+	  client.mount();
+	  client.addMessageListener(messageHandler);
+
+      }
+      window.addEventListener( 'load', start );
+    </script>
+
+  </body>
+</html>
