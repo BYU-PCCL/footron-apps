@@ -73,7 +73,7 @@ const ControlsComponent = () => {
       <FormGroup >
         <FormControlLabel control={<Checkbox onChange={(event) => updateSelection(0, event)} checked={selection[0]} />} label="Bubble Sort" />
         <FormControlLabel control={<Checkbox onChange={(event) => updateSelection(1, event)} checked={selection[1]} />} label="Insertion Sort" />
-        <FormControlLabel control={<Checkbox onChange={(event) => updateSelection(2, event)} checked={selection[2]} />} label="Selection Sort" />
+        <FormControlLabel control={<Checkbox onChange={(event) => updateSelection(2, event)} checked={selection[2]} />} label="Quick Sort" />
         <FormControlLabel control={<Checkbox onChange={(event) => updateSelection(3, event)} checked={selection[3]} />} label="Merge Sort" />
       </FormGroup>
     </div>
