@@ -1,6 +1,7 @@
 import { evaluate_cmap } from "./colormaps.js"
 import { pendulums, update, updateGeometry } from "./math.js"
-import { config } from "./utils.js"
+import { config } from "./config.js"
+import { setup as updateMath } from "./math.js"
 
 /* THREE setup */
 
@@ -32,8 +33,12 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(2736, 1216)
 document.body.appendChild(renderer.domElement)
 
+let timeoutDeleter
+
 export function setup() {
   scene.clear()
+
+  updateMath()
 
   // create an empty geometry
   var geometry = new THREE.BufferGeometry()
@@ -99,6 +104,17 @@ export function setup() {
 
   var line = new THREE.LineSegments(geometry, material)
   scene.add(line)
+
+  if (timeoutDeleter) clearTimeout(timeoutDeleter)
+
+  timeoutDeleter = setTimeout(
+    () => {
+      config.count = 50000
+      config.g = 9.81
+      setup()
+    },
+    config.g === 0 ? 30000 : 60000
+  )
 }
 
 setup()

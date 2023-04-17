@@ -1,5 +1,4 @@
 import { setup as updateMain } from "./main.js"
-import { setup as updateMath } from "./math.js"
 
 export let config = {
   count: 50000, // the only editable value so far
@@ -23,7 +22,6 @@ function messageHandler(message) {
 
   config[message.type] = handlers[message.type](message.value)
 
-  updateMath()
   updateMain()
 }
 
