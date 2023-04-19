@@ -14,7 +14,7 @@ function messageHandler(message) {
       if (value === 1) return "fast"
       return "normal"
     },
-    focusMaze: (value) => value
+    focusMaze: (value) => (value === "false" ? false : value)
   }
 
   config[message.type] = handlers[message.type](message.value)
