@@ -45,7 +45,7 @@ const ControlsComponent = () => {
     [sendMessage]
   )
 
-  const [mazeFocus, setMazeFocus] = useState(false)
+  const [mazeFocus, setMazeFocus] = useState("false")
 
   return (
     <div css={containerStyle}>
@@ -81,7 +81,7 @@ const ControlsComponent = () => {
           onChange={updateMazeFocus} // call messaging, then update with useState
         >
           <FormControlLabel
-            value={false}
+            value={"false"}
             control={<Radio />}
             label="Show multiple mazes"
           />
