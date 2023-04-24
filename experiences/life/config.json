@@ -6,5 +6,5 @@
     "action_hints": ["change the speed"],
     "artist": "Chris Luangrath, Vin Howe",
     "lifetime": 90,
-    "queueable": true
+    "queueable": false
 }
