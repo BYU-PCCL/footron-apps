@@ -6,6 +6,7 @@ export default class WilsonMaze extends Maze {
 
     this.id = "wilson"
     this.tree = [0] // cells we've visited
+    this.cleared = [] // cells to clear
   }
 
   async nextStep() {
@@ -46,6 +47,7 @@ export default class WilsonMaze extends Maze {
 
         for (var i = 0; i < cellsToClear.length; i++) {
           cells[cellsToClear[i]] = 0
+          this.cleared.push(cellsToClear[i])
         }
 
         path = path.slice(0, path.indexOf(nextCell) + 1) // leave the first "nextCell" in the path
