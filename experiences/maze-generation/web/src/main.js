@@ -43,8 +43,20 @@ function sendSizes() {
   })
 }
 
+let config = {
+  cells: 20,
+  speed: "normal", // 'fast', 'normal', 'slow'
+  focusMaze: "prim"
+}
+
+updateDOM()
+
 worker.postMessage(
-  { type: "init", canvases: { large, backtracker, prim, traversal } },
+  {
+    type: "init",
+    canvases: { large, backtracker, prim, traversal },
+    config: config
+  },
   [large, backtracker, prim, traversal]
 )
 
@@ -83,10 +95,8 @@ function round(num) {
   }
 }
 
-function messageHandler(message) {
-  let configWithUpdates = getNewConfig(message)
-
-  if (configWithUpdates.focusMaze) {
+function updateDOM() {
+  if (config.focusMaze) {
     document.getElementById("large-container").classList.remove("hidden")
     document.getElementById("small-container").classList.add("hidden")
   } else {
@@ -94,9 +104,16 @@ function messageHandler(message) {
     document.getElementById("large-container").classList.add("hidden")
   }
 
-  // TODO: update CSS
+  // TODO: reset solution length
+  // TODO: change description and title of mazes in focus mode
+}
 
-  sendConfigChange(configWithUpdates)
+function messageHandler(message) {
+  let config = { ...config, ...getNewConfig(message) }
+
+  updateDOM()
+  sendSizes()
+  sendConfigChange(config)
 }
 
 client.addMessageListener(messageHandler)

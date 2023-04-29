@@ -55,12 +55,11 @@ self.onmessage = (event) => {
       mazeObjects[canvas].ctx = canvases[canvas].getContext("2d")
     }
 
-    createMazes()
-    startMazeGeneration()
+    for (const key in event.data.config) {
+      config[key] = event.data.config[key]
+    }
 
-    adjustImageSmoothing()
-
-    requestAnimationFrame(start)
+    setupAndBegin()
   } else if (event.data.type === "config") {
     for (const key in event.data.config) {
       config[key] = event.data.config[key]
@@ -68,13 +67,7 @@ self.onmessage = (event) => {
 
     console.log(config)
 
-    cancelAnimationFrame(animationFrameToCancel)
-    createMazes()
-    startMazeGeneration()
-
-    adjustImageSmoothing()
-
-    requestAnimationFrame(start)
+    setupAndBegin()
   } else if (event.data.type === "resize") {
     for (const canvas in event.data.sizes) {
       mazeObjects[canvas].canvas.width = event.data.sizes[canvas].width
@@ -82,7 +75,20 @@ self.onmessage = (event) => {
     }
 
     adjustImageSmoothing()
+
+    if (!animationFrameToCancel) drawMazes() // otherwise maze canvases will be blank
   }
+}
+
+function setupAndBegin() {
+  if (animationFrameToCancel) cancelAnimationFrame(animationFrameToCancel)
+
+  createMazes()
+  startMazeGeneration()
+
+  adjustImageSmoothing()
+
+  requestAnimationFrame(start)
 }
 
 function adjustImageSmoothing() {
@@ -157,14 +163,30 @@ function drawMaze(mazeObject) {
   }
 }
 
-function start() {
+function drawMazes() {
+  // draws correct mazes, then returns true if all mazes are completed
+  let completed = null
+
   if (config.focusMaze) {
+    completed = mazeObjects.large.maze.completed
     drawMaze(mazeObjects.large)
   } else {
     for (const maze of defaultMazes) {
+      if (completed !== false) completed = mazeObjects[maze].maze.completed // if any maze is not completed, completed will be false
       drawMaze(mazeObjects[maze])
     }
   }
 
-  animationFrameToCancel = requestAnimationFrame(start)
+  return completed
+}
+
+function start() {
+  let completed = drawMazes()
+
+  if (!completed) {
+    animationFrameToCancel = requestAnimationFrame(start)
+  } else {
+    animationFrameToCancel = null
+    console.log("completed!!!")
+  }
 }
