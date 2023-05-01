@@ -39,11 +39,27 @@ function sendSizes() {
   })
 }
 
+let mazeDescriptions = {
+  backtracker: `The <span class="font-bold">Recursive Backtracker</span> algorithm works by "walking" randomly across the grid and adding unvisited cells to the maze. If it hits a cell that's part of the maze, it backtracks until it finds an adjacent unvisited cell.`,
+  prim: `<span class="font-bold">Prim's Algorithm</span> initializes each possible connection between vertices with a random weight. It chooses the next cell to add by getting all of the adjacent cells to the current grid and picking the one with the smallest weight.`,
+  traversal: `The <span class="font-bold">Random Traversal</span> algorithm chooses the next cell by picking a random cell out of all the adjacent cells to the current grid.`,
+  wilson: `<span class="font-bold">Wilson's Algorithm</span> picks a random unvisited cell, then performs a loop-erased random walk until it collides with the grid. It becomes inefficient with large maze sizes.`
+}
+
+let mazeTitles = {
+  backtracker: "Recursive Backtracker",
+  prim: "Prim's Algorithm",
+  traversal: "Random Traversal",
+  wilson: "Wilson's Algorithm"
+}
+
 let config = {
   cells: 20,
   speed: "normal", // 'fast', 'normal', 'slow'
-  focusMaze: "backtracker" // false or "backtracker", "prim", "traversal", "wilson"
+  focusMaze: "prim" // false or "backtracker", "prim", "traversal", "wilson"
 }
+
+/* START */
 
 updateDOM()
 
@@ -57,6 +73,22 @@ worker.postMessage(
 )
 
 sendSizes()
+
+document.getElementById("backtracker-description").innerHTML =
+  mazeDescriptions.backtracker
+document.getElementById("prim-description").innerHTML = mazeDescriptions.prim
+document.getElementById("traversal-description").innerHTML =
+  mazeDescriptions.traversal
+
+if (config.focusMaze) {
+  document.getElementById("large-description").innerHTML =
+    mazeDescriptions[config.focusMaze]
+
+  document.getElementById("large-title").innerHTML =
+    mazeTitles[config.focusMaze]
+}
+
+/* END START STUFF */
 
 window.addEventListener("resize", sendSizes)
 

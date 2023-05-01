@@ -12,15 +12,13 @@
       </div>
       <div class="col-span-1"></div>
       <div class="col-span-3 flex flex-col items-center justify-center">
-        <h2 class="md:text-5xl 2xl:text-7xl">Random Traversal</h2>
+        <h2 id="large-title" class="md:text-5xl 2xl:text-7xl">
+          Random Traversal
+        </h2>
         <p id="large-solution-length" class="md:text-2xl xl:text-4xl mt-5">
           Solution length: ...
         </p>
-        <div class="mt-32 md:text-2xl xl:text-4xl">
-          The <span class="font-bold">Random Traversal</span> algorithm chooses
-          the next cell by picking a random cell out of all the adjacent cells
-          to the current grid.
-        </div>
+        <div id="large-description" class="mt-32 md:text-2xl xl:text-4xl"></div>
       </div>
       <div class="col-span-1"></div>
     </div>
@@ -72,27 +70,13 @@
           ></canvas>
         </div>
         <div class="col-span-1">
-          <div class="mt-5 text-[1vw]">
-            The <span class="font-bold">Recursive Backtracker</span> algorithm
-            works by "walking" randomly across the grid and adding unvisited
-            cells to the maze. If it hits a cell that's part of the maze, it
-            backtracks until it finds an adjacent unvisited cell.
-          </div>
+          <div class="mt-5 text-[1vw]" id="backtracker-description"></div>
         </div>
         <div class="col-span-1">
-          <div class="mt-5 text-[1vw]">
-            <span class="font-bold">Prim's Algorithm</span> initializes each
-            possible connection between vertices with a random weight. It
-            chooses the next cell to add by getting all of the adjacent cells to
-            the current grid and picking the one with the smallest weight.
-          </div>
+          <div class="mt-5 text-[1vw]" id="prim-description"></div>
         </div>
         <div class="col-span-1">
-          <div class="mt-5 text-[1vw]">
-            The <span class="font-bold">Random Traversal</span> algorithm
-            chooses the next cell by picking a random cell out of all the
-            adjacent cells to the current grid.
-          </div>
+          <div class="mt-5 text-[1vw]" id="traversal-description"></div>
         </div>
       </div>
     </div>
