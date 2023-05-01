@@ -1,3 +1,5 @@
 - Add solution lines
 - Optimize maze code to be lightning fast
-- Solution length through DOM update
+- Explain that it's GENERATING mazes, not solving them
+- Large maze update
+- auto-timeout

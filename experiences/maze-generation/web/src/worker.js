@@ -111,6 +111,10 @@ function createMazes() {
 
     mazeObjects.large.maze = new mazeConstructor(config.cells)
 
+    mazeObjects.large.maze.onComplete(({ solution }) =>
+      postSolutionMessage("large", solution.length)
+    )
+
     mazeObjects.large.imageData = mazeObjects.large.ctx.createImageData(
       imageDataSize,
       imageDataSize
@@ -127,6 +131,9 @@ function createMazes() {
   } else {
     for (const maze of defaultMazes) {
       mazeObjects[maze].maze = new mazeConstructors[maze](config.cells)
+      mazeObjects[maze].maze.onComplete(({ solution }) =>
+        postSolutionMessage(maze, solution.length)
+      )
 
       mazeObjects[maze].imageData = mazeObjects[maze].ctx.createImageData(
         imageDataSize,
@@ -189,4 +196,12 @@ function start() {
     animationFrameToCancel = null
     console.log("completed!!!")
   }
+}
+
+function postSolutionMessage(maze, length) {
+  self.postMessage({
+    type: "solution",
+    maze: maze,
+    solutionLength: length
+  })
 }

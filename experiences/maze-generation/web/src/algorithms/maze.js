@@ -26,7 +26,6 @@ export default class Maze {
   }
 
   async delay() {
-    // console.log("called")
     this.step++
 
     let pauseLength = 0
@@ -50,7 +49,7 @@ export default class Maze {
     }
 
     this.solveRecursively()
-    // this.displaySolution() // TODO
+    if (this.onCompleteFn) this.onCompleteFn(this)
     this.completed = true
   }
 
@@ -179,11 +178,9 @@ export default class Maze {
     }
   }
 
-  // TODO
-  // displaySolution() {
-  //   const spanElement = document.querySelector(`#${this.id}-title span`)
-  //   spanElement.innerHTML = `Solution length: ${this.solution.length}`
-  // }
+  onComplete(fn) {
+    this.onCompleteFn = fn
+  }
 }
 
 function pause(pauseLength) {

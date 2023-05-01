@@ -8,10 +8,6 @@ const worker = new Worker(new URL("./worker.js", import.meta.url), {
 // Get the canvas elements
 const largeCanvas = document.getElementById("large-canvas")
 const backtrackerCanvas = document.getElementById("backtracker-canvas")
-
-backtrackerCanvas.width = backtrackerCanvas.clientWidth
-backtrackerCanvas.height = backtrackerCanvas.clientHeight
-
 const primCanvas = document.getElementById("prim-canvas")
 const traversalCanvas = document.getElementById("traversal-canvas")
 
@@ -46,7 +42,7 @@ function sendSizes() {
 let config = {
   cells: 20,
   speed: "normal", // 'fast', 'normal', 'slow'
-  focusMaze: "prim"
+  focusMaze: "backtracker" // false or "backtracker", "prim", "traversal", "wilson"
 }
 
 updateDOM()
@@ -125,4 +121,22 @@ function sendConfigChange(config) {
     type: "config",
     config: config
   })
+}
+
+worker.addEventListener("message", function handleMessageFromWorker(msg) {
+  if (msg.data.type === "solution") {
+    let solutionLength = msg.data.solutionLength
+
+    let maze = msg.data.maze
+
+    document.getElementById(maze + "-solution-length").innerHTML =
+      "Solution length: " + solutionLength
+  }
+})
+
+function resetSolutionLengths() {
+  for (const maze of ["backtracker", "prim", "traversal", "large"]) {
+    document.getElementById(maze + "-solution-length").innerHTML =
+      "Solution length: ..."
+  }
 }
