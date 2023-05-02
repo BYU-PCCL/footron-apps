@@ -7,10 +7,8 @@ export default class RandomTraversalMaze extends Maze {
     this.id = "traversal"
     this.visitedCells = [0]
 
-    this.pathsPerDestination = {} // what possible paths should be deleted when a cell is visited?
-
+    this.parents = {} // the parent of each cell
     this.possibleNextCells = []
-    // an array of [parent, child] pairs
 
     this.updateFrontier(0)
   }
@@ -18,44 +16,41 @@ export default class RandomTraversalMaze extends Maze {
   getNextCell() {
     // get a random path from the frontier
 
-    let pathIndex = Math.floor(Math.random() * this.possibleNextCells.length)
+    let nextCell =
+      this.possibleNextCells[
+        Math.floor(Math.random() * this.possibleNextCells.length)
+      ]
+    let nextCellParent =
+      this.parents[nextCell][
+        Math.floor(Math.random() * this.parents[nextCell].length)
+      ]
 
-    return this.possibleNextCells[pathIndex]
+    return [nextCellParent, nextCell]
   }
 
-  updateFrontier(parent) {
-    // the parent is the cell that we just visited
-
+  updateFrontier(cellJustVisited) {
     /* Remove invalid paths from the frontier */
 
-    let indexesOfPathsToDelete = this.pathsPerDestination[parent]
-
-    if (indexesOfPathsToDelete && indexesOfPathsToDelete.length > 0) {
-      for (var i = 0; i < indexesOfPathsToDelete.length; i++) {
-        let pathToDelete = indexesOfPathsToDelete[i]
-
-        // remove the invalid path
-        this.possibleNextCells.splice(
-          this.possibleNextCells.indexOf(pathToDelete),
-          1
-        )
-      }
+    let i
+    while ((i = this.possibleNextCells.indexOf(cellJustVisited)) !== -1) {
+      this.possibleNextCells.splice(i, 1)
     }
 
+    delete this.parents[cellJustVisited] // may not be necessary depending on how GC handles this
+
     /* Add neighbors to the frontier */
-    let neighbors = this.getAdjacentSquares(parent)
+    let neighbors = this.getAdjacentSquares(cellJustVisited)
 
-    for (var i = 0; i < neighbors.length; i++) {
-      let neighbor = neighbors[i]
+    for (var j = 0; j < neighbors.length; j++) {
+      let neighbor = neighbors[j]
 
-      let path = [parent, neighbor]
-      this.possibleNextCells.push(path)
+      this.possibleNextCells.push(neighbor)
 
-      if (!this.pathsPerDestination[neighbor]) {
-        this.pathsPerDestination[neighbor] = []
+      if (!this.parents[neighbor]) {
+        this.parents[neighbor] = []
       }
 
-      this.pathsPerDestination[neighbor].push(path) // we want to delete this option if neighbor is visited
+      this.parents[neighbor].push(cellJustVisited)
     }
   }
 
