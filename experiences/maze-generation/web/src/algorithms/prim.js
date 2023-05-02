@@ -8,11 +8,6 @@ export default class PrimMaze extends Maze {
 
     this.visitedCells = [0]
 
-    this.pathsPerDestination = {} // what possible paths should be deleted when a cell is visited?
-
-    this.possibleNextCells = []
-    // an array of [parent, child] pairs
-
     this.cellWeights = [...Array(this.density * this.density)].map((_, i) => [])
 
     // Initialize random weights
@@ -29,54 +24,63 @@ export default class PrimMaze extends Maze {
       }
     }
 
+    this.parents = [...Array(this.density * this.density)].map((_) => null) // the parent of each cell
+    this.nextCells = []
+
     this.updateFrontier(0)
   }
 
   getNextCell() {
-    let [nextCellParent, nextCell] = this.possibleNextCells.pop()
-
-    /* Remove invalid paths from the frontier */
-
-    let indexesOfPathsToDelete = this.pathsPerDestination[nextCell]
-
-    if (indexesOfPathsToDelete && indexesOfPathsToDelete.length > 0) {
-      for (var i = 0; i < indexesOfPathsToDelete.length; i++) {
-        let pathToDelete = indexesOfPathsToDelete[i]
-
-        let pathToDeleteIndex = this.possibleNextCells.indexOf(pathToDelete)
-
-        if (pathToDeleteIndex !== -1) {
-          // remove the invalid path
-          this.possibleNextCells.splice(
-            this.possibleNextCells.indexOf(pathToDelete),
-            1
-          )
-        }
-      }
-    }
+    let nextCell = this.nextCells.pop()
+    let nextCellParent = this.parents[nextCell]
 
     return [nextCellParent, nextCell]
   }
 
-  insertSorted(path, weight) {
-    let indx = this.sortedIndex(this.possibleNextCells, weight)
+  insertSorted(nextCell, weight) {
+    // delete the old position in the queue
+    let oldIndx = this.nextCells.indexOf(nextCell)
 
-    this.possibleNextCells.splice(indx, 0, path)
+    if (oldIndx !== -1) {
+      this.nextCells.splice(oldIndx, 1)
+    }
+
+    // add it again
+
+    let indx = this.sortedIndex(this.nextCells, weight)
+
+    this.nextCells.splice(indx, 0, nextCell)
   }
 
   sortedIndex(array, w1) {
+    // binary search
     var low = 0,
       high = array.length
 
     while (low < high) {
       var mid = (low + high) >>> 1
 
-      let w2 = this.cellWeights[array[mid][0]][array[mid][1]]
+      let midEl = array[mid]
+
+      let w2 = this.cellWeights[this.parents[midEl]][midEl] //  this.cellWeights[array[mid][0]][array[mid][1]]
 
       if (w2 < w1) low = mid + 1
       else high = mid
     }
     return low
+  }
+
+  insertPath(parent, child, weight) {
+    if (
+      !this.parents[child] ||
+      weight > this.cellWeights[this.parents[child]][child]
+    ) {
+      // if the weight w/ the new parent is greater than the current weight, replace it
+
+      this.parents[child] = parent
+
+      this.insertSorted(child, weight)
+    }
   }
 
   updateFrontier(parent) {
@@ -86,17 +90,9 @@ export default class PrimMaze extends Maze {
     for (var i = 0; i < neighbors.length; i++) {
       let neighbor = neighbors[i]
 
-      let path = [parent, neighbor]
-
       let weight = this.cellWeights[parent][neighbor]
 
-      this.insertSorted(path, weight)
-
-      if (!this.pathsPerDestination[neighbor]) {
-        this.pathsPerDestination[neighbor] = []
-      }
-
-      this.pathsPerDestination[neighbor].push(path) // we want to delete this option if neighbor is visited
+      this.insertPath(parent, neighbor, weight)
     }
   }
 

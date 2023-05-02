@@ -1,12 +1,15 @@
 import Maze from "./maze.js"
 
+// TODO: only one edge will ever be used!!! So we JUST need to add that one to the set
+// IF I can figure out how to weight that
+
 export default class RandomTraversalMaze extends Maze {
   constructor(...args) {
     super(...args)
 
     this.visitedCells = [0]
 
-    this.parents = {} // the parent of each cell
+    this.parents = [...Array(this.density * this.density)].map((_, i) => []) // the parent of each cell
     this.possibleNextCells = []
 
     this.updateFrontier(0)
@@ -44,10 +47,6 @@ export default class RandomTraversalMaze extends Maze {
       let neighbor = neighbors[j]
 
       this.possibleNextCells.push(neighbor)
-
-      if (!this.parents[neighbor]) {
-        this.parents[neighbor] = []
-      }
 
       this.parents[neighbor].push(cellJustVisited)
     }
