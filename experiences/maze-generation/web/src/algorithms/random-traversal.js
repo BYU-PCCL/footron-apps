@@ -4,7 +4,6 @@ export default class RandomTraversalMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.id = "traversal"
     this.visitedCells = [0]
 
     this.parents = {} // the parent of each cell

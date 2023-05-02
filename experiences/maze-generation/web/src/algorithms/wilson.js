@@ -4,7 +4,6 @@ export default class WilsonMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.id = "wilson"
     this.tree = [0] // cells we've visited
     this.cleared = [] // cells to clear
   }

@@ -6,7 +6,6 @@ export default class PrimMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.id = "prim"
     this.visitedCells = [0]
     this.cellWeights = [...Array(this.density * this.density)].map((_, i) => [])
 

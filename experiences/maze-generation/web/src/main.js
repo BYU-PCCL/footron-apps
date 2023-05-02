@@ -5,7 +5,7 @@ import { Messaging } from "@footron/messaging"
 let config = {
   cells: 100,
   speed: "fast", // 'fast', 'normal', 'slow'
-  focusMaze: "traversal" // false or "backtracker", "prim", "traversal", "wilson"
+  focusMaze: "prim" // false or "backtracker", "prim", "traversal", "wilson"
 }
 
 const worker = new Worker(new URL("./worker.js", import.meta.url), {

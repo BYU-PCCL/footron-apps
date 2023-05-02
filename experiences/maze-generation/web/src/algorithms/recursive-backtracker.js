@@ -4,7 +4,6 @@ export default class BacktrackerMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.id = "backtracker"
     this.history = [0] // a stack
   }
 
