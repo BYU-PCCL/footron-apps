@@ -7,6 +7,12 @@ export default class PrimMaze extends Maze {
     super(...args)
 
     this.visitedCells = [0]
+
+    this.pathsPerDestination = {} // what possible paths should be deleted when a cell is visited?
+
+    this.possibleNextCells = []
+    // an array of [parent, child] pairs
+
     this.cellWeights = [...Array(this.density * this.density)].map((_, i) => [])
 
     // Initialize random weights
@@ -22,35 +28,81 @@ export default class PrimMaze extends Maze {
         }
       }
     }
+
+    this.updateFrontier(0)
   }
 
   getNextCell() {
-    let possibleNextCells = [] // array of [parent, next]
+    let [nextCellParent, nextCell] = this.possibleNextCells.pop()
 
-    let nextCellIndex // update this as needed
-    let nextCellWeight = Infinity
-    // for each visited cell, if it has any adjacent cells, add each adjacent cell as a possible candidate
+    /* Remove invalid paths from the frontier */
 
-    this.visitedCells.forEach((parent) => {
-      let nextFromHere = this.getAdjacentSquares(parent)
+    let indexesOfPathsToDelete = this.pathsPerDestination[nextCell]
 
-      nextFromHere.forEach((next) => {
-        let weight = this.cellWeights[parent][next]
+    if (indexesOfPathsToDelete && indexesOfPathsToDelete.length > 0) {
+      for (var i = 0; i < indexesOfPathsToDelete.length; i++) {
+        let pathToDelete = indexesOfPathsToDelete[i]
 
-        possibleNextCells.push([parent, next])
+        let pathToDeleteIndex = this.possibleNextCells.indexOf(pathToDelete)
 
-        if (weight < nextCellWeight) {
-          nextCellWeight = weight
-          nextCellIndex = possibleNextCells.length - 1
+        if (pathToDeleteIndex !== -1) {
+          // remove the invalid path
+          this.possibleNextCells.splice(
+            this.possibleNextCells.indexOf(pathToDelete),
+            1
+          )
         }
-      })
-    })
+      }
+    }
 
-    return possibleNextCells[nextCellIndex]
+    return [nextCellParent, nextCell]
+  }
+
+  insertSorted(path, weight) {
+    let indx = this.sortedIndex(this.possibleNextCells, weight)
+
+    this.possibleNextCells.splice(indx, 0, path)
+  }
+
+  sortedIndex(array, w1) {
+    var low = 0,
+      high = array.length
+
+    while (low < high) {
+      var mid = (low + high) >>> 1
+
+      let w2 = this.cellWeights[array[mid][0]][array[mid][1]]
+
+      if (w2 < w1) low = mid + 1
+      else high = mid
+    }
+    return low
+  }
+
+  updateFrontier(parent) {
+    /* Add neighbors to the frontier */
+    let neighbors = this.getAdjacentSquares(parent)
+
+    for (var i = 0; i < neighbors.length; i++) {
+      let neighbor = neighbors[i]
+
+      let path = [parent, neighbor]
+
+      let weight = this.cellWeights[parent][neighbor]
+
+      this.insertSorted(path, weight)
+
+      if (!this.pathsPerDestination[neighbor]) {
+        this.pathsPerDestination[neighbor] = []
+      }
+
+      this.pathsPerDestination[neighbor].push(path) // we want to delete this option if neighbor is visited
+    }
   }
 
   async nextStep() {
     await this.delay()
+
     let [nextCellParent, nextCell] = this.getNextCell()
 
     // add the cell to the tree
@@ -58,5 +110,8 @@ export default class PrimMaze extends Maze {
 
     // add the cell to the visited cells array
     this.visitedCells.push(nextCell)
+
+    // update the frontier
+    this.updateFrontier(nextCell)
   }
 }

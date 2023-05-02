@@ -1,5 +1,7 @@
 import { evaluate_cmap } from "./colormaps.js"
 
+let cmap = "BuPu" // favorites: gist_ncar, BuPu, nipy_spectral
+
 let BLACK = [0, 0, 0]
 let WHITE = [255, 255, 255]
 
@@ -67,7 +69,7 @@ function drawCells(buffer, maze, pixelWidth, cellSize) {
       if (distance === "path") {
         color = [255, 165, 0]
       } else {
-        color = evaluate_cmap(distance / maze.maxDistance, "BuPu", false)
+        color = evaluate_cmap(distance / maze.maxDistance, cmap, false)
       }
 
       drawRect(
