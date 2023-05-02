@@ -106,10 +106,12 @@ function createMazes() {
   let imageDataSize =
     config.cells > 100 ? config.cells + 2 : config.cells * (6 + 2) + 2
 
+  let showBorders = config.cells <= 100 ? true : false
+
   if (config.focusMaze) {
     let mazeConstructor = mazeConstructors[config.focusMaze]
 
-    mazeObjects.large.maze = new mazeConstructor(config.cells)
+    mazeObjects.large.maze = new mazeConstructor(config.cells, showBorders)
 
     mazeObjects.large.maze.onComplete(({ solution }) =>
       postSolutionMessage("large", solution.length)
@@ -130,7 +132,10 @@ function createMazes() {
     }
   } else {
     for (const maze of defaultMazes) {
-      mazeObjects[maze].maze = new mazeConstructors[maze](config.cells)
+      mazeObjects[maze].maze = new mazeConstructors[maze](
+        config.cells,
+        showBorders
+      )
       mazeObjects[maze].maze.onComplete(({ solution }) =>
         postSolutionMessage(maze, solution.length)
       )
@@ -187,10 +192,21 @@ function drawMazes() {
   return completed
 }
 
+var filterStrength = 20
+var frameTime = 0,
+  lastLoop = new Date(),
+  thisLoop
+
 function start() {
+  var thisFrameTime = (thisLoop = new Date()) - lastLoop
+  frameTime += (thisFrameTime - frameTime) / filterStrength
+  lastLoop = thisLoop
+
   let completed = drawMazes()
 
   if (!completed) {
+    console.log((1000 / frameTime).toFixed(0) + "fps")
+
     animationFrameToCancel = requestAnimationFrame(start)
   } else {
     animationFrameToCancel = null

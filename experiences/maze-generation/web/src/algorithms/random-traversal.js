@@ -31,20 +31,23 @@ export default class RandomTraversalMaze extends Maze {
     let indexesOfPathsToDelete = this.pathsPerDestination[parent]
 
     if (indexesOfPathsToDelete && indexesOfPathsToDelete.length > 0) {
-      indexesOfPathsToDelete.forEach((pathToDelete) => {
+      for (var i = 0; i < indexesOfPathsToDelete.length; i++) {
+        let pathToDelete = indexesOfPathsToDelete[i]
+
+        // remove the invalid path
         this.possibleNextCells.splice(
           this.possibleNextCells.indexOf(pathToDelete),
           1
         )
-      })
+      }
     }
-
-    delete this.pathsPerDestination[parent]
 
     /* Add neighbors to the frontier */
     let neighbors = this.getAdjacentSquares(parent)
 
-    neighbors.forEach((neighbor) => {
+    for (var i = 0; i < neighbors.length; i++) {
+      let neighbor = neighbors[i]
+
       let path = [parent, neighbor]
       this.possibleNextCells.push(path)
 
@@ -53,7 +56,7 @@ export default class RandomTraversalMaze extends Maze {
       }
 
       this.pathsPerDestination[neighbor].push(path) // we want to delete this option if neighbor is visited
-    })
+    }
   }
 
   async nextStep() {

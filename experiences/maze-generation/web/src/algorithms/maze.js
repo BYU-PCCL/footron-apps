@@ -1,18 +1,21 @@
 import { config } from "../config.js"
 
 export default class Maze {
-  constructor(density = 10) {
+  constructor(density = 10, showBorders = true) {
     this.density = density
+    this.showBorders = showBorders
 
     this.cells = [...Array(density * density)].map((_, i) => 0) // distance from origin. first cell is 1 away. 0 means not attached
     this.cellMap = [...Array(density * density)].map((_, i) => []) // An array mapping each cell to its "children"
 
-    this.rightBorders = [...Array(density * density)].map(
-      (_, i) => ((i + 1) % density === 0 ? false : true) // each border is the same index as the cell to the left
-    )
-    this.bottomBorders = [...Array(density * density)].map(
-      (_, i) => ((i + 1) / density <= density - 1 ? true : false) // each border is the same index as the cell above
-    )
+    if (this.showBorders) {
+      this.rightBorders = [...Array(density * density)].map(
+        (_, i) => ((i + 1) % density === 0 ? false : true) // each border is the same index as the cell to the left
+      )
+      this.bottomBorders = [...Array(density * density)].map(
+        (_, i) => ((i + 1) / density <= density - 1 ? true : false) // each border is the same index as the cell above
+      )
+    }
 
     this.cells[0] = 1
 
@@ -54,12 +57,11 @@ export default class Maze {
   }
 
   getX(el) {
-    let rows = Math.floor(el / this.density)
-    return el - this.density * rows
+    return el % this.density
   }
 
   getY(el) {
-    return Math.floor(el / this.density)
+    return (el / this.density) | 0
   }
 
   addPath(square1, square2) {
@@ -74,20 +76,22 @@ export default class Maze {
       this.maxDistance = this.cells[square2]
 
     // UPDATE BORDERS
-    let xSquare1 = this.getX(square1)
-    let xSquare2 = this.getX(square2)
+    if (this.showBorders) {
+      let xSquare1 = this.getX(square1)
+      let xSquare2 = this.getX(square2)
 
-    let ySquare1 = this.getY(square1)
-    let ySquare2 = this.getY(square2)
+      let ySquare1 = this.getY(square1)
+      let ySquare2 = this.getY(square2)
 
-    if (xSquare1 < xSquare2) {
-      this.rightBorders[square1] = false
-    } else if (xSquare1 > xSquare2) {
-      this.rightBorders[square2] = false
-    } else if (ySquare1 > ySquare2) {
-      this.bottomBorders[square2] = false
-    } else if (ySquare1 < ySquare2) {
-      this.bottomBorders[square1] = false
+      if (xSquare1 < xSquare2) {
+        this.rightBorders[square1] = false
+      } else if (xSquare1 > xSquare2) {
+        this.rightBorders[square2] = false
+      } else if (ySquare1 > ySquare2) {
+        this.bottomBorders[square2] = false
+      } else if (ySquare1 < ySquare2) {
+        this.bottomBorders[square1] = false
+      }
     }
   }
 
