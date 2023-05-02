@@ -1,8 +1,5 @@
 import Maze from "./maze.js"
 
-// TODO: only one edge will ever be used!!! So we JUST need to add that one to the set
-// IF I can figure out how to weight that
-
 export default class RandomTraversalMaze extends Maze {
   constructor(...args) {
     super(...args)
