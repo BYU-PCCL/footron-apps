@@ -1,4 +1,11 @@
 - Add solution lines
 - Optimize maze code to be lightning fast
+- Fix random traversal and prim!
+  - Initial random traversal optimization is done
+  - I should probably optimize getAdjacentSquares, getX, getY
+- Add FPS measurement
+
+_Later_
+
 - Explain that it's GENERATING mazes, not solving them
 - auto-timeout

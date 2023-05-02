@@ -2,6 +2,12 @@ import "./style.css"
 
 import { Messaging } from "@footron/messaging"
 
+let config = {
+  cells: 1000,
+  speed: "fast", // 'fast', 'normal', 'slow'
+  focusMaze: "backtracker" // false or "backtracker", "prim", "traversal", "wilson"
+}
+
 const worker = new Worker(new URL("./worker.js", import.meta.url), {
   type: "module"
 })
@@ -51,12 +57,6 @@ let mazeTitles = {
   prim: "Prim's Algorithm",
   traversal: "Random Traversal",
   wilson: "Wilson's Algorithm"
-}
-
-let config = {
-  cells: 20,
-  speed: "normal", // 'fast', 'normal', 'slow'
-  focusMaze: "prim" // false or "backtracker", "prim", "traversal", "wilson"
 }
 
 /* START */

@@ -6,23 +6,54 @@ export default class RandomTraversalMaze extends Maze {
 
     this.id = "traversal"
     this.visitedCells = [0]
+
+    this.pathsPerDestination = {} // what possible paths should be deleted when a cell is visited?
+
+    this.possibleNextCells = []
+    // an array of [parent, child] pairs
+
+    this.updateFrontier(0)
   }
 
   getNextCell() {
-    let possibleNextCells = [] // array of [parent, next]
+    // get a random path from the frontier
 
-    // for each visited cell, if it has any adjacent cells, add each adjacent cell as a possible candidate
-    this.visitedCells.forEach((parent) => {
-      let nextFromHere = this.getAdjacentSquares(parent)
+    let pathIndex = Math.floor(Math.random() * this.possibleNextCells.length)
 
-      nextFromHere.forEach((next) => {
-        possibleNextCells.push([parent, next])
+    return this.possibleNextCells[pathIndex]
+  }
+
+  updateFrontier(parent) {
+    // the parent is the cell that we just visited
+
+    /* Remove invalid paths from the frontier */
+
+    let indexesOfPathsToDelete = this.pathsPerDestination[parent]
+
+    if (indexesOfPathsToDelete && indexesOfPathsToDelete.length > 0) {
+      indexesOfPathsToDelete.forEach((pathToDelete) => {
+        this.possibleNextCells.splice(
+          this.possibleNextCells.indexOf(pathToDelete),
+          1
+        )
       })
-    })
+    }
 
-    return possibleNextCells[
-      Math.floor(Math.random() * possibleNextCells.length)
-    ]
+    delete this.pathsPerDestination[parent]
+
+    /* Add neighbors to the frontier */
+    let neighbors = this.getAdjacentSquares(parent)
+
+    neighbors.forEach((neighbor) => {
+      let path = [parent, neighbor]
+      this.possibleNextCells.push(path)
+
+      if (!this.pathsPerDestination[neighbor]) {
+        this.pathsPerDestination[neighbor] = []
+      }
+
+      this.pathsPerDestination[neighbor].push(path) // we want to delete this option if neighbor is visited
+    })
   }
 
   async nextStep() {
@@ -34,5 +65,8 @@ export default class RandomTraversalMaze extends Maze {
 
     // add the cell to the visited cells array
     this.visitedCells.push(nextCell)
+
+    // update the frontier
+    this.updateFrontier(nextCell)
   }
 }
