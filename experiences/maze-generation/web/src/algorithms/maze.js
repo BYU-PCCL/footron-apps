@@ -46,16 +46,6 @@ export default class Maze {
     if (this.step % pauseEvery === 0) await pause(pauseLength)
   }
 
-  async generate() {
-    while (this.cells.includes(0)) {
-      await this.nextStep()
-    }
-
-    this.solveRecursively()
-    if (this.onCompleteFn) this.onCompleteFn(this)
-    this.completed = true
-  }
-
   getX(el) {
     return el % this.density
   }

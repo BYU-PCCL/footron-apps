@@ -49,8 +49,7 @@ export default class RandomTraversalMaze extends Maze {
     }
   }
 
-  async nextStep() {
-    await this.delay()
+  nextStep() {
     let [nextCellParent, nextCell] = this.getNextCell()
 
     // add the cell to the tree

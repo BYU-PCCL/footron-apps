@@ -8,7 +8,7 @@ export default class WilsonMaze extends Maze {
     this.cleared = [] // cells to clear
   }
 
-  async nextStep() {
+  nextStep() {
     let cells = this.cells
 
     let unvisitedCell = this.getRandomUnvisitedSquare()
@@ -17,8 +17,6 @@ export default class WilsonMaze extends Maze {
     let reconnects = false
 
     while (!reconnects) {
-      await this.delay()
-
       let possibleCells = this.getAllAdjacentSquares(path[path.length - 1])
 
       // Randomly choose the next cell out of the candidates

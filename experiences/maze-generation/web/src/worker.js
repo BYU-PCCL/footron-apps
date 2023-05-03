@@ -83,8 +83,10 @@ self.onmessage = (event) => {
 function setupAndBegin() {
   if (animationFrameToCancel) cancelAnimationFrame(animationFrameToCancel)
 
+  setGenerationData()
+
   createMazes()
-  startMazeGeneration()
+  generateMazes()
 
   adjustImageSmoothing()
 
@@ -157,13 +159,50 @@ function createMazes() {
   }
 }
 
-function startMazeGeneration() {
-  if (config.focusMaze) {
-    mazeObjects.large.maze.generate()
-  } else {
-    for (const maze of defaultMazes) {
-      mazeObjects[maze].maze.generate()
+let generationData = {
+  step: 0,
+  pauseLength: 0,
+  pauseEvery: 1
+}
+
+function setGenerationData() {
+  generationData.step = 0
+  generationData.pauseLength = 0
+
+  if (config.speed === "slow") generationData.pauseLength = 100
+
+  generationData.pauseEvery = 1
+
+  if (config.speed === "normal")
+    generationData.pauseEvery = Math.ceil((config.cells * config.cells) / 5000) // for a 100x100 grid, this is 1 pause every 2 steps
+
+  if (config.speed === "fast")
+    generationData.pauseEvery = Math.ceil((config.cells * config.cells) / 500) // for a 100x100 grid, this is 1 pause every 20 steps
+}
+
+async function generateMazes() {
+  let mazes = config.focusMaze ? ["large"] : [...defaultMazes]
+
+  while (mazes.length > 0) {
+    for (const maze of mazes) {
+      // console.log(maze)
+      let thisMaze = mazeObjects[maze].maze
+
+      thisMaze.nextStep()
+
+      if (!thisMaze.cells.includes(0)) {
+        thisMaze.solveRecursively()
+        if (thisMaze.onCompleteFn) thisMaze.onCompleteFn(thisMaze)
+        thisMaze.completed = true
+
+        mazes.splice(mazes.indexOf(maze), 1)
+      }
     }
+
+    generationData.step++
+
+    if (generationData.step % generationData.pauseEvery === 0)
+      await pause(generationData.pauseLength)
   }
 }
 
@@ -185,6 +224,7 @@ function drawMazes() {
   } else {
     for (const maze of defaultMazes) {
       if (completed !== false) completed = mazeObjects[maze].maze.completed // if any maze is not completed, completed will be false
+
       drawMaze(mazeObjects[maze])
     }
   }
@@ -220,4 +260,12 @@ function postSolutionMessage(maze, length) {
     maze: maze,
     solutionLength: length
   })
+}
+
+function pause(pauseLength) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve()
+    }, pauseLength)
+  )
 }

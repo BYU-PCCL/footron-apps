@@ -7,8 +7,7 @@ export default class BacktrackerMaze extends Maze {
     this.history = [0] // a stack
   }
 
-  async nextStep() {
-    await this.delay()
+  nextStep() {
     let history = this.history
 
     let currentCell = history[history.length - 1]
