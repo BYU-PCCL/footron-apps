@@ -177,7 +177,7 @@ function setGenerationData() {
     generationData.pauseEvery = Math.ceil((config.cells * config.cells) / 5000) // for a 100x100 grid, this is 1 pause every 2 steps
 
   if (config.speed === "fast")
-    generationData.pauseEvery = Math.ceil((config.cells * config.cells) / 500) // for a 100x100 grid, this is 1 pause every 20 steps
+    generationData.pauseEvery = Math.ceil((config.cells * config.cells) / 50) // for a 100x100 grid, this is 1 pause every 20 steps
 }
 
 async function generateMazes() {

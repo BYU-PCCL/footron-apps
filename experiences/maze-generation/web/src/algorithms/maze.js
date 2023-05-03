@@ -24,26 +24,7 @@ export default class Maze {
 
     this.maxDistance = 1
 
-    this.step = 0 // calculating pauses
     this.bufferStep = 0 // for fractional speeds
-  }
-
-  async delay() {
-    this.step++
-
-    let pauseLength = 0
-
-    if (config.speed === "slow") pauseLength = 100
-
-    let pauseEvery = 1
-
-    if (config.speed === "normal")
-      pauseEvery = Math.ceil((this.density * this.density) / 5000) // for a 100x100 grid, this is 1 pause every 2 steps
-
-    if (config.speed === "fast")
-      pauseEvery = Math.ceil((this.density * this.density) / 500) // for a 100x100 grid, this is 1 pause every 20 steps
-
-    if (this.step % pauseEvery === 0) await pause(pauseLength)
   }
 
   getX(el) {
@@ -175,12 +156,4 @@ export default class Maze {
   onComplete(fn) {
     this.onCompleteFn = fn
   }
-}
-
-function pause(pauseLength) {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve()
-    }, pauseLength)
-  )
 }
