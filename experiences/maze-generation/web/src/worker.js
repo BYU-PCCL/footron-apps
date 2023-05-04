@@ -5,7 +5,7 @@ import PrimMaze from "./algorithms/prim.js"
 
 import { drawBorderedMaze, drawUnborderedMaze } from "./drawing.js"
 
-import { config } from "./config.js"
+let config = {}
 
 let mazeConstructors = {
   backtracker: BacktrackerMaze,
@@ -248,7 +248,7 @@ function start() {
   let completed = drawMazes()
 
   if (!completed) {
-    // console.log((1000 / frameTime).toFixed(0) + "fps")
+    console.log((1000 / frameTime).toFixed(0) + "fps")
 
     animationFrameToCancel = requestAnimationFrame(start)
   } else {

@@ -6,12 +6,13 @@ function swap(arr, i, j) {
   arr[j] = temp
 }
 
+// TODO: use sets :)
+
 export default class WilsonMaze extends Maze {
   constructor(...args) {
     super(...args)
 
     this.tree = [0] // cells we've visited
-    this.cleared = [] // cells to clear
 
     this.unvisitedCells = [...Array(this.density * this.density)].map(
       (_, i) => i
@@ -42,7 +43,13 @@ export default class WilsonMaze extends Maze {
 
         // we're working backwards here
         this.path.forEach((cell, i) => {
-          this.unvisitedCells.splice(this.unvisitedCells.indexOf(cell), 1)
+          swap(
+            this.unvisitedCells,
+            this.tLength,
+            this.unvisitedCells.indexOf(cell)
+          )
+
+          // console.log(this.unvisitedCells)
 
           if (i === 0) {
             this.addPath(nextCell, cell)
@@ -55,17 +62,11 @@ export default class WilsonMaze extends Maze {
       } else if (this.path.includes(nextCell)) {
         let indexOfNextCell = this.path.indexOf(nextCell)
 
-        let cellsToClear = this.path.slice(
-          indexOfNextCell + 1,
-          this.path.length
-        )
+        let cellsToClear = this.path.splice(indexOfNextCell + 1)
 
         for (var i = 0; i < cellsToClear.length; i++) {
-          cells[cellsToClear[i]] = 0
-          this.cleared.push(cellsToClear[i])
+          cells[cellsToClear[i]] = "clear"
         }
-
-        this.path = this.path.slice(0, indexOfNextCell + 1) // leave the first "nextCell" in the path
       } else {
         this.path.push(nextCell)
         // so we can color it orange

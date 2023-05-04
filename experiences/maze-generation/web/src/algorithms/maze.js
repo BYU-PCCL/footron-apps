@@ -1,5 +1,3 @@
-import { config } from "../config.js"
-
 export default class Maze {
   constructor(density = 10, showBorders = true) {
     this.density = density
@@ -108,7 +106,10 @@ export default class Maze {
   getRandomUnvisitedSquare() {
     let res =
       this.unvisitedCells[
-        Math.floor(Math.random() * this.unvisitedCells.length)
+        this.tLength +
+          Math.floor(
+            Math.random() * (this.unvisitedCells.length - this.tLength)
+          )
       ]
 
     return res

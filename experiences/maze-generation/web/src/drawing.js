@@ -35,28 +35,6 @@ function drawBorders(buffer, pixelWidth, color) {
 }
 
 function drawCells(buffer, maze, pixelWidth, cellSize) {
-  // clear "cleared" cells from Wilson's algorithm
-  if (maze.cleared && maze.cleared.length > 0) {
-    for (var i = 0; i < maze.cleared.length; i++) {
-      let clearedIndex = maze.cleared[i]
-
-      let xPos = maze.getX(clearedIndex)
-      let yPos = maze.getY(clearedIndex)
-
-      drawRect(
-        buffer,
-        xPos * cellSize + 1,
-        yPos * cellSize + 1,
-        cellSize,
-        cellSize,
-        pixelWidth,
-        WHITE
-      )
-    }
-
-    maze.cleared = []
-  }
-
   for (var i = 0; i < maze.cells.length; i++) {
     let distance = maze.cells[i]
 
@@ -64,11 +42,12 @@ function drawCells(buffer, maze, pixelWidth, cellSize) {
       let xPos = maze.getX(i)
       let yPos = maze.getY(i)
 
-      let color
+      let color = WHITE
 
       if (distance === "path") {
         color = [255, 165, 0]
-      } else {
+      } else if (distance === "clear") {
+      } else if (distance !== 0) {
         color = evaluate_cmap(distance / maze.maxDistance, cmap, false)
       }
 
@@ -81,6 +60,10 @@ function drawCells(buffer, maze, pixelWidth, cellSize) {
         pixelWidth,
         color
       )
+
+      if (distance === "clear") {
+        maze.cells[i] = 0
+      }
     }
   }
 }
