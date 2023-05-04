@@ -6,7 +6,7 @@ export default class PrimMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.cellWeights = [...Array(this.density * this.density)].map((_, i) => [])
+    this.cellWeights = [...Array(this.density * this.density)].map((_) => [])
 
     // Initialize random weights
     for (var i = 0; i < this.cells.length; i++) {

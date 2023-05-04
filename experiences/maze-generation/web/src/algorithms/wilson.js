@@ -12,8 +12,6 @@ export default class WilsonMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.tree = [0] // cells we've visited
-
     this.unvisitedCells = [...Array(this.density * this.density)].map(
       (_, i) => i
     )
@@ -35,30 +33,28 @@ export default class WilsonMaze extends Maze {
         possibleCells[Math.floor(Math.random() * possibleCells.length)]
 
       // If the next cell is part of the tree, connect it!
-      if (this.tree.includes(nextCell)) {
+      if (this.cells[nextCell] > 0) {
         this.reconnected = true
-        this.tree = this.tree.concat(this.path)
-
-        this.path.reverse() // path from the UST, to the unvisited cell
 
         // we're working backwards here
-        this.path.forEach((cell, i) => {
+
+        for (var i = this.path.length - 1; i >= 0; i--) {
+          let cell = this.path[i]
+
           swap(
             this.unvisitedCells,
             this.tLength,
             this.unvisitedCells.indexOf(cell)
           )
 
-          // console.log(this.unvisitedCells)
-
-          if (i === 0) {
+          if (i === this.path.length - 1) {
             this.addPath(nextCell, cell)
           } else {
-            this.addPath(this.path[i - 1], cell)
+            this.addPath(this.path[i + 1], cell)
           }
-        })
+        }
 
-        // Otherwise, there's a loop. Clear the looped portion of the path.
+        // There's a loop. Clear the looped portion of the path.
       } else if (this.path.includes(nextCell)) {
         let indexOfNextCell = this.path.indexOf(nextCell)
 
@@ -73,6 +69,7 @@ export default class WilsonMaze extends Maze {
         cells[nextCell] = "path"
       }
     } else {
+      // reset the path and start looking again
       this.path = [this.getRandomUnvisitedSquare()] // Array<cellNumber>
       this.reconnected = false
     }
