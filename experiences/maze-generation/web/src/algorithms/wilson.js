@@ -1,11 +1,21 @@
 import Maze from "./maze.js"
 
+function swap(arr, i, j) {
+  let temp = arr[i]
+  arr[i] = arr[j]
+  arr[j] = temp
+}
+
 export default class WilsonMaze extends Maze {
   constructor(...args) {
     super(...args)
 
     this.tree = [0] // cells we've visited
     this.cleared = [] // cells to clear
+
+    this.unvisitedCells = [...Array(this.density * this.density)].map(
+      (_, i) => i
+    )
 
     this.reconnected = false
     this.path = [this.getRandomUnvisitedSquare()] // Array<cellNumber>
@@ -30,7 +40,10 @@ export default class WilsonMaze extends Maze {
 
         this.path.reverse() // path from the UST, to the unvisited cell
 
+        // we're working backwards here
         this.path.forEach((cell, i) => {
+          this.unvisitedCells.splice(this.unvisitedCells.indexOf(cell), 1)
+
           if (i === 0) {
             this.addPath(nextCell, cell)
           } else {
@@ -40,8 +53,10 @@ export default class WilsonMaze extends Maze {
 
         // Otherwise, there's a loop. Clear the looped portion of the path.
       } else if (this.path.includes(nextCell)) {
+        let indexOfNextCell = this.path.indexOf(nextCell)
+
         let cellsToClear = this.path.slice(
-          this.path.indexOf(nextCell) + 1,
+          indexOfNextCell + 1,
           this.path.length
         )
 
@@ -50,7 +65,7 @@ export default class WilsonMaze extends Maze {
           this.cleared.push(cellsToClear[i])
         }
 
-        this.path = this.path.slice(0, this.path.indexOf(nextCell) + 1) // leave the first "nextCell" in the path
+        this.path = this.path.slice(0, indexOfNextCell + 1) // leave the first "nextCell" in the path
       } else {
         this.path.push(nextCell)
         // so we can color it orange

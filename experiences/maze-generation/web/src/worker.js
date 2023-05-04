@@ -138,9 +138,9 @@ function createMazes() {
         config.cells,
         showBorders
       )
-      mazeObjects[maze].maze.onComplete(({ solution }) =>
+      mazeObjects[maze].maze.onComplete(({ solution }) => {
         postSolutionMessage(maze, solution.length)
-      )
+      })
 
       mazeObjects[maze].imageData = mazeObjects[maze].ctx.createImageData(
         imageDataSize,
@@ -190,11 +190,14 @@ async function generateMazes() {
 
       thisMaze.nextStep()
 
-      if (!thisMaze.cells.includes(0)) {
+      if (thisMaze.tLength === thisMaze.density * thisMaze.density) {
+        // Maze completed!!
+
         thisMaze.solveRecursively()
         if (thisMaze.onCompleteFn) thisMaze.onCompleteFn(thisMaze)
         thisMaze.completed = true
 
+        // remove the maze
         mazes.splice(mazes.indexOf(maze), 1)
       }
     }
@@ -245,7 +248,7 @@ function start() {
   let completed = drawMazes()
 
   if (!completed) {
-    console.log((1000 / frameTime).toFixed(0) + "fps")
+    // console.log((1000 / frameTime).toFixed(0) + "fps")
 
     animationFrameToCancel = requestAnimationFrame(start)
   } else {

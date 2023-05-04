@@ -60,7 +60,7 @@ export default class PrimMaze extends Maze {
 
       let midEl = array[mid]
 
-      let w2 = this.cellWeights[this.parents[midEl]][midEl] //  this.cellWeights[array[mid][0]][array[mid][1]]
+      let w2 = this.cellWeights[this.parents[midEl]][midEl]
 
       if (w2 < w1) low = mid + 1
       else high = mid

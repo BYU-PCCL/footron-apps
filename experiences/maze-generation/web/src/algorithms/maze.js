@@ -25,6 +25,8 @@ export default class Maze {
     this.maxDistance = 1
 
     this.bufferStep = 0 // for fractional speeds
+
+    this.tLength = 1
   }
 
   getX(el) {
@@ -36,6 +38,8 @@ export default class Maze {
   }
 
   addPath(square1, square2) {
+    this.tLength++
+
     // ADD TO CELLMAP
     this.cellMap[square1].push(square2)
 
@@ -102,13 +106,10 @@ export default class Maze {
   }
 
   getRandomUnvisitedSquare() {
-    let unvisitedCells = []
-
-    this.cells.forEach((cell, i) => {
-      if (cell === 0) unvisitedCells.push(i)
-    })
-
-    let res = unvisitedCells[Math.floor(Math.random() * unvisitedCells.length)]
+    let res =
+      this.unvisitedCells[
+        Math.floor(Math.random() * this.unvisitedCells.length)
+      ]
 
     return res
   }
@@ -116,7 +117,7 @@ export default class Maze {
   solveRecursively() {
     let density = this.density,
       cellMap = this.cellMap
-    let cells = [...Array(density * density)].map((_, i) => false) // false means we haven't traversed it yet. This is a new array just for this function.
+    let cells = [...Array(density * density)].map((_) => false) // false means we haven't traversed it yet. This is a new array just for this function.
 
     let history = [0] // a stack
 

@@ -3,7 +3,7 @@ import "./style.css"
 import { Messaging } from "@footron/messaging"
 
 let config = {
-  cells: 200,
+  cells: 100,
   speed: "fast", // 'fast', 'normal', 'slow'
   focusMaze: false // false or "backtracker", "prim", "traversal", "wilson"
 }
