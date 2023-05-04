@@ -6,8 +6,6 @@ export default class PrimMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.visitedCells = [0]
-
     this.cellWeights = [...Array(this.density * this.density)].map((_, i) => [])
 
     // Initialize random weights
@@ -101,9 +99,6 @@ export default class PrimMaze extends Maze {
 
     // add the cell to the tree
     this.addPath(nextCellParent, nextCell)
-
-    // add the cell to the visited cells array
-    this.visitedCells.push(nextCell)
 
     // update the frontier
     this.updateFrontier(nextCell)

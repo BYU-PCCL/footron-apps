@@ -4,8 +4,6 @@ export default class RandomTraversalMaze extends Maze {
   constructor(...args) {
     super(...args)
 
-    this.visitedCells = [0]
-
     this.parents = [...Array(this.density * this.density)].map((_, i) => []) // the parent of each cell
     this.possibleNextCells = []
 
@@ -54,9 +52,6 @@ export default class RandomTraversalMaze extends Maze {
 
     // add the cell to the tree
     this.addPath(nextCellParent, nextCell)
-
-    // add the cell to the visited cells array
-    this.visitedCells.push(nextCell)
 
     // update the frontier
     this.updateFrontier(nextCell)
