@@ -1,5 +1,10 @@
 import { evaluate_cmap } from "./colormaps.js"
 
+// TODO: vDom?
+
+// we don't need to rerender most cells unless the max distance changes
+// not sure if this is worth it though
+
 let cmap = "BuPu" // favorites: gist_ncar, BuPu, nipy_spectral
 
 let BLACK = [0, 0, 0]
