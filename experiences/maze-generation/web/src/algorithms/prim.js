@@ -56,7 +56,7 @@ export default class PrimMaze extends Maze {
       high = array.length
 
     while (low < high) {
-      var mid = (low + high) >>> 1
+      var mid = (low + high) >>> 1 // integer divide by 2
 
       let midEl = array[mid]
 
@@ -69,10 +69,9 @@ export default class PrimMaze extends Maze {
   }
 
   insertPath(parent, child, weight) {
-    if (
-      !this.parents[child] ||
-      weight > this.cellWeights[this.parents[child]][child]
-    ) {
+    let oldParent = this.parents[child]
+
+    if (!oldParent || weight > this.cellWeights[oldParent][child]) {
       // if the weight w/ the new parent is greater than the current weight, replace it
 
       this.parents[child] = parent

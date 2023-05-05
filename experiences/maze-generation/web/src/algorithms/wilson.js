@@ -6,8 +6,6 @@ function swap(arr, i, j) {
   arr[j] = temp
 }
 
-// TODO: use sets :)
-
 export default class WilsonMaze extends Maze {
   constructor(...args) {
     super(...args)

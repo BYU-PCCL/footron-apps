@@ -3,9 +3,9 @@ import "./style.css"
 import { Messaging } from "@footron/messaging"
 
 let config = {
-  cells: 10,
+  cells: 1000,
   speed: "fast", // 'fast', 'normal', 'slow'
-  focusMaze: "wilson" // false or "backtracker", "prim", "traversal", "wilson"
+  focusMaze: "prim" // false or "backtracker", "prim", "traversal", "wilson"
 }
 
 const worker = new Worker(new URL("./worker.js", import.meta.url), {
