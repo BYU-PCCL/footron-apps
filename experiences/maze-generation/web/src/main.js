@@ -137,11 +137,16 @@ function updateDOM() {
 }
 
 function messageHandler(message) {
-  let config = { ...config, ...getNewConfig(message) }
+  let newConfig = getNewConfig(message)
+
+  if (newConfig.cells || newConfig.focusMaze) {
+    // reset solution lengths when cell count or focus maze changes
+    resetSolutionLengths()
+  }
 
   updateDOM()
   sendSizes()
-  sendConfigChange(config)
+  sendConfigChange({ ...config, ...newConfig })
 }
 
 client.addMessageListener(messageHandler)

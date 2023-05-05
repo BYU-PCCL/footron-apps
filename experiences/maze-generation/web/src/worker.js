@@ -248,7 +248,7 @@ function start() {
   let completed = drawMazes()
 
   if (!completed) {
-    console.log((1000 / frameTime).toFixed(0) + "fps")
+    // console.log((1000 / frameTime).toFixed(0) + "fps")
 
     animationFrameToCancel = requestAnimationFrame(start)
   } else {
