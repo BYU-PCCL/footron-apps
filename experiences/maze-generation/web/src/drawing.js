@@ -73,6 +73,39 @@ function drawCells(buffer, maze, pixelWidth, cellSize) {
   }
 }
 
+export function drawSolution(buffer, maze, rowWidth, cellSize) {
+  let solution = maze.solution
+
+  let previousCell = 0
+
+  for (var i = 1; i < solution.length; i++) {
+    // do work heres
+
+    let lineSize = cellSize > 2 ? cellSize : 2
+
+    let long = cellSize > 2 ? cellSize + 2 : 2
+    let short = cellSize > 2 ? 2 : 1
+
+    let xPos1 = maze.getX(previousCell) * cellSize + lineSize / 2 // we know that lineSize is divisible by 2 because cellSize is 8
+    let yPos1 = maze.getY(previousCell) * cellSize + lineSize / 2
+
+    let xPos2 = maze.getX(solution[i]) * cellSize + lineSize / 2
+    let yPos2 = maze.getY(solution[i]) * cellSize + lineSize / 2
+
+    drawRect(
+      buffer,
+      xPos1 < xPos2 ? xPos1 : xPos2,
+      yPos1 < yPos2 ? yPos1 : yPos2,
+      xPos1 !== xPos2 ? long : short,
+      yPos1 !== yPos2 ? long : short,
+      rowWidth,
+      [255, 0, 0]
+    )
+
+    previousCell = solution[i]
+  }
+}
+
 export async function drawBorderedMaze(mazeObject, cellNumber) {
   let { maze, ctx, canvas, imageData } = mazeObject
 
@@ -143,6 +176,10 @@ export async function drawBorderedMaze(mazeObject, cellNumber) {
     }
   }
 
+  if (maze.solution.length > 0) {
+    drawSolution(buffer, maze, pixelWidth, cellSize)
+  }
+
   let bitmapImageData = await createImageBitmap(imageData)
 
   ctx.drawImage(
@@ -167,6 +204,10 @@ export async function drawUnborderedMaze(mazeObject, cellNumber) {
   drawBorders(buffer, pixelWidth, BLACK)
 
   drawCells(buffer, maze, pixelWidth, 1)
+
+  if (maze.solution.length > 0) {
+    drawSolution(buffer, maze, pixelWidth, 1)
+  }
 
   let bitmapImageData = await createImageBitmap(imageData)
 
