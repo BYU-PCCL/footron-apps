@@ -3,7 +3,7 @@ import "./style.css"
 import { Messaging } from "@footron/messaging"
 
 let config = {
-  cells: 100,
+  cells: 10,
   speed: "fast", // 'fast', 'normal', 'slow'
   focusMaze: false // false or "backtracker", "prim", "traversal", "wilson"
 }
@@ -62,6 +62,7 @@ let mazeTitles = {
 /* START */
 
 updateDOM()
+resetSolutionLengths()
 
 worker.postMessage(
   {
@@ -132,7 +133,6 @@ function updateDOM() {
     document.getElementById("large-container").classList.add("hidden")
   }
 
-  // TODO: reset solution length
   // TODO: change description and title of mazes in focus mode
 }
 
