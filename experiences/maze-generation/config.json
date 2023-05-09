@@ -3,8 +3,8 @@
   "type": "web",
   "title": "Visualizing Maze Generation Algorithms",
   "description": "Different maze generation algorithms behave in unique ways",
+  "long_description": "In math terms, a maze can be described as a \"spanning tree\" — a graph where all vertices are connected together without looping.<br /><br />This visualization explores different algorithms to generate random spanning trees (mazes). Each algorithm exhibits different behavior. By coloring maze cells according to distance from the maze origin, we can see different patterns in the algorithms.<br /><br />Each maze starts in the upper-left corner and finishes in the bottom-right corner. The solution is calculated and drawn in red once the maze is finished.",
   "action_hints": ["change maze size"],
-  "layout": "full",
   "lifetime": 180,
   "queueable": true
 }
