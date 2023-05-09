@@ -84,10 +84,20 @@ def build_experiences(experience_paths: List[Path], build_dir: Path):
             else:
                 static_path = web_dir
 
+            if not static_path.exists():
+                raise RuntimeError(
+                    f"Web static path {static_path} doesn't exist for {experience_name}"
+                )
+
             static_build_dir = experience_build_dir / "static"
 
-            # Copy static files to build_dir using subprocess.run
-            subprocess.run(["cp", "-r", str(static_path), str(static_build_dir)])
+            try:
+                # Copy static files to build_dir using subprocess.run
+                subprocess.run(
+                    ["cp", "-r", str(static_path), str(static_build_dir)]
+                ).check_returncode()
+            except subprocess.CalledProcessError:
+                raise RuntimeError("Failed to copy from build path")
 
 
 if __name__ == "__main__":
