@@ -5,7 +5,7 @@ import { Messaging } from "@footron/messaging"
 let config = {
   cells: 10,
   speed: "fast", // 'fast', 'normal', 'slow'
-  focusMaze: false // false or "backtracker", "prim", "traversal", "wilson"
+  focusMaze: "traversal" // false or "backtracker", "prim", "traversal", "wilson"
 }
 
 const worker = new Worker(new URL("./worker.js", import.meta.url), {
@@ -64,6 +64,8 @@ let mazeTitles = {
 updateDOM()
 resetSolutionLengths()
 
+let autoChangeMazeTimeout
+
 worker.postMessage(
   {
     type: "init",
@@ -98,7 +100,7 @@ client.mount()
 
 function getNewConfig(message) {
   const handlers = {
-    cells: (value) => round(Math.pow(value * 10, 2)), // scale between 1 and 100
+    cells: (value) => round(Math.pow(value * 22, 2)), // scale between 1 and 100
     speed: (value) => {
       if (value === 0) return "slow"
       if (value === 1) return "fast"
@@ -132,11 +134,14 @@ function updateDOM() {
     document.getElementById("small-container").classList.remove("hidden")
     document.getElementById("large-container").classList.add("hidden")
   }
-
-  // TODO: change description and title of mazes in focus mode
 }
 
 function messageHandler(message) {
+  if (autoChangeMazeTimeout) {
+    // cancel auto change maze
+    clearTimeout(autoChangeMazeTimeout)
+  }
+
   let newConfig = getNewConfig(message)
 
   if (newConfig.cells || newConfig.focusMaze) {
@@ -168,6 +173,13 @@ worker.addEventListener("message", function handleMessageFromWorker(msg) {
 
     document.getElementById(maze + "-solution-length").innerHTML =
       "Solution length: " + solutionLength
+  } else if (msg.data.type === "complete") {
+    autoChangeMazeTimeout = setTimeout(() => {
+      messageHandler({
+        type: "cells",
+        value: Math.random()
+      })
+    }, 8000)
   }
 })
 

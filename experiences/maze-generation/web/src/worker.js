@@ -65,8 +65,6 @@ self.onmessage = (event) => {
       config[key] = event.data.config[key]
     }
 
-    console.log(config)
-
     setupAndBegin()
   } else if (event.data.type === "resize") {
     for (const canvas in event.data.sizes) {
@@ -185,7 +183,6 @@ async function generateMazes() {
 
   while (mazes.length > 0) {
     for (const maze of mazes) {
-      // console.log(maze)
       let thisMaze = mazeObjects[maze].maze
 
       thisMaze.nextStep()
@@ -253,7 +250,7 @@ function start() {
     animationFrameToCancel = requestAnimationFrame(start)
   } else {
     animationFrameToCancel = null
-    console.log("completed!!!")
+    postCompleteMessage()
   }
 }
 
@@ -262,6 +259,13 @@ function postSolutionMessage(maze, length) {
     type: "solution",
     maze: maze,
     solutionLength: length
+  })
+}
+
+function postCompleteMessage() {
+  // all mazes are completed
+  self.postMessage({
+    type: "complete"
   })
 }
 
