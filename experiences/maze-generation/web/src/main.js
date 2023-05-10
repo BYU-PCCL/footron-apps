@@ -3,9 +3,9 @@ import "./style.css"
 import { Messaging } from "@footron/messaging"
 
 let config = {
-  cells: 10,
-  speed: "fast", // 'fast', 'normal', 'slow'
-  focusMaze: "traversal" // false or "backtracker", "prim", "traversal", "wilson"
+  cells: 20,
+  speed: "normal", // 'fast', 'normal', 'slow'
+  focusMaze: false // false or "backtracker", "prim", "traversal", "wilson"
 }
 
 const worker = new Worker(new URL("./worker.js", import.meta.url), {
@@ -130,6 +130,11 @@ function updateDOM() {
   if (config.focusMaze) {
     document.getElementById("large-container").classList.remove("hidden")
     document.getElementById("small-container").classList.add("hidden")
+
+    document.getElementById("large-description").innerHTML =
+      mazeDescriptions[config.focusMaze]
+    document.getElementById("large-title").innerHTML =
+      mazeTitles[config.focusMaze]
   } else {
     document.getElementById("small-container").classList.remove("hidden")
     document.getElementById("large-container").classList.add("hidden")
@@ -149,9 +154,14 @@ function messageHandler(message) {
     resetSolutionLengths()
   }
 
+  for (const key in newConfig) {
+    config[key] = newConfig[key]
+  }
+
   updateDOM()
   sendSizes()
-  sendConfigChange({ ...config, ...newConfig })
+
+  sendConfigChange(config)
 }
 
 client.addMessageListener(messageHandler)

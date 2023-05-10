@@ -61,9 +61,7 @@ self.onmessage = (event) => {
 
     setupAndBegin()
   } else if (event.data.type === "config") {
-    for (const key in event.data.config) {
-      config[key] = event.data.config[key]
-    }
+    config = event.data.config
 
     setupAndBegin()
   } else if (event.data.type === "resize") {
