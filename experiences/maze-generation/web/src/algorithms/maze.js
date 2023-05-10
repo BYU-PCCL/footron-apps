@@ -1,18 +1,19 @@
-import { config } from "./config.js"
-
 export default class Maze {
-  constructor(density = 10) {
+  constructor(density = 10, showBorders = true) {
     this.density = density
+    this.showBorders = showBorders
 
     this.cells = [...Array(density * density)].map((_, i) => 0) // distance from origin. first cell is 1 away. 0 means not attached
     this.cellMap = [...Array(density * density)].map((_, i) => []) // An array mapping each cell to its "children"
 
-    this.rightBorders = [...Array(density * density)].map(
-      (_, i) => ((i + 1) % density === 0 ? false : true) // each border is the same index as the cell to the left
-    )
-    this.bottomBorders = [...Array(density * density)].map(
-      (_, i) => ((i + 1) / density <= density - 1 ? true : false) // each border is the same index as the cell above
-    )
+    if (this.showBorders) {
+      this.rightBorders = [...Array(density * density)].map(
+        (_, i) => ((i + 1) % density === 0 ? false : true) // each border is the same index as the cell to the left
+      )
+      this.bottomBorders = [...Array(density * density)].map(
+        (_, i) => ((i + 1) / density <= density - 1 ? true : false) // each border is the same index as the cell above
+      )
+    }
 
     this.cells[0] = 1
 
@@ -21,44 +22,22 @@ export default class Maze {
 
     this.maxDistance = 1
 
-    this.step = 0 // calculating pauses
     this.bufferStep = 0 // for fractional speeds
-  }
 
-  async delay() {
-    this.step++
-
-    let pauseEvery = Math.floor(Math.pow(this.density, 3) / Math.pow(20, 3))
-
-    if (config.speed === "slow") pauseEvery = Math.floor(pauseEvery / 10)
-
-    if (config.speed === "fast") pauseEvery *= 3
-
-    if (pauseEvery < 1) pauseEvery = 1
-
-    if (this.step % pauseEvery === 0) await pause(this.density)
-  }
-
-  async generate() {
-    while (this.cells.includes(0)) {
-      await this.nextStep()
-    }
-
-    this.solveRecursively()
-    this.displaySolution()
-    this.completed = true
+    this.tLength = 1
   }
 
   getX(el) {
-    let rows = Math.floor(el / this.density)
-    return el - this.density * rows
+    return el % this.density
   }
 
   getY(el) {
-    return Math.floor(el / this.density)
+    return (el / this.density) | 0
   }
 
   addPath(square1, square2) {
+    this.tLength++
+
     // ADD TO CELLMAP
     this.cellMap[square1].push(square2)
 
@@ -70,20 +49,22 @@ export default class Maze {
       this.maxDistance = this.cells[square2]
 
     // UPDATE BORDERS
-    let xSquare1 = this.getX(square1)
-    let xSquare2 = this.getX(square2)
+    if (this.showBorders) {
+      let xSquare1 = this.getX(square1)
+      let xSquare2 = this.getX(square2)
 
-    let ySquare1 = this.getY(square1)
-    let ySquare2 = this.getY(square2)
+      let ySquare1 = this.getY(square1)
+      let ySquare2 = this.getY(square2)
 
-    if (xSquare1 < xSquare2) {
-      this.rightBorders[square1] = false
-    } else if (xSquare1 > xSquare2) {
-      this.rightBorders[square2] = false
-    } else if (ySquare1 > ySquare2) {
-      this.bottomBorders[square2] = false
-    } else if (ySquare1 < ySquare2) {
-      this.bottomBorders[square1] = false
+      if (xSquare1 < xSquare2) {
+        this.rightBorders[square1] = false
+      } else if (xSquare1 > xSquare2) {
+        this.rightBorders[square2] = false
+      } else if (ySquare1 > ySquare2) {
+        this.bottomBorders[square2] = false
+      } else if (ySquare1 < ySquare2) {
+        this.bottomBorders[square1] = false
+      }
     }
   }
 
@@ -123,13 +104,13 @@ export default class Maze {
   }
 
   getRandomUnvisitedSquare() {
-    let unvisitedCells = []
-
-    this.cells.forEach((cell, i) => {
-      if (cell === 0) unvisitedCells.push(i)
-    })
-
-    let res = unvisitedCells[Math.floor(Math.random() * unvisitedCells.length)]
+    let res =
+      this.unvisitedCells[
+        this.tLength +
+          Math.floor(
+            Math.random() * (this.unvisitedCells.length - this.tLength)
+          )
+      ]
 
     return res
   }
@@ -137,7 +118,7 @@ export default class Maze {
   solveRecursively() {
     let density = this.density,
       cellMap = this.cellMap
-    let cells = [...Array(density * density)].map((_, i) => false) // false means we haven't traversed it yet. This is a new array just for this function.
+    let cells = [...Array(density * density)].map((_) => false) // false means we haven't traversed it yet. This is a new array just for this function.
 
     let history = [0] // a stack
 
@@ -174,24 +155,7 @@ export default class Maze {
     }
   }
 
-  displaySolution() {
-    const spanElement = document.querySelector(`#${this.id}-title span`)
-    spanElement.innerHTML = `Solution length: ${this.solution.length}`
+  onComplete(fn) {
+    this.onCompleteFn = fn
   }
-}
-
-function pause(density) {
-  let pauseLength = 0
-
-  if (config.speed === "slow" && density < 50) {
-    pauseLength = Math.pow(50 - density, 1.5) // easing function
-  } else if (config.speed === "normal") {
-    pauseLength = (1 / Math.log10(density)) * 30 // easing function
-  }
-
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve()
-    }, pauseLength)
-  )
 }
