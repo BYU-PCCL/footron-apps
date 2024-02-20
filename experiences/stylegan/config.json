@@ -10,5 +10,5 @@
     "load_time": 7,
     "layout": "full",
     "lifetime": 270,
-    "queueable": true
+    "queueable": false
 }

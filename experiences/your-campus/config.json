@@ -7,5 +7,5 @@
     "load_time": 5,
     "lifetime": 600,
     "path": "Windows/YourCampus.exe",
-    "queueable": true
+    "queueable": false
 }
