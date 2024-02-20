@@ -28,3 +28,10 @@ description = "Use the Wall to celeberate graduation!"
 tags = [ "graduation" ]
 featured = "graduation"
 visible = true
+
+[cpms50]
+title = "CPMS 50th"
+description = "CPMS is turning 50"
+tags = [ "cpms50" ]
+featured = "cpms50"
+visible = true

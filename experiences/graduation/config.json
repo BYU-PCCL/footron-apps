@@ -3,7 +3,7 @@
     "type": "web",
     "title": "Congratulations, Graduates!",
     "description": "Celebrate the Computer Science Department's Graduates!",
-    "queueable": true,
+    "queueable": false,
     "action_hints": ["find your name"],
     "layout": "full",
     "lifetime": 670
