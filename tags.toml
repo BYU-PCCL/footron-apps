@@ -49,3 +49,7 @@ experiences = [
   "graduation",
   "photo-op"
 ]
+
+[cpms50]
+title = "CPMS is 50"
+experiences = [ "cpms50" ]
