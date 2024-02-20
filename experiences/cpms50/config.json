@@ -1,0 +1,9 @@
+{
+    "id": "cpms50",
+    "type": "web",
+    "title": "Celebrate CPMS' 50th anniversary",
+    "description": "CPMS is turning 50 - we've come a long way!",
+    "layout": "full",
+    "lifetime": 640,
+    "queueable": true
+}
