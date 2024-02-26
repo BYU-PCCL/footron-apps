@@ -8,5 +8,5 @@
     "scrubbing": true,
     "type": "video",
     "filename": "grendel.mp4",
-    "queueable": false
+    "queueable": true
 }

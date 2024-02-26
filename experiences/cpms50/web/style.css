@@ -89,7 +89,7 @@ div.birthday {
     -o-transform:      rotate(-90deg);
 
     position: absolute;
-    bottom: 0px;
+    bottom: 120px;
     left: 0px;
     padding: 0px;
 
@@ -101,7 +101,7 @@ div.birthday {
     color: #ffffff;
     font-family: SairaCondensed;
     text-align: right;
-    font-size: 9em;
+    font-size: 8em;
     line-height: 1.5em;
 }
 

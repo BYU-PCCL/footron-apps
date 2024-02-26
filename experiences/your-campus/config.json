@@ -5,7 +5,7 @@
     "artist": "BYU PCCL, BYU ROAM",
     "type": "capture",
     "load_time": 5,
-    "lifetime": 600,
+    "lifetime": 300,
     "path": "Windows/YourCampus.exe",
-    "queueable": false
+    "queueable": true
 }

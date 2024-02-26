@@ -5,6 +5,6 @@
     "artist": "BYU Animation",
     "type": "capture",
     "lifetime": 360,
-    "queueable": false,
+    "queueable": true,
     "path": "Windows/AvastYe.exe"
 }
