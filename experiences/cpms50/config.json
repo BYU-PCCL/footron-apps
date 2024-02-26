@@ -5,5 +5,5 @@
     "description": "CPMS is turning 50 - we've come a long way!",
     "layout": "full",
     "lifetime": 640,
-    "queueable": true
+    "queueable": false
 }
