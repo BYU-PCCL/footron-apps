@@ -35,3 +35,10 @@ description = "CPMS is turning 50"
 tags = [ "cpms50" ]
 featured = "cpms50"
 visible = true
+
+[lds]
+title = "LDS"
+description = "LDS-themed experiences"
+tags = [ "lds" ]
+featured = "temple-photo-op"
+visible = true
