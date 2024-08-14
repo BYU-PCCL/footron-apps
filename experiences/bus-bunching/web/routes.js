@@ -1,33 +1,468 @@
-import * as THREE from "three";
-import { CatmullRomCurve3 } from "three/src/Three.js";
+import {
+  CatmullRomCurve3,
+  Vector3,
+  LineCurve,
+  CurvePath,
+  Line,
+  LineBasicMaterial,
+  BufferGeometry,
+  CubicBezierCurve3
+} from "three/src/Three.js";
 
 // UVX ROUTE
-export var uvxRoute = new THREE.CurvePath()
-uvxRoute.add(new THREE.LineCurve(new THREE.Vector3(10,0,0), new THREE.Vector3(10,690,0)));
-uvxRoute.add(new THREE.LineCurve(new THREE.Vector3(10,690,0), new THREE.Vector3(890,690,0)));
-uvxRoute.add(new THREE.CubicBezierCurve3(
-  new THREE.Vector3(0,1,0),
-  new THREE.Vector3(0,0,1),
-  new THREE.Vector3(1,0,0)
-))
+export var uvxRoute = new CurvePath();
+uvxRoute.add(new LineCurve(new Vector3( 10,	0.00,	0), new Vector3( 10,	690,	0)));
+uvxRoute.add(new LineCurve(new Vector3( 10,	690,	0), new Vector3( 890,	690,	0)));
+uvxRoute.add(
+  new CubicBezierCurve3(
+    new Vector3( 0,	1,	0),
+    new Vector3( 0,	0.00,	1),
+    new Vector3( 1,	0.00,	0)
+  )
+);
 
+// CIRCLE ROUTE
+export const circleRoute = new CatmullRomCurve3(
+  [
+    new Vector3( 0,	0.00,	0),
+    new Vector3( 5,	0.00,	5),
+    new Vector3( 0,	0.00,	10),
+    new Vector3(-5,	0.00,	5),
+  ],
+  true
+);
 
-
-  // CIRCLE ROUTE
-  export const circleRoute = new CatmullRomCurve3(
-    [
-      new THREE.Vector3(0, 0, 0),
-      new THREE.Vector3(5, 0, 5),
-      new THREE.Vector3(0, 0, 10),
-      new THREE.Vector3(-5, 0, 5),
-    ],
-    true
-  );
+// BIG ROUTE
+export const loopRoute = new CatmullRomCurve3(
+  [
+    new Vector3( 0,	1,	0.00),
+    new Vector3( 3,	1,	0.00),
+    new Vector3( 6,	1,	0.00),
+    new Vector3( 9,	1,	0.00),
+    new Vector3( 12,	1,	0.00),
+    new Vector3( 15,	1,	0.00),
+    new Vector3( 17.5,	1,	0.67),
+    new Vector3( 19.33,	1,	2.5),
+    new Vector3( 20,	1,	5.00),
+    new Vector3( 19.33,	1,	7.5),
+    new Vector3( 17.5,	1,	9.33),
+    new Vector3( 15,	1,	10.00),
+    new Vector3( 12,	1,	10.00),
+    new Vector3( 9,	1,	10.00),
+    new Vector3( 6,	1,	10.00),
+    new Vector3( 3,	1,	10.00),
+    new Vector3( 0,	1,	10.00),
+    new Vector3(-3,	1,	10.00),
+    new Vector3(-6,	1,	10.00),
+    new Vector3(-9,	1,	10.00),
+    new Vector3(-12,	1,	10.00),
+    new Vector3(-15,	1,	10.00),
+    new Vector3(-17.5,	1,	9.33),
+    new Vector3(-19.33,	1,	7.5),
+    new Vector3(-20,	1,	5.00),
+    new Vector3(-19.33,	1,	2.5),
+    new Vector3(-17.5,	1,	0.67),
+    new Vector3(-15,	1,	0.00),
+    new Vector3(-12,	1,	0.00),
+    new Vector3(-9,	1,	0.00),
+    new Vector3(-6,	1,	0.00),
+    new Vector3(-3,	1,	0.00),
+  ],
+  true
+);
 
 export function displayPath(route, scene) {
-  const routePoints = route.getPoints(1000);
-  const pathGeometry = new THREE.BufferGeometry().setFromPoints(routePoints);
-  const pathMaterial = new THREE.LineBasicMaterial({ color: 0x00aaaa });
-  const pathObject = new THREE.Line(pathGeometry, pathMaterial);
+  const routePoints = route.getPoints( 1000);
+  const pathGeometry = new BufferGeometry().setFromPoints(routePoints);
+  const pathMaterial = new LineBasicMaterial({ color:  0x00aaaa });
+  const pathObject = new Line(pathGeometry, pathMaterial);
   scene.add(pathObject);
 }
+
+const blenderPoints = new CatmullRomCurve3(
+  [
+    new Vector3(-0.50,	0.00,	0.00), //Start straight h
+    new Vector3( 0.53,	0.00,	0.00),
+    new Vector3( 1.22,	0.00,	0.00),
+    new Vector3( 1.72,	0.00,	0.00), // Bridge start
+    new Vector3( 3.04,	0.02,	0.00), //
+    new Vector3( 3.41,	0.05,	0.00), //
+    new Vector3( 3.55,	0.08,	0.00), //-
+    new Vector3( 3.75,	0.09,	0.00),
+    new Vector3( 4.00,	0.10,	0.00), // Bridge Middle
+    new Vector3( 4.25,	0.09,	0.00),
+    new Vector3( 4.45,	0.08,	0.00), //-
+    new Vector3( 4.59,	0.05,	0.00), //
+    new Vector3( 5.11,	0.02,	0.00), //
+    new Vector3( 6.33,	0.00,	0.00), // Bridge end
+    new Vector3( 6.65,	0.00,	0.00), // Turn 1
+    new Vector3( 6.96,	0.00,	0.00),
+    new Vector3( 7.25,	0.00,	-0.01),
+    new Vector3( 7.52,	0.00,	-0.02),
+    new Vector3( 7.75,	0.00,	-0.05),
+    new Vector3( 7.95,	0.00,	-0.10),
+    new Vector3( 8.13,	0.00,	-0.16),
+    new Vector3( 8.30,	0.00,	-0.24),
+    new Vector3( 8.45,	0.00,	-0.35),
+    new Vector3( 8.59,	0.00,	-0.47),
+    new Vector3( 8.70,	0.00,	-0.62),
+    new Vector3( 8.79,	0.00,	-0.78),
+    new Vector3( 8.87,	0.00,	-0.95),
+    new Vector3( 8.92,	0.00,	-1.13),
+    new Vector3( 8.95,	0.00,	-1.32),
+    new Vector3( 8.98,	0.00,	-1.50),
+    new Vector3( 8.99,	0.00,	-1.69),
+    new Vector3( 8.99,	0.00,	-1.89),
+    new Vector3( 8.99,	0.00,	-2.11),
+    new Vector3( 8.99,	0.00,	-2.38), // Straight V
+    new Vector3( 8.99,	0.00,	-2.68),
+    new Vector3( 8.99,	0.00,	-3.00),
+    new Vector3( 8.99,	0.00,	-3.32),
+    new Vector3( 8.99,	0.00,	-3.65),
+    new Vector3( 8.99,	0.00,	-3.98),
+    new Vector3( 8.99,	0.00,	-4.29),
+    new Vector3( 8.99,	0.00,	-4.59),
+    new Vector3( 8.99,	0.00,	-4.86),
+    new Vector3( 8.99,	0.00,	-5.08),
+    new Vector3( 8.99,	0.00,	-5.26),
+    new Vector3( 8.99,	0.00,	-5.38), // Turn 2
+    new Vector3( 8.99,	0.00,	-5.46),
+    new Vector3( 8.99,	0.00,	-5.52),
+    new Vector3( 8.98,	0.00,	-5.59),
+    new Vector3( 8.96,	0.00,	-5.70),
+    new Vector3( 8.92,	0.00,	-5.85),
+    new Vector3( 8.87,	0.00,	-6.02),
+    new Vector3( 8.80,	0.00,	-6.19),
+    new Vector3( 8.71,	0.00,	-6.36),
+    new Vector3( 8.60,	0.00,	-6.50),
+    new Vector3( 8.47,	0.00,	-6.63),
+    new Vector3( 8.32,	0.00,	-6.74),
+    new Vector3( 8.15,	0.00,	-6.82),
+    new Vector3( 7.98,	0.00,	-6.89),
+    new Vector3( 7.79,	0.00,	-6.93),
+    new Vector3( 7.61,	0.00,	-6.96),
+    new Vector3( 7.43,	0.00,	-6.98),
+    new Vector3( 7.26,	0.00,	-6.99),
+    new Vector3( 7.09,	0.00,	-6.99),
+    new Vector3( 6.92,	0.00,	-7.00), // Straight H
+    new Vector3( 6.75,	0.00,	-7.00),
+    new Vector3( 6.54,	0.00,	-7.00),
+    new Vector3( 6.31,	0.00,	-7.00),
+    new Vector3( 6.03,	0.00,	-7.00),
+    new Vector3( 5.72,	0.00,	-7.00),
+    new Vector3( 5.40,	0.00,	-7.00),
+    new Vector3( 5.08,	0.00,	-7.00),
+    new Vector3( 4.75,	0.00,	-7.00),
+    new Vector3( 4.42,	0.00,	-7.00),
+    new Vector3( 4.10,	0.00,	-7.00),
+    new Vector3( 3.77,	0.00,	-7.00),
+    new Vector3( 3.45,	0.00,	-7.00),
+    new Vector3( 3.12,	0.00,	-7.00),
+    new Vector3( 2.79,	0.00,	-7.00),
+    new Vector3( 2.47,	0.00,	-7.00),
+    new Vector3( 2.14,	0.00,	-7.00),
+    new Vector3( 1.82,	0.00,	-7.00),
+    new Vector3( 1.49,	0.00,	-7.00),
+    new Vector3( 1.16,	0.00,	-7.00),
+    new Vector3( 0.84,	0.00,	-7.00),
+    new Vector3( 0.51,	0.00,	-7.00),
+    new Vector3( 0.18,	0.00,	-7.00),
+    new Vector3(-0.13,	0.00,	-7.00),
+    new Vector3(-0.46,	0.00,	-7.00),
+    new Vector3(-0.78,	0.00,	-7.00),
+    new Vector3(-1.11,	0.00,	-7.00),
+    new Vector3(-1.44,	0.00,	-7.00),
+    new Vector3(-1.76,	0.00,	-7.00),
+    new Vector3(-2.09,	0.00,	-7.00),
+    new Vector3(-2.41,	0.00,	-7.00),
+    new Vector3(-2.73,	0.00,	-7.00),
+    new Vector3(-3.04,	0.00,	-7.00),
+    new Vector3(-3.31,	0.00,	-7.00),
+    new Vector3(-3.55,	0.00,	-7.00),
+    new Vector3(-3.75,	0.00,	-7.00),
+    new Vector3(-3.93,	0.00,	-7.00),
+    new Vector3(-4.10,	0.00,	-6.99), // Turn 3
+    new Vector3(-4.26,	0.00,	-6.99),
+    new Vector3(-4.44,	0.00,	-6.98),
+    new Vector3(-4.62,	0.00,	-6.96),
+    new Vector3(-4.80,	0.00,	-6.93),
+    new Vector3(-4.98,	0.00,	-6.88),
+    new Vector3(-5.16,	0.00,	-6.82),
+    new Vector3(-5.33,	0.00,	-6.73),
+    new Vector3(-5.48,	0.00,	-6.63),
+    new Vector3(-5.61,	0.00,	-6.50),
+    new Vector3(-5.72,	0.00,	-6.35),
+    new Vector3(-5.81,	0.00,	-6.19),
+    new Vector3(-5.88,	0.00,	-6.01),
+    new Vector3(-5.93,	0.00,	-5.83),
+    new Vector3(-5.96,	0.00,	-5.64),
+    new Vector3(-5.98,	0.00,	-5.47),
+    new Vector3(-5.99,	0.00,	-5.31),
+    new Vector3(-5.99,	0.00,	-5.17),
+    new Vector3(-6.00,	0.00,	-5.08),
+    new Vector3(-6.00,	0.00,	-5.00), // Straight V
+    new Vector3(-6.00,	0.00,	-4.91),
+    new Vector3(-6.00,	0.00,	-4.77),
+    new Vector3(-6.00,	0.00,	-4.55),
+    new Vector3(-6.00,	0.00,	-4.28),
+    new Vector3(-6.00,	0.00,	-3.97),
+    new Vector3(-6.00,	0.00,	-3.65),
+    new Vector3(-6.00,	0.00,	-3.36),
+    new Vector3(-6.00,	0.00,	-3.09), // Turn 4
+    new Vector3(-6.00,	0.00,	-2.87),
+    new Vector3(-6.00,	0.00,	-2.67),
+    new Vector3(-6.02,	0.00,	-2.48),
+    new Vector3(-6.04,	0.00,	-2.30),
+    new Vector3(-6.08,	0.00,	-2.12),
+    new Vector3(-6.13,	0.00,	-1.94),
+    new Vector3(-6.20,	0.00,	-1.76),
+    new Vector3(-6.30,	0.00,	-1.60),
+    new Vector3(-6.41,	0.00,	-1.46),
+    new Vector3(-6.55,	0.00,	-1.34),
+    new Vector3(-6.70,	0.00,	-1.23),
+    new Vector3(-6.87,	0.00,	-1.15),
+    new Vector3(-7.05,	0.00,	-1.09),
+    new Vector3(-7.24,	0.00,	-1.05),
+    new Vector3(-7.42,	0.00,	-1.02),
+    new Vector3(-7.60,	0.00,	-1.01),
+    new Vector3(-7.77,	0.00,	-1.00),
+    new Vector3(-7.93,	0.00,	-1.00),
+    new Vector3(-8.10,	0.00,	-1.00), // Straight H
+    new Vector3(-8.28,	0.00,	-1.00),
+    new Vector3(-8.49,	0.00,	-1.00),
+    new Vector3(-8.74,	0.00,	-1.00),
+    new Vector3(-9.00,	0.00,	-1.00),
+    new Vector3(-9.27,	0.00,	-1.00),
+    new Vector3(-9.51,	0.00,	-1.00),
+    new Vector3(-9.72,	0.00,	-1.00),
+    new Vector3(-9.90,	0.00,	-1.00),
+    new Vector3(-10.07,	0.00,	-1.00), // Turn 5
+    new Vector3(-10.23,	0.00,	-1.00),
+    new Vector3(-10.40,	0.00,	-1.01),
+    new Vector3(-10.58,	0.00,	-1.02),
+    new Vector3(-10.76,	0.00,	-1.05),
+    new Vector3(-10.95,	0.00,	-1.09),
+    new Vector3(-11.13,	0.00,	-1.16),
+    new Vector3(-11.29,	0.00,	-1.24),
+    new Vector3(-11.45,	0.00,	-1.34),
+    new Vector3(-11.58,	0.00,	-1.47),
+    new Vector3(-11.70,	0.00,	-1.61),
+    new Vector3(-11.79,	0.00,	-1.77),
+    new Vector3(-11.87,	0.00,	-1.94),
+    new Vector3(-11.92,	0.00,	-2.13),
+    new Vector3(-11.96,	0.00,	-2.32),
+    new Vector3(-12.00,	0.00,	-2.51),
+    new Vector3(-12.04,	0.00,	-2.71),
+    new Vector3(-12.08,	0.00,	-2.90),
+    new Vector3(-12.14,	0.00,	-3.08),
+    new Vector3(-12.22,	0.00,	-3.25), // Turn 6
+    new Vector3(-12.31,	0.00,	-3.41),
+    new Vector3(-12.43,	0.00,	-3.55),
+    new Vector3(-12.57,	0.00,	-3.67),
+    new Vector3(-12.73,	0.00,	-3.77),
+    new Vector3(-12.90,	0.00,	-3.85),
+    new Vector3(-13.08,	0.00,	-3.90),
+    new Vector3(-13.26,	0.00,	-3.95),
+    new Vector3(-13.44,	0.00,	-3.97),
+    new Vector3(-13.62,	0.00,	-3.99),
+    new Vector3(-13.79,	0.00,	-3.99),
+    new Vector3(-13.96,	0.00,	-3.99),
+    new Vector3(-14.13,	0.00,	-3.99),
+    new Vector3(-14.31,	0.00,	-4.00), // Straight H
+    new Vector3(-14.52,	0.00,	-4.00),
+    new Vector3(-14.78,	0.00,	-4.00),
+    new Vector3(-15.07,	0.00,	-4.00),
+    new Vector3(-15.38,	0.00,	-4.00),
+    new Vector3(-15.70,	0.00,	-4.00),
+    new Vector3(-16.03,	0.00,	-4.00),
+    new Vector3(-16.35,	0.00,	-4.00),
+    new Vector3(-16.67,	0.00,	-4.00),
+    new Vector3(-16.98,	0.00,	-4.00),
+    new Vector3(-17.27,	0.00,	-4.00),
+    new Vector3(-17.51,	0.00,	-4.00),
+    new Vector3(-17.72,	0.00,	-4.00),
+    new Vector3(-17.90,	0.00,	-3.99), // Turn 7
+    new Vector3(-18.07,	0.00,	-3.99),
+    new Vector3(-18.23,	0.00,	-3.99),
+    new Vector3(-18.40,	0.00,	-3.98),
+    new Vector3(-18.58,	0.00,	-3.97),
+    new Vector3(-18.76,	0.00,	-3.94),
+    new Vector3(-18.95,	0.00,	-3.90),
+    new Vector3(-19.13,	0.00,	-3.83),
+    new Vector3(-19.30,	0.00,	-3.75),
+    new Vector3(-19.45,	0.00,	-3.65),
+    new Vector3(-19.58,	0.00,	-3.52),
+    new Vector3(-19.70,	0.00,	-3.38),
+    new Vector3(-19.79,	0.00,	-3.22),
+    new Vector3(-19.87,	0.00,	-3.05),
+    new Vector3(-19.92,	0.00,	-2.86),
+    new Vector3(-19.95,	0.00,	-2.68),
+    new Vector3(-19.98,	0.00,	-2.50),
+    new Vector3(-19.99,	0.00,	-2.31),
+    new Vector3(-19.99,	0.00,	-2.11),
+    new Vector3(-20.00,	0.00,	-1.89), // Straight V
+    new Vector3(-20.00,	0.00,	-1.62),
+    new Vector3(-20.00,	0.00,	-1.32),
+    new Vector3(-20.00,	0.00,	-1.01),
+    new Vector3(-20.00,	0.00,	-0.69),
+    new Vector3(-20.00,	0.00,	-0.39),
+    new Vector3(-20.00,	0.00,	-0.12),
+    new Vector3(-19.99,	0.00,	0.10), // Turn 8
+    new Vector3(-19.99,	0.00,	0.30),
+    new Vector3(-19.98,	0.00,	0.48),
+    new Vector3(-19.96,	0.00,	0.67),
+    new Vector3(-19.92,	0.00,	0.85),
+    new Vector3(-19.87,	0.00,	1.03),
+    new Vector3(-19.80,	0.00,	1.21),
+    new Vector3(-19.71,	0.00,	1.37),
+    new Vector3(-19.59,	0.00,	1.51),
+    new Vector3(-19.46,	0.00,	1.64),
+    new Vector3(-19.31,	0.00,	1.74),
+    new Vector3(-19.14,	0.00,	1.83),
+    new Vector3(-18.96,	0.00,	1.89),
+    new Vector3(-18.78,	0.00,	1.94),
+    new Vector3(-18.59,	0.00,	1.97),
+    new Vector3(-18.41,	0.00,	1.98),
+    new Vector3(-18.22,	0.00,	1.99),
+    new Vector3(-18.01,	0.00,	1.99),
+    new Vector3(-17.77,	0.00,	1.99),
+    new Vector3(-17.50,	0.00,	2.00), // Straight H
+    new Vector3(-17.24,	0.00,	2.00),
+    new Vector3(-16.99,	0.00,	2.00),
+    new Vector3(-16.78,	0.00,	2.00), // Turn
+    new Vector3(-16.59,	0.00,	2.01),
+    new Vector3(-16.41,	0.00,	2.02),
+    new Vector3(-16.23,	0.00,	2.05),
+    new Vector3(-16.04,	0.00,	2.10),
+    new Vector3(-15.86,	0.00,	2.16),
+    new Vector3(-15.70,	0.00,	2.24),
+    new Vector3(-15.54,	0.00,	2.34),
+    new Vector3(-15.41,	0.00,	2.47),
+    new Vector3(-15.29,	0.00,	2.61),
+    new Vector3(-15.20,	0.00,	2.77),
+    new Vector3(-15.13,	0.00,	2.95),
+    new Vector3(-15.07,	0.00,	3.13),
+    new Vector3(-15.04,	0.00,	3.31),
+    new Vector3(-15.02,	0.00,	3.50),
+    new Vector3(-15.00,	0.00,	3.68),
+    new Vector3(-15.00,	0.00,	3.88),
+    new Vector3(-15.00,	0.00,	4.11),
+    new Vector3(-15.00,	0.00,	4.37), // Straight V
+    new Vector3(-15.00,	0.00,	4.67),
+    new Vector3(-15.00,	0.00,	4.99),
+    new Vector3(-15.00,	0.00,	5.31),
+    new Vector3(-15.00,	0.00,	5.64),
+    new Vector3(-15.00,	0.00,	5.96),
+    new Vector3(-15.00,	0.00,	6.28),
+    new Vector3(-15.00,	0.00,	6.58),
+    new Vector3(-15.00,	0.00,	6.85),
+    new Vector3(-14.99,	0.00,	7.09), // Turn
+    new Vector3(-14.99,	0.00,	7.29),
+    new Vector3(-14.98,	0.00,	7.47),
+    new Vector3(-14.96,	0.00,	7.65),
+    new Vector3(-14.92,	0.00,	7.84),
+    new Vector3(-14.87,	0.00,	8.02),
+    new Vector3(-14.80,	0.00,	8.20),
+    new Vector3(-14.71,	0.00,	8.36),
+    new Vector3(-14.60,	0.00,	8.51),
+    new Vector3(-14.47,	0.00,	8.63),
+    new Vector3(-14.32,	0.00,	8.74),
+    new Vector3(-14.15,	0.00,	8.82),
+    new Vector3(-13.97,	0.00,	8.89),
+    new Vector3(-13.79,	0.00,	8.93),
+    new Vector3(-13.61,	0.00,	8.96),
+    new Vector3(-13.43,	0.00,	8.98),
+    new Vector3(-13.25,	0.00,	8.99),
+    new Vector3(-13.09,	0.00,	8.99),
+    new Vector3(-12.92,	0.00,	9.00), // Straight H
+    new Vector3(-12.74,	0.00,	9.00),
+    new Vector3(-12.54,	0.00,	9.00),
+    new Vector3(-12.30,	0.00,	9.00),
+    new Vector3(-12.02,	0.00,	9.00),
+    new Vector3(-11.72,	0.00,	9.00),
+    new Vector3(-11.40,	0.00,	9.00),
+    new Vector3(-11.07,	0.00,	9.00),
+    new Vector3(-10.74,	0.00,	9.00),
+    new Vector3(-10.42,	0.00,	9.00),
+    new Vector3(-10.09,	0.00,	9.00),
+    new Vector3(-9.77,	0.00,	9.00),
+    new Vector3(-9.44,	0.00,	9.00),
+    new Vector3(-9.11,	0.00,	9.00),
+    new Vector3(-8.79,	0.00,	9.00),
+    new Vector3(-8.46,	0.00,	9.00),
+    new Vector3(-8.13,	0.00,	9.00),
+    new Vector3(-7.81,	0.00,	9.00),
+    new Vector3(-7.48,	0.00,	9.00),
+    new Vector3(-7.16,	0.00,	9.00),
+    new Vector3(-6.83,	0.00,	9.00),
+    new Vector3(-6.51,	0.00,	9.00),
+    new Vector3(-6.19,	0.00,	9.00),
+    new Vector3(-5.89,	0.00,	9.00),
+    new Vector3(-5.62,	0.00,	9.00),
+    new Vector3(-5.39,	0.00,	9.00),
+    new Vector3(-5.20,	0.00,	8.99), // turn
+    new Vector3(-5.02,	0.00,	8.99),
+    new Vector3(-4.86,	0.00,	8.99),
+    new Vector3(-4.69,	0.00,	8.99),
+    new Vector3(-4.52,	0.00,	8.98),
+    new Vector3(-4.34,	0.00,	8.96),
+    new Vector3(-4.15,	0.00,	8.92),
+    new Vector3(-3.97,	0.00,	8.87),
+    new Vector3(-3.79,	0.00,	8.80),
+    new Vector3(-3.63,	0.00,	8.71),
+    new Vector3(-3.48,	0.00,	8.60),
+    new Vector3(-3.36,	0.00,	8.47),
+    new Vector3(-3.25,	0.00,	8.31),
+    new Vector3(-3.17,	0.00,	8.15),
+    new Vector3(-3.10,	0.00,	7.97),
+    new Vector3(-3.06,	0.00,	7.79),
+    new Vector3(-3.03,	0.00,	7.60),
+    new Vector3(-3.01,	0.00,	7.42),
+    new Vector3(-3.00,	0.00,	7.23),
+    new Vector3(-3.00,	0.00,	7.02),
+    new Vector3(-3.00,	0.00,	6.78),
+    new Vector3(-3.00,	0.00,	6.50), // Straight V
+    new Vector3(-3.00,	0.00,	6.19),
+    new Vector3(-3.00,	0.00,	5.87),
+    new Vector3(-3.00,	0.00,	5.55),
+    new Vector3(-3.00,	0.00,	5.22),
+    new Vector3(-3.00,	0.00,	4.89),
+    new Vector3(-3.00,	0.00,	4.57),
+    new Vector3(-3.00,	0.00,	4.24),
+    new Vector3(-3.00,	0.00,	3.91),
+    new Vector3(-3.00,	0.00,	3.59),
+    new Vector3(-3.00,	0.00,	3.27),
+    new Vector3(-3.00,	0.00,	2.96),
+    new Vector3(-3.00,	0.00,	2.66),
+    new Vector3(-3.00,	0.00,	2.38),
+    new Vector3(-3.00,	0.00,	2.13),
+    new Vector3(-2.99,	0.00,	1.90), // Turn
+    new Vector3(-2.99,	0.00,	1.69),
+    new Vector3(-2.97,	0.00,	1.49),
+    new Vector3(-2.95,	0.00,	1.29),
+    new Vector3(-2.91,	0.00,	1.10),
+    new Vector3(-2.86,	0.00,	0.92),
+    new Vector3(-2.78,	0.00,	0.75),
+    new Vector3(-2.68,	0.00,	0.59),
+    new Vector3(-2.57,	0.00,	0.45),
+    new Vector3(-2.42,	0.00,	0.33),
+    new Vector3(-2.26,	0.00,	0.22),
+    new Vector3(-2.07,	0.00,	0.14),
+    new Vector3(-1.84,	0.00,	0.08),
+    new Vector3(-1.59,	0.00,	0.03),
+    new Vector3(-1.29,	0.00,	0.01),
+    new Vector3(-0.91,	0.00,	0.00), // Straight End
+  ],
+  true
+)
+function scaleCurve(curve, scaleFactor) {
+  const points = curve.getPoints(100); // Number of points to generate (you can adjust this)
+  for (let i =  0; i < points.length; i++) {
+      points[i].multiplyScalar(scaleFactor);
+      points[i].add(new Vector3( 0,	1,	0));
+  }
+  // Assuming the curve has a method to set points
+  return new CatmullRomCurve3(points);
+}
+
+export const bigRoute = scaleCurve(blenderPoints,	3)

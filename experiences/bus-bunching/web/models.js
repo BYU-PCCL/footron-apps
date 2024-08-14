@@ -1,53 +1,74 @@
-import * as THREE from "three";
+import {
+  BoxGeometry,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  Mesh,
+  PlaneGeometry,
+  DoubleSide,
+  LoadingManager,
+} from "three/src/Three.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-const loader = new GLTFLoader();
-const busStopGeometry = new THREE.BoxGeometry(0.2, 2, 0.2).translate(0, 1, 0);
-const busStopMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaff });
-export const busStop = new THREE.Mesh(busStopGeometry, busStopMaterial);
+const nullGeometry = new BoxGeometry(1, 1, 1);
+const nullMaterial = new MeshBasicMaterial({ color: 0x00ff00 });
+const nullMesh = new Mesh(nullGeometry, nullMaterial);
 
-const busGeometry = new THREE.BoxGeometry(0.6, 0.5, 1.5);
-const busMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
-export let bus = new THREE.Mesh(busGeometry, busMaterial);
-export let busBack = new THREE.Mesh(busGeometry, busMaterial);
+const busMaterial = new MeshBasicMaterial({ color: 0xffaa00 });
+const busGeometry = new BoxGeometry(1, 1, 3);
+let bus = new Mesh(busGeometry, busMaterial);
 
-export async function loadModels(onLoad) {
-  loader.load(
-    "./models/uvx-front.glb",
-    function (gltf) { // on load
-      gltf.scene.scale.set(0.3, 0.3, 0.3);
-      bus = gltf.scene;
-      onLoad();
+const groundGeometry = new PlaneGeometry(1000, 1000, 32, 32);
+groundGeometry.rotateX(Math.PI / 2);
+const groundMaterial = new MeshStandardMaterial({
+  color: 0x555566,
+  side: DoubleSide,
+});
+const groundMesh = new Mesh(groundGeometry, groundMaterial);
 
-    },
-    function (xhr) { // progress
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
-    function (error) {
-      console.log("failed to load asset");
-      onLoad();
+export const loadedModels = {};
+loadedModels["bus"] = bus;
+loadedModels["road"] = groundMesh;
 
-    }
+const manager = new LoadingManager();
+manager.onStart = function (url, itemsLoaded, itemsTotal) {
+  console.log(
+    "Started loading file: " +
+      url +
+      ".\nLoaded " +
+      itemsLoaded +
+      " of " +
+      itemsTotal +
+      " files."
   );
-  loader.load(
-    "./models/uvx-back.glb",
-    function (gltf) { // on load
-      gltf.scene.scale.set(0.3, 0.3, 0.3);
-      busBack = gltf.scene;
-    },
-    function (xhr) { // progress
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
-    function (error) {
-      console.log("failed to load asset");
-    }
-);
+};
+
+manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+  console.log(
+    "Loading file: " +
+      url +
+      ".\nLoaded " +
+      itemsLoaded +
+      " of " +
+      itemsTotal +
+      " files."
+  );
+};
+
+export function loadModels(callback) {
+  // Callback to avoid scene starting before models are loaded.
+  console.log("STARTING LOAD");
+  manager.onLoad = callback;
+  manager.onError = callback;
+  const loader = new GLTFLoader(manager);
+  loader.load("./models/small-bus.glb", (gltf) => {
+    loadModel(gltf, 0.4, "bus");
+  });
+  loader.load("./models/scene.glb", (gltf) => {
+    loadModel(gltf, 3, "road");
+  });
 }
 
-const groundGeometry = new THREE.PlaneGeometry(50, 50, 32, 32);
-groundGeometry.rotateX(Math.PI / 2);
-const groundMaterial = new THREE.MeshStandardMaterial({
-  color: 0x555566,
-  side: THREE.DoubleSide,
-});
-export const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+function loadModel(gltf, scale, ref) {
+  gltf.scene.scale.set(scale, scale, scale);
+  loadedModels[ref] = gltf.scene;
+}

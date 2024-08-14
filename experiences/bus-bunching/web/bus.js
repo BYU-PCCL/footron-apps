@@ -1,5 +1,6 @@
 export default class Bus {
   constructor(id) {
+    this.index = id;
     this.id = "bus" + id;
     this.passengers = [];
     this.passengersGettingOff = [];
@@ -7,21 +8,25 @@ export default class Bus {
     this.destination;
     this.nextBus;
     this.drivingTarget = this.destination;
-    this.MAX_FILL = 10;
     this.model;
     this.velocity = 0;
-    this.MAX_VELOCITY = 0.2;
-    this.ACCELERATION = 0.06;
-    this.timeLoading = 0;
+    this.MAX_VELOCITY = 0.2; // These constants should probably be
+    this.ACCELERATION = 0.06; // centralized to put all parameters
+    this.MAX_FILL = 10; // in one place
     this.TIME_PER_PASSENGER = 0.25;
+    this.timeLoading = 0;
     this.atStop = false;
     this.infoDiv = null;
     this.addInfoDiv();
     this.logInfo = false;
     this.backHalf;
+    this.hold = false;
   }
 
   update(time) {
+    if (this.hold) {
+      return;
+    }
     if (this.atStop) {
       this.load(time);
     } else {
@@ -45,7 +50,9 @@ export default class Bus {
         console.log(
           this.passengers.length + " next stop: " + this.destination.symbol
         );
+        console.log(this);
       }
+      this.timeLoading = 0;
       return;
     }
     this.timeLoading += time;
@@ -77,8 +84,14 @@ export default class Bus {
     } else if (this.velocity < 0) {
       this.velocity = 0;
     }
-    if (Math.abs(this.destination.position - this.position) < 0.001) {
-      if (this.logInfo) console.log("stopping at: " + this.destination.symbol);
+    if (Math.abs(this.drivingTarget - this.position) < 0.0005) {
+      this.velocity = 0;
+    }
+    if (Math.abs(this.destination.position - this.position) < 0.0005) {
+      if (this.logInfo) {
+        console.log("stopping at: " + this.destination.symbol);
+        console.log("position: " + this.position);
+      }
       this.position = this.destination.position;
       this.velocity = 0;
       this.atStop = true;
@@ -108,7 +121,7 @@ export default class Bus {
 
   addInfoDiv() {
     let passengers = document.createElement("div");
-    passengers.className = "passengersWrapper";
+    passengers.className = "busPassengers";
     this.waitingPassengersDiv = passengers;
 
     let infoDiv = document.createElement("div");
@@ -143,6 +156,21 @@ export default class Bus {
           this.passengers.length
       );
     }
-    passenger = this.infoDiv.querySelector("." + passenger.riderClass).remove();
+    passenger = this.infoDiv.querySelector("." + passenger.riderClass);
+    if (passenger) {
+      passenger.remove();
+    }
+  }
+
+  holdBus(e) {
+    if (e.key == this.index.toString()) {
+      this.hold = true;
+    }
+  }
+
+  startBus(e) {
+    if (e.key == this.index.toString()) {
+      this.hold = false;
+    }
   }
 }

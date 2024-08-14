@@ -28,7 +28,7 @@ html {
   overflow: hidden;
 }
 
-div.storytext {
+.storytext {
   /* Positioning the div */
   position: absolute;
   top: 1000px;
@@ -67,36 +67,85 @@ div.storytext {
   font-size: 80px;
 }
 
-div.info {
+.info {
   position: absolute;
-  z-index: 100;
-  width: 100px;
-  font-size: 20px;
-  margin-left: -50px;
-  margin-top: -50px;
-}
-div.passengersWrapper {
-  width: 100%;
-}
-div.infoTitle {
-  width: 100px;
-  border-radius: 20%;
-  background-color: #eee;
+  height: 150;
   align-self: center;
-  outline: #ffffff;
-  font-size: 80px;
   text-align: center;
-  vertical-align: 50%;
-  line-height: 100px;
+  z-index: 100;
+  font-size: 20px;
+  margin-left: -60px;
+  margin-top: -150px;
 }
 
-div.busInfo {
+.infoTitle {
+  align-content: center;
+  background-color: #eee;
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  font-size: 50px;
+}
+
+.infoTitle::before{
+  position: absolute;
+  content: ' ';
+  background-color: #eee;
+  width: 20px;
+  height: 80px;
+  bottom: -70px;
+  left: 50px;
+}
+.passengersWrapper {
+  opacity: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+
+  top: 120px;
+  left: 80px;
+  height: 80px;
+  min-width: 80px;
+  
+  background-color: #eee;
+  border-radius: 40px;
+  transition: width 0.3s ease-in-out, opacity 1s;
+}
+.passengersWrapper:empty {
+  opacity: 0;
+  width: 100px;
+}
+
+.busPassengers {
+  display: grid;  /* change to flex if you want a single row */
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border-radius: 15px;
+  opacity: 80%;
+  padding: 5px;
+  right: 100%;
+  position: absolute;
+  transition: opacity 1s;
+}
+.busPassengers:empty {
+  opacity: 0;
+}
+
+
+.busInfo {
   position: absolute;
   display: flex;
 }
 
-div.passenger {
-  display: inline-block;
+.passenger {
+  opacity: 1;
   width: 20px;
   height: 20px;
 }

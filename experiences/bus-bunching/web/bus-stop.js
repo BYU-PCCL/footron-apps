@@ -7,12 +7,13 @@ export default class BusStop {
     this.nextStops = [];
     this.model;
     this.timeSinceLastPassenger = 0;
-    this.TIME_PER_PASSENGER = 6;
+    this.TIME_PER_PASSENGER = 4;  // TODO: move all sim parameters to main
     this.nextStopState = id;
     this.infoAddedToPage = false;
     this.waitingPassengersDiv = null;
     this.symbol = symbol;
     this.color = color;
+    this.passengerWidth = 10;
 
     this.infoDiv = null;
     this.addInfoDiv();
@@ -25,21 +26,28 @@ export default class BusStop {
     }
   }
   addRider() {
-      this.nextStopState++;
-      this.nextStopState %= this.nextStops.length;
+    this.nextStopState++;
+    this.nextStopState %= this.nextStops.length;
     let passenger = new Rider(this.nextStops[this.nextStopState]);
     this.passengers.push(passenger);
-    document
-      .querySelector('#' + this.id)
-      .querySelector(".passengersWrapper")
-      .appendChild(passenger.div);
+    let passengersWrapper = document
+      .querySelector("#" + this.id)
+      .querySelector(".passengersWrapper");
+    let width = passengersWrapper.scrollWidth;
+    passengersWrapper.style.width = width + this.passengerWidth + "px";
+    passengersWrapper.appendChild(passenger.div);
   }
+
   pickUpPassenger() {
     if (this.passengers.length <= 0) return null;
     let waitingDiv = document
-      .querySelector('#' + this.id)
+      .querySelector("#" + this.id)
       .querySelector(".passengersWrapper");
-    if (waitingDiv.querySelector(".passenger")) waitingDiv.querySelector(".passenger").remove();
+    if (waitingDiv.querySelector(".passenger")) {
+      waitingDiv.querySelector(".passenger").remove();
+      let width = waitingDiv.scrollWidth;
+      waitingDiv.style.width = width - this.passengerWidth + "px";
+    }
     let leaving = this.passengers.shift();
     return leaving;
   }
