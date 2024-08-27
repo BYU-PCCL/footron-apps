@@ -4,7 +4,7 @@
     "title": "Temple Photo Op",
     "description": "Experience beautiful LDS temples.",
     "action_hints": ["pick a temple"],
-    "queueable": true,
+    "queueable": false,
     "layout": "full",
     "lifetime": 240
 }
