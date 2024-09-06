@@ -2,7 +2,7 @@
 title = "Interactive Experiences"
 description = "Explore Computer Science with these real-time interactive visualizations."
 tags = [ "interactive" ]
-featured = "ifs"
+featured = "bus-bunching"
 
 [animation]
 title = "BYU Animation"
