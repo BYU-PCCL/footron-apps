@@ -53,3 +53,9 @@ experiences = [
 [cpms50]
 title = "CPMS is 50"
 experiences = [ "cpms50" ]
+
+[lds]
+title = "LDS-themed experiences"
+experiences = [
+  "temple-photo-op"
+]

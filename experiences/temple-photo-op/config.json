@@ -1,0 +1,10 @@
+{
+    "id": "temple-photo-op",
+    "type": "web",
+    "title": "Temple Photo Op",
+    "description": "Experience beautiful LDS temples.",
+    "action_hints": ["pick a temple"],
+    "queueable": false,
+    "layout": "full",
+    "lifetime": 240
+}
