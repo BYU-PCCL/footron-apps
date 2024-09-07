@@ -47,7 +47,7 @@ const ControlsComponent = () => {
         <b>Change the number of bus stops!</b>
       </p>
       <Slider
-        min={1}
+        min={2}
         max={20}
         onChange={updateStopCount}
         step={1}
