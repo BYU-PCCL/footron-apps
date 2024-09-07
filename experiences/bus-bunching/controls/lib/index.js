@@ -18,14 +18,14 @@ const ControlsComponent = () => {
 
   const updateBusCount = useCallback(
     async (event, value) => {
-      await sendMessage({ type: "busCount", value: value })
+      await sendMessage({ type: "numBuses", value: value })
     },
     [sendMessage]
   )
 
   const updateStopCount = useCallback(
     async (event, value) => {
-      await sendMessage({ type: "stopCount", value: value })
+      await sendMessage({ type: "numStops", value: value })
     },
     [sendMessage]
   )
