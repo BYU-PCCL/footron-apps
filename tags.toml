@@ -19,7 +19,8 @@ experiences = [
   "sorting",
   "fractals",
   "butterfly",
-  "maze-generation"
+  "maze-generation",
+  "bus-bunching"
 ]
 
 [game]

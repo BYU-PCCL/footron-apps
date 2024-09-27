@@ -1,0 +1,10 @@
+{
+  "id": "bus-bunching",
+  "type": "web",
+  "title": "Bus Bunching",
+  "description": "Bus traffic simulation",
+  "action_hints": ["change the number of buses", "change the number of stops", "pause a bus on your phone"],
+  "layout": "full",
+  "lifetime": 180,
+  "queueable": true
+}
