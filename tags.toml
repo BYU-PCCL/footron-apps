@@ -19,7 +19,8 @@ experiences = [
   "sorting",
   "fractals",
   "butterfly",
-  "maze-generation"
+  "maze-generation",
+  "bus-bunching"
 ]
 
 [game]
@@ -40,7 +41,8 @@ experiences = [
   "salt",
   "stowaway",
   "cenote",
-  "witchscat"
+  "witchscat",
+  "studacc"
 ]
 
 [graduation]
