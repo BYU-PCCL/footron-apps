@@ -7,6 +7,12 @@
   <title>Bus Bunching: UVX</title>
 
   <script src="./footron-messaging.development.js" type="text/javascript"></script>
+  <script>
+    if (typeof module === "object") {
+      window.module = module
+      module = undefined
+    }
+  </script>
   <script src="./jquery-3.6.0.min.js" type="text/javascript"></script>
   <script src="./fader.js" type="text/javascript"></script>
   <script type="module" crossorigin src="index-DUfHmJ6Z.js"></script>
@@ -14,8 +20,8 @@
 </head>
 
 <body>
-  <div class="storytext fader">Have you ever been waiting for a bus for a long time when several arrive at
-    once?.</div>
+  <div class="storytext fader">Have you ever been waiting for a bus for a long time when several buses arrive at
+    once?</div>
 
   <div class="storytext fader">This phenomenon is called <strong>bus bunching</strong>.</div>
 
