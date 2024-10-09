@@ -30,6 +30,20 @@ const ControlsComponent = () => {
     [sendMessage]
   )
 
+  const restart = useCallback(
+    async (event, value) => {
+      await sendMessage({ type: "restart", value: value })
+    },
+    [sendMessage]
+  )
+
+  const pause = useCallback(
+    async (event, value) => {
+      await sendMessage({ type: "numStops", value: value })
+    },
+    [sendMessage]
+  )
+
   return (
     <div css={containerStyle}>
       <p>
@@ -54,6 +68,18 @@ const ControlsComponent = () => {
         marks
         defaultValue={5}
       />
+      <Box>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={restart}
+        >
+          Restart
+        </Button>
+      </Box>
+      <Box>
+        {/* // PAUSE BUTTONS HERE */}
+      </Box>
     </div>
   )
 }
