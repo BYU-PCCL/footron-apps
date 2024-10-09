@@ -80,6 +80,7 @@ const ControlsComponent = () => {
       <Box>
         {/* // PAUSE BUTTONS HERE */}
       </Box>
+      <p>Learn more about bus bunching here: <a href="https://en.wikipedia.org/wiki/Bus_bunching">Wikipedia "Bus Bunching"</a></p>
     </div>
   )
 }
