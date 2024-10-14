@@ -114,7 +114,7 @@ const ControlsComponent = () => {
       <p>
         Learn more about bus bunching here:{' '}
         <a href="https://en.wikipedia.org/wiki/Bus_bunching">
-          Wikipedia "Bus Bunching"
+          Wikipedia &quot;Bus Bunching&quot;
         </a>
       </p>
       <Box style={sectionWrapperStyle}>
