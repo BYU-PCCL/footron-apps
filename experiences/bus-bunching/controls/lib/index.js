@@ -83,8 +83,8 @@ const ControlsComponent = () => {
     [sendMessage]
   );
 
-  const busStopSymbol = (index: number) => {
-    let stopStyle = {
+  const busStopSymbol = (index) => {
+    const stopStyle = {
       ...buttonStyle,
       color: stopColors[index % stopColors.length],
     };
@@ -112,9 +112,9 @@ const ControlsComponent = () => {
     <div css={containerStyle}>
       <h1>Bus Bunching</h1>
       <p>
-        Learn more about bus bunching here:{" "}
+        Learn more about bus bunching here:{' '}
         <a href="https://en.wikipedia.org/wiki/Bus_bunching">
-          Wikipedia "Bus Bunching"
+          Wikipedia &quot;Bus Bunching&quot;
         </a>
       </p>
       <Box style={sectionWrapperStyle}>
