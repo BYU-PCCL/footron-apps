@@ -41,7 +41,8 @@ experiences = [
   "salt",
   "stowaway",
   "cenote",
-  "witchscat"
+  "witchscat",
+  "studacc"
 ]
 
 [graduation]
