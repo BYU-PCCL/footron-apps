@@ -83,7 +83,7 @@ const ControlsComponent = () => {
     [sendMessage]
   );
 
-  const busStopSymbol = (index: number) => {
+  const busStopSymbol = (index) => {
     const stopStyle = {
       ...buttonStyle,
       color: stopColors[index % stopColors.length],
