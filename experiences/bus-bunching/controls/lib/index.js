@@ -112,7 +112,7 @@ const ControlsComponent = () => {
     <div css={containerStyle}>
       <h1>Bus Bunching</h1>
       <p>
-        Learn more about bus bunching here:{" "}
+        Learn more about bus bunching here:{' '}
         <a href="https://en.wikipedia.org/wiki/Bus_bunching">
           Wikipedia "Bus Bunching"
         </a>
