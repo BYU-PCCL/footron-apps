@@ -22,24 +22,31 @@ const sectionWrapperStyle = {
 };
 
 const buttonWrapperStyle = {
-  width: "100%",
   display: "grid",
-  gridTemplateColumns: "repeat(5, 17%)",
-  gridTemplateRows: "repeat(4, 100%)",
-  gap: "3%",
-  alignItems: "center",
-  justifyContent: "center",
-  Height: "auto",
+  gap: "10px",
+  gridTemplateColumns: "repeat(5, minmax(70px, 1fr))",
 };
 
 const buttonStyle = {
+  position: "relative",
   width: "100%",
-  aspectRatio: "1 / 1",
-  borderRadius: "100%",
-  fontSize: "200%",
+  paddingTop: "100%",
+  borderRadius: "50%",
+};
+
+const contentStyle = {
+  position: "absolute",
+  top: "0",
+  left: "0",
+  right: "0",
+  bottom: "0",
+  display: "flex",
   alignItems: "center",
   justifyContent: "center",
-};
+  color: "white",
+  fontSize: "500%",
+
+}
 
 const ControlsComponent = () => {
   const { sendMessage } = useMessaging();
@@ -84,8 +91,8 @@ const ControlsComponent = () => {
   );
 
   const busStopSymbol = (index) => {
-    const stopStyle = {
-      ...buttonStyle,
+    let stopStyle = {
+      ...contentStyle,
       color: stopColors[index % stopColors.length],
     };
     return (
