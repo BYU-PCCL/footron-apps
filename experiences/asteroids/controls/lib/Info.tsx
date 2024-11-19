@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Divider, IconButton } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import { definitionHeaderStyle, overlayMenuStyle, fullSizeStyle, largeTopUiStyle, overlayStyle, thinBottomWidgetStyle } from "./style";
 
 interface InfoObject {
   [key: string]: definitionObject;
@@ -80,7 +81,7 @@ export default function Info() {
       </p>
     </div>,
     <div key="page3">
-      <h2>Learn with the Footron</h2>
+      <h2>Learn with the footron</h2>
       <p>
         Select 'Learn' to access three different stories about asteroids and
         comets, including a tour through NASA's historic missions.
@@ -149,10 +150,7 @@ export default function Info() {
           Solar System Dynamics
         </a>{" "}
         website. Visit the{" "}
-        <a
-          href="https://www.nasa.gov/planetarydefense/overview"
-          target="_blank"
-        >
+        <a href="https://www.nasa.gov/planetarydefense/overview" target="_blank">
           Planetary Defense Coordination Office
         </a>{" "}
         for more information on how NASA monitors for potentially hazardous
@@ -166,7 +164,6 @@ export default function Info() {
       title: "Asteroid",
       description: (
         <div>
-          <h4>Asteroid</h4>
           <p>
             Sometimes called minor planets, asteroids are rocky, airless
             remnants left over from the early formation of our solar system
@@ -196,7 +193,6 @@ export default function Info() {
       title: "Comet",
       description: (
         <div>
-          <h4>Comet</h4>
           <p>
             Comets are frozen leftovers from the formation of the solar system
             composed of dust, rock, and ice. They range from a few kilometers,
@@ -225,8 +221,6 @@ export default function Info() {
       title: "Near Earth Object (NEO)",
       description: (
         <div>
-          <h4>NEO</h4>
-          <h5>Near-Earth object</h5>
           <p>
             {" "}
             A near-Earth object is any small solar system body whose orbit
@@ -249,13 +243,12 @@ export default function Info() {
           </p>
         </div>
       ),
-      relatedTerms: ["perehelion"],
+      relatedTerms: ["perihelion", "pho", "au"],
     },
-    parihelion: {
+    perihelion: {
       title: "Perihelion",
       description: (
         <div>
-          <h4>Perihelion</h4>
           <p>
             The perihelion is the point in the orbit of an object at which it is
             closest to the sun.{" "}
@@ -275,7 +268,6 @@ export default function Info() {
       title: "Aphelion",
       description: (
         <div>
-          <h4>Aphelion</h4>
           <p>
             The aphelion is the point in the orbit of an object at which it is
             farthest from the sun.
@@ -441,24 +433,10 @@ export default function Info() {
     definition,
   }) => {
     return (
-      <Box
-        sx={{
-          width: "min(85%, 800px)",
-          maxHeight: "85%",
-          bgcolor: "background.paper",
-          overflow: "auto",
-          padding: "2em",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
+      <Box css={overlayMenuStyle}>
+        <Box css={definitionHeaderStyle}>
           <Box> </Box>
-          <h4>{definitions[definition].title}</h4>
+          <h3>{definitions[definition].title}</h3>
           <IconButton onClick={() => setMenuOpen(false)}>
             <Close />
           </IconButton>
@@ -472,40 +450,28 @@ export default function Info() {
   };
 
   return (
-    <Box>
+    <Box css={fullSizeStyle}>
       {menuOpen ? (
-        <Backdrop open={true} style={{ zIndex: "99999" }}>
+        <Backdrop open={true} css={overlayStyle}>
           <ClickAwayListener onClickAway={handleClickAwaySettings}>
-            <Box
-              sx={{
-                width: "min(85%, 800px)",
-                maxHeight: "85%",
-                bgcolor: "background.paper",
-                overflow: "auto",
-                padding: "2em",
-              }}
-            >
+            <Box css={overlayMenuStyle}>
               <DefinitionOverlay definition={currentDefinition} />
             </Box>
           </ClickAwayListener>
         </Backdrop>
       ) : null}
-      {pages[currentPage - 1]}
+      <Box css={largeTopUiStyle}>
+        {pages[currentPage - 1]}
+      </Box>
 
       <Pagination
-        size="small"
+        size="medium"
         count={pages.length}
         page={currentPage}
         onChange={handlePageChange}
         color="primary"
         variant="outlined"
-        shape="rounded"
-        sx={{
-          marginTop: 2,
-          display: "flex",
-          justifyContent: "center",
-          zIndex: "888",
-        }}
+        css={thinBottomWidgetStyle}
       />
     </Box>
   );

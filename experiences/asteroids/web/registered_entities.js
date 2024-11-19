@@ -670,6 +670,7 @@ const entities = {
   Wmap: "sc_wmap", // Broken
   Magellan: "sc_magellan", // Broken
   "Venus express": "sc_venus_express", // Broken
+  "Earth and Moon": "earth"
   ////////////////////////////////////////////////////
   //                     Unused                     //
   ////////////////////////////////////////////////////
@@ -780,7 +781,7 @@ const celestialObjects = {
   // Moons
   "Didymos - Dimorphos": "dimorphos",
   "Patroclus - Menoetius": "menoetius",
-  "Earth - Moon (Luna)": "moon",
+  "Moon": "moon",
   // Comets
   "Hartley 2": "103p_hartley_2",
   "Tempel 1": "9p_tempel_1",
@@ -792,22 +793,25 @@ const celestialObjects = {
 const systems = {
   "Inner Planets": "inner_solar_system",
   "Outer Planets": "outer_solar_system",
-  "Earth Barycenter": "earth"
+  "Earth and Moon": "earth"
 }
 
 const spacecraft = {
-  Galileo: "sc_galileo",
-  Dart: "sc_dart",
-  Dawn: "sc_dawn",
-  "Deep impact": "sc_deep_impact",
-  "Deep impact_impactor": "sc_deep_impact_impactor",
-  "Deep space_1": "sc_deep_space_1",
-  "Near shoemaker": "sc_near_shoemaker",
+  // Galileo: "sc_galileo",
+  // Dart: "sc_dart",
+  // Dawn: "sc_dawn",
+  // "Deep impact": "sc_deep_impact",
+  // "Deep impact_impactor": "sc_deep_impact_impactor",
+  // "Deep space_1": "sc_deep_space_1",
+  // "Near shoemaker": "sc_near_shoemaker",
   Lucy: "sc_lucy",
-  Rosetta: "sc_rosetta",
+  // Rosetta: "sc_rosetta",
   "Osiris rex": "sc_osiris_rex",
-  "Osiris rex src": "sc_osiris_rex_src",
-  Philae: "sc_philae",
+  // "Osiris rex src": "sc_osiris_rex_src",
+  // Philae: "sc_philae",
+  Psyche: "sc_psyche",
+  // Stardust: "sc_stardust",
+  // Stardust_src: "sc_stardust_src",
 }
 
 const broken = {

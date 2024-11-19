@@ -141,6 +141,7 @@ export const NaturalLightingIcon = () => {
     </Box>
   );
 };
+
 export const FloodLightingIcon = () => {
   return (
     <Box>

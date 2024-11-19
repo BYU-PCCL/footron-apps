@@ -1,14 +1,14 @@
 import { useMessaging } from "@footron/controls-client";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { IconButton } from "@mui/material";
-import { standardContainerStyle } from "./style";
+import { Box, Button } from "@mui/material";
+import { fullSizeStyle, largeBottomUiStyle, smallTopUiStyle, thinBottomWidgetStyle } from "./style";
+import ZoomControls from "./zoom";
+import TimeSlider from "./timeSlider";
 
 export default function AsteroidWatch() {
   const { sendMessage } = useMessaging();
 
   const prev = async () => {
-    sendMessage({ type: "watch", value: "previoius" });
+    sendMessage({ type: "watch", value: "previous" });
   };
 
   const next = async () => {
@@ -16,16 +16,22 @@ export default function AsteroidWatch() {
   };
 
   return (
-    <div>
-      <b>Select next close approach</b>
-      <span style={standardContainerStyle}>
-        <IconButton onClick={prev}>
-          <ChevronLeftIcon sx={{ fontSize: 80 }} />
-        </IconButton>
-        <IconButton onClick={next}>
-          <ChevronRightIcon sx={{ fontSize: 80 }} />
-        </IconButton>
-      </span>
+    <div css={fullSizeStyle}>
+      <Box css={smallTopUiStyle}>
+        <h3>Select next close approach</h3>
+      </Box>
+      <Box css={largeBottomUiStyle}>
+        <Box css={thinBottomWidgetStyle}>
+          <Button color="primary" variant="contained" size="large" onClick={prev}>
+            <strong>{"<"}</strong>
+          </Button>
+          <Button color="primary" variant="contained" size="large" onClick={next}>
+            <strong>{">"}</strong>
+          </Button>
+        </Box>
+        <ZoomControls />
+        <TimeSlider />
+      </Box>
     </div>
   );
 }

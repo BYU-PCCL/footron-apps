@@ -566,9 +566,9 @@
   background-color: var(--whiteAlpha15);
   cursor: pointer;
 }
-.search .result-div.active .clickable {
+/* .search .result-div.active .clickable {
   text-decoration: underline;
-}
+} */
 .search .results .entries {
   display: block;
   outline: none;
@@ -1058,6 +1058,7 @@
   pointer-events: all;
   transition: all 0.3s ease;
   z-index: 2;
+  display: none;
 }
 .carousel-container .carousel .navigation-button:active {
   background: var(--whiteAlpha15);
@@ -1066,7 +1067,7 @@
   outline: 0;
 }
 .carousel-container .carousel .navigation-button .icon {
-  display: block;
+  /* display: block; */
   margin: auto;
 }
 .carousel-container .carousel .navigation-button .icon.hidden {
@@ -1096,12 +1097,12 @@
 }
 .carousel-container .carousel .mobile-hint {
   align-items: center;
-  display: flex;
+  display: none;
   justify-content: center;
   pointer-events: none;
 }
 .carousel-container .carousel .mobile-hint span {
-  display: inline-block;
+  /* display: inline-block; */
   vertical-align: middle;
 }
 .carousel-container .carousel .slide.overlay .mobile-hint {
@@ -1188,7 +1189,7 @@
     .track
     > .slide:last-child
     .navigation-button.replay.mobile {
-    display: block;
+    display: none;
   }
   .carousel-container
     .carousel
@@ -1487,7 +1488,7 @@ footer p.tutorial-smallprint {
 }
 footer p.tutorial-smallprint > a {
   color: var(--grayblueLight);
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transition: color 0.2s ease-in;
 }
 #tutorial-overlay.tutorial-slide-labels .bullet-container,
@@ -2965,7 +2966,7 @@ footer p.tutorial-smallprint > a {
 }
 .carousel .content-block a {
   color: var(--uranus);
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 .carousel .content-block .number {
   font-family: monospace;
@@ -5258,7 +5259,7 @@ body .semi {
   cursor: pointer;
   opacity: 0.75;
   position: relative;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transition: opacity 0.25s ease-in-out;
 }
 @media (pointer: fine) and (hover: hover) {
@@ -6626,7 +6627,7 @@ button {
   height: 37px;
   letter-spacing: 0.5px;
   padding: 6px 12px 10px;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transition: color 0.2s ease-in;
 }
 .filters-modal-count {
@@ -7054,7 +7055,7 @@ button {
 .distance-block h5.distance-unit,
 .rock-group span.diameter-unit {
   margin-left: 0.3em;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 @media only screen and (max-width: 961px) {
   .watch-card .text-group > h3 {
@@ -7300,7 +7301,7 @@ button {
 }
 #panel-container.mission-panel a {
   color: var(--grayblueLight);
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transition: color 0.2s ease-in;
 }
 .mission-carousel .bullet-container {
@@ -7786,7 +7787,7 @@ div.definition-info span {
   cursor: pointer;
   opacity: 0.75;
   position: relative;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transition: opacity 0.25s ease-in-out;
 }
 .definition-content span:after {
@@ -8199,4 +8200,8 @@ div.definition-info span {
 
 .hidden-on-footron {
     display: none;
+}
+
+.tippy-box {
+  display: none;
 }

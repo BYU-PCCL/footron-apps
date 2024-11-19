@@ -40,17 +40,17 @@ async function handleSettingsMessage(message) {
     case "asteroids":
       if (message.value == null) throw "message.value is null";
       count = await showAsteroids(message.value);
-      client.sendMessage(count);
+      // client.sendMessage(count);
       break;
     case "phos":
       if (message.value == null) throw "message.value is null";
       count = await showPHOs(message.value);
-      client.sendMessage(count);
+      // client.sendMessage(count);
       break;
     case "comets":
       if (message.value == null) throw "message.value is null";
-      count = await shoComets(message.value);
-      client.sendMessage(count);
+      count = await showComets(message.value);
+      // client.sendMessage(count);
       showComets(message.value);
       break;
     case "lighting":
@@ -78,6 +78,9 @@ async function handleSettingsMessage(message) {
     case "starfield":
       toggleLayer("starfield");
       break;
+    case "userInterface":
+      toggleLayer("ui");
+      break;
     default:
       throw "Unknown setting: " + message.setting;
   }
@@ -85,13 +88,7 @@ async function handleSettingsMessage(message) {
 
 function handleFlyMessage(message) {
   if (message.value == null) throw "message.value is null";
-  else if (Object.keys(celestialObjects).includes(message.value))
-    flyToObject(celestialObjects[message.value]);
-  else if (Object.keys(spacecraft).includes(message.value))
-    flyToSpacecraft(spacecraft[message.value]);
-  else if (Object.keys(systems).includes(message.value))
-    flyToSystem(systems[message.value]);
-  else throw "unkown target: " + message.value;
+  flyTo(message.value);
 }
 
 function handleTimeMessage(message) {
@@ -102,11 +99,13 @@ function handleTimeMessage(message) {
 
 function handleLearnMessage(message) {
   if (message.value == null) throw "message.value is null";
-  if (message.value == "next") nextSlide();
-  else if (message.value == "previous") prevSlide();
-  else if (message.value == "asteroids-101") startStoryAsteroids();
+  if (message.value == "asteroids-101") startStoryAsteroids();
   else if (message.value == "close-approaches") startStoryCloseApproaches();
   else if (message.value == "missions") startStoryMissions();
+  else if (message.value == "next") nextSlide();
+  else if (message.value == "previous") prevSlide();
+  else if (message.value == "first") firstSlide();
+  else if (message.value == "replay") replayAnimation();
   else throw "unknown value: " + message.value;
 }
 
@@ -115,7 +114,7 @@ function handleContextMessage(message) {
   if (message.value == "home") goHome();
   else if (message.value == "watch") watch();
   else if (message.value == "fly") goHome();
-  else if (message.value == "learn") console.log("I DON'T KNOW IF I NEED THIS");
+  else if (message.value == "learn") goHome();
   else throw "unknown value: " + message.value;
 }
 

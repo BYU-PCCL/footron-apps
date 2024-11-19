@@ -1,7 +1,7 @@
-import { Button, Slider, Box, IconButton } from "@material-ui/core";
+import { Button, Slider, Box } from "@material-ui/core";
 import { useMessaging } from "@footron/controls-client";
 import { useState } from "react";
-import { standardContainerStyle } from "./style";
+import { thickBottomWidgetStyle, thinBottomWidgetStyle } from "./style";
 import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
@@ -68,12 +68,12 @@ export default function TimeSlider() {
   };
 
   return (
-    <div>
-      <span>
+    <Box css={thickBottomWidgetStyle}>
+      <Box css={thinBottomWidgetStyle}>
         <b>Change the speed of time</b>
         <Box>{formatTime(calculateValue(rate))}</Box>
-      </span>
-      <Box style={standardContainerStyle}>
+      </Box>
+      <Box css={thinBottomWidgetStyle}>
         <Slider
           aria-label="Restricted values"
           defaultValue={18.7}
@@ -84,18 +84,19 @@ export default function TimeSlider() {
           onChange={(e, v) => updateTime(e, v)}
         />
       </Box>
-      <Box style={standardContainerStyle}>
-        <Button onClick={goLive} variant="contained" color="primary">
+      <Box css={thinBottomWidgetStyle}>
+        <Button onClick={goLive} variant="contained" color="primary" size="large">
           Live
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={rate == 0 ? play : pauseTime}
+          size="large"
         >
           {rate == 0 ? <PlayArrowIcon /> : <PauseIcon />}
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 }

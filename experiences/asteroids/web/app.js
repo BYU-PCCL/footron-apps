@@ -26465,7 +26465,7 @@
       },
       function (t) {
         t.exports =
-          '<div class="clickable replay-button-block" onclick="onClick">\n\t<button>\n\t\t<span class="icon icon-replay"></span>\n\t\t<span class="text semi">{$text}</span>\n\t</button>\n</div>\n';
+          '<div class="clickable replay-button-block hidden-on-footron" onclick="onClick">\n\t<button>\n\t\t<span class="icon icon-replay"></span>\n\t\t<span class="text semi">{$text}</span>\n\t</button>\n</div>\n';
       },
       function (t, e, s) {
         "use strict";
@@ -26613,7 +26613,7 @@
         class Story extends i.Carousel {
           constructor(t, e) {
             super(t, null, {
-              isCloseButtonVisible: !0,
+              isCloseButtonVisible: !1,
               closeButtonText: "Close",
               ...e,
             }),
@@ -51161,7 +51161,7 @@
               (this._isUTC = !0),
               (this._ertMgr = null),
               (this._rate = 0),
-              (this._defaultRate = 500000),
+              (this._defaultRate = 1),
               (this._utcTimezone = "Etc/UTC"),
               (this._localTimezone = o().tz.guess()),
               (this._previousTimeRate = this.pioneer.getTimeRate()),
@@ -57468,12 +57468,14 @@
           }
           async _updateCamera(t) {
             await this.app.cameraScripts.goToSystem("inner_solar_system");
+            this._app.getManager("time").setTimeRate(500000);
           }
           resize() {
             super.resize(), this._updateTimeSliderPosition();
           }
         }
       },
+      // StoryView
       function (t, e, s) {
         "use strict";
         s.r(e),
@@ -57608,6 +57610,7 @@
           }
         }
       },
+      // maybe hook in here to load updated stories
       function (t, e, s) {
         "use strict";
         s.r(e),
@@ -57629,6 +57632,7 @@
           asteroids_missions: o.default,
         };
       },
+      // Asteroids and Comets 101
       function (t, e, s) {
         "use strict";
         s.r(e);
@@ -57658,14 +57662,14 @@
                 },
                 {
                   type: "description",
-                  description: '<br><br>The current number of known asteroids in the entire solar system is:<br><span class="big semi tween-count test">0</span><br><br>',
+                  description:
+                    'The current number of known asteroids in the entire solar system is:<br><span class="big semi tween-count test">0</span><br><br>',
                   onEnter: async (t, e) => {
                     const s = e.element.querySelector(".tween-count"),
                       n = await fetch(
                         "https://solarsystem.nasa.gov/api/v1/static_stellar_counts/1/"
                       ),
-                      p = n ? n : {asteroids: 1362002}
-                      o = (await p.json()).asteroids;
+                      o = (await n.json()).asteroids;
                     i.AppUtils.tween(
                       { i: 0 },
                       { i: o },
@@ -57689,8 +57693,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Vesta",
                   description:
-                    "Asteroids range in size from Vesta (shown here) – one of the largest at about 329 miles (530 kilometers) in diameter – to bodies that are as small as 3 feet (1 meter) across. Most asteroids are small: the total mass of all them combined is far less than that of the Earth’s Moon.<br>Asteroids less than about one meter across are called meteoroids, and are generally too small to be detected by telescopes. Meteoroids (or asteroids) that happen to hit Earth’s atmosphere become visible as meteors and largely disintegrate. Larger asteroids (car-sized or bus-sized) produce bright meteors called fireballs or bolides, but they also mostly disintegrate. Any solid leftover pieces that make it all the way to the ground are called meteorites.",
+                    " ",
                 },
               ],
               camera: [
@@ -57707,6 +57712,7 @@
                         })));
                 },
               ],
+              rate: 1,
             },
             {
               id: "slide_4",
@@ -57714,8 +57720,9 @@
               content: [
                 {
                   type: "description",
+                  title: "67P/Churyumov-Gerasimenko",
                   description:
-                    "Comets (like 67P/Churyumov-Gerasimenko, shown here) also have dust and rock, but also contain large amounts of various frozen ices. Comets generally follow long elliptical orbits in which they spend most of their time far from the Sun, where the ices can remain frozen.<br>When a comet’s orbit brings it closer to the Sun, the ices start heating up, creating explosive jets which spew out gas and dust. The expelled material forms into a cloud around the solid nucleus called the “coma”, that can be larger than a planet. The material is also swept back away from the Sun into diffuse tails that can stretch for millions of miles (use Shift-S to zoom out quickly to see the tail, Shift-W to zoom in; pinch to zoom on mobiles). Eventually, after thousands of orbits, a comet’s ices will be depleted. Some objects now classified as asteroids may simply be “dead” comets.",
+                    " ",
                 },
               ],
               camera: [
@@ -57735,6 +57742,7 @@
                         )));
                 },
               ],
+              rate: 1,
             },
             {
               id: "slide_5",
@@ -57743,7 +57751,7 @@
                 {
                   type: "description",
                   description:
-                    'Many asteroids orbit nearby. On occasion, one impacts our planet. For example, the dinosaurs are thought to have been made extinct by the impact of a large asteroid 6-9 miles wide (10-15 km) that collided with Earth 66 million years ago.<br>NASA established the <a class="clickable" href="https://www.nasa.gov/planetarydefense/overview" target="_blank">Planetary Defense Coordination Office (PDCO)</a> to manage its ongoing mission of planetary defense, which includes tracking potentially hazardous objects. The PDCO has a lead role in coordinating U.S. government planning for response to an actual impact threat, and is supported by the <a class="clickable" href="https://cneos.jpl.nasa.gov" target="_blank">Center for Near-Earth Object Studies (CNEOS)</a>, which is NASA’s center for computing asteroid and comet orbits and their odds of impacting Earth. <br>For more on close approaches, click <a class="clickable" href="#/story/asteroids_close_approach">here</a>.',
+                    ' ',
                 },
               ],
               camera: [
@@ -57759,6 +57767,7 @@
           ],
         };
       },
+      // What is a close Approach
       function (t, e, s) {
         "use strict";
         s.r(e);
@@ -57786,7 +57795,7 @@
                 {
                   type: "description",
                   description:
-                    'Some asteroids will inevitably approach Earth, and these are tracked by NASA. The <a class="clickable" href="https://cneos.jpl.nasa.gov" target="_blank">Center for Near-Earth Object Studies (CNEOS)</a> computes the orbits of asteroids and comets and their odds of impacting Earth. The orbits of all asteroids seen here are publicly available from NASA’s <a class="clickable" href="https://ssd.jpl.nasa.gov" target="_blank">Solar System Dynamics (SSD)</a> group.',
+                    ' ',
                 },
               ],
               camera: [
@@ -57802,8 +57811,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Apophis",
                   description:
-                    "Apophis is a near-Earth asteroid more than 1000 feet (over 300 meters) in size that will harmlessly pass close to Earth on April 13, 2029. When it was discovered in 2004, the asteroid caused a stir because initial calculations indicated a small possibility it would impact Earth.",
+                    " ",
                 },
               ],
               time: "2029-04-13T14:40:12-07:00",
@@ -57841,6 +57851,7 @@
               content: [
                 {
                   type: "description",
+                  title: "Apophis",
                   classList: ["large", "semi"],
                   description:
                     '<div><span>Distance: </span><span class="number highlight">{{distance}}</span><span> km</span></div>',
@@ -57860,11 +57871,6 @@
                   onLeave: (t, e) => {
                     t.pioneer.removeCallback(e.update);
                   },
-                },
-                {
-                  type: "description",
-                  description:
-                    "It’s now predicted the asteroid will safely pass about 23,189 miles (37,320 kilometers) from our planet’s surface. While that’s a safe distance, it’s close enough that the asteroid will come between Earth and our Moon, which is about 238,855 miles (384,400 kilometers) away. It’s also near the distance that some spacecraft orbit Earth. <br>This asteroid has the official designation of being both a “Near Earth Object” and a “Potentially Hazardous Object.”",
                 },
                 { type: "replay" },
               ],
@@ -57935,9 +57941,9 @@
               content: [
                 {
                   type: "description",
-                  title: "What is a Near Earth Object (NEO)?",
+                  title: "Near Earth Objects",
                   description:
-                    'Over millions of years, some main belt asteroids have been influenced by collisions and gravitational interactions with planets that have gradually changed their orbits so that they now pass through Earth’s general region of space. These are the Near-Earth Objects (NEOs).<br>Specifically, an NEO is defined as an asteroid or comet whose orbit brings it to within 1.3 astronomical units (<a class="clickable" key="auLink">AU</a>s) of the sun. Near-Earth Comets (NECs) are further restricted to only those with “short” orbital periods less than 200 years.',
+                    ' ',
                   onEnter: (t, e) => {
                     (e.auLinkClick = () => {
                       t.getComponent("definitionOverlay").navigateToDefinition(
@@ -58013,9 +58019,9 @@
               content: [
                 {
                   type: "description",
-                  title: "What is a Potentially Hazardous Object?",
+                  title: "Potentially Hazardous Objects",
                   description:
-                    "<span>A Potentially Hazardous Object (PHO) is a Near-Earth Object (NEO) that is at least 140 meters (460 feet) in size, and whose orbit approaches Earth’s orbit to within 0.05 AU (7,480,000 km or 4,675,000 miles). PHOs are “potentially hazardous” only in a long-term sense: almost all are not currently on Earth-crossing orbits, but their orbits are close enough that over hundreds or thousands of years, they may evolve to become Earth-crossing.<br>There are </span><span>{{phoCount}}</span><span> PHOs currently.</span>",
+                    "<span>There are </span><span>{{phoCount}}</span><span> PHOs currently.</span>",
                   onEnter: (t, e) => {
                     e.addState("phoCount", "0"),
                       t
@@ -58081,7 +58087,7 @@
                 {
                   type: "description",
                   description:
-                    'Explore the next 5 closest approaches <a class="clickable" href="#/watch">here</a>. These are continuously updated, as NASA is constantly on the lookout.',
+                    ' ',
                 },
               ],
               camera: [
@@ -58100,6 +58106,7 @@
           },
         };
       },
+      // Asteroid and Comet Missions
       function (t, e, s) {
         "use strict";
         s.r(e);
@@ -58152,8 +58159,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Rosetta Spacecraft",
                   description:
-                    "NASA and other space agencies have sent spacecraft to visit, photograph, sample, and even collide with various asteroids like Bennu, Vesta, and Eros, and the comets Tempel 1, 19P/Borrelly, and 67P Churyumov-Gerasimenko (seen here with the Rosetta spacecraft).",
+                    "Following comet 67P Churyumov-Gerasimenko",
                 },
               ],
               camera: [
@@ -58172,6 +58180,7 @@
                       s.play());
                 },
               ],
+              rate: 100,
               onEnter: (t, e) => {
                 const s = t.getManager("camera");
                 r(t, "sc_rosetta", l),
@@ -58197,14 +58206,15 @@
               id: "slide_3",
               type: "panel",
               time: "2001-02-12T18:00:00Z",
-              rate: 0,
               content: [
                 {
                   type: "description",
+                  title: "NEAR Shoemaker Mission",
                   description:
-                    "The very first mission to both orbit and land on an asteroid was the NEAR mission (Near Earth Asteroid Rendezvous, later renamed NEAR Shoemaker after the renowned geologist Eugene Shoemaker). The mission successfully orbited the asteroid Eros for a year, and ended the mission by landing on the surface on February 12th, 2001.",
+                    "Preparing to land on asteroid 433 Eros",
                 },
               ],
+              rate: 60,
               camera: [
                 async (t) => {
                   const e = ++i,
@@ -58255,11 +58265,13 @@
               content: [
                 {
                   type: "description",
+                  title: "Deep Impact Mission",
                   description:
-                    "NASA has also sent several missions to study comets. On the 4th of July, 2005, NASA’s Deep Impact mission actually collided with a comet named Tempel 1 (9P/Tempel). The spacecraft (Deep Impact) sent a washing-machine sized probe (the Deep Impact Impactor) to hit the comet itself, and then flew through the resulting cloud of space debris to analyze the composition. The comet’s nucleus had more dust and less ice than models had suggested.",
+                    "Deep Impact Impactor on collision course to comet Tempel 1 (9P/Tempel)",
                 },
                 { type: "replay" },
               ],
+              rate: 1,
               camera: [
                 async (t) => {
                   const e = ++i,
@@ -58326,8 +58338,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Dawn Mission",
                   description:
-                    "The Dawn mission was the first to orbit an object in the main asteroid belt, as well as the first mission to orbit two separate destinations.<br>Dawn spent over a year in orbit around Vesta, from July of 2011 until September of 2012. Dawn mapped Vesta's geology, composition, cratering record and more.",
+                    "The Dawn spacecraft in orbit around Vesta",
                 },
               ],
               camera: [
@@ -58375,8 +58388,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Dawn Mission",
                   description:
-                    "Dawn then traveled to Ceres, which is the largest object in the asteroid belt. (Ceres is still considered to be an asteroid, but was designated as a dwarf planet in 2006.) The spacecraft arrived in 2015 and continued to collect data until running out of thruster fuel. <br>Dawn found abundant proof of water ice in the higher latitudes, as well as active geological features. Dawn remains in orbit around Ceres but will eventually impact the surface.",
+                    "Dawn spacecraft in orbit around Ceres",
                 },
               ],
               camera: [
@@ -58425,8 +58439,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Stardust Mission",
                   description:
-                    "Other missions actually take samples of asteroids and comets. The Stardust mission flew by the comet Wild 2 and collected samples from the dust trail of the comet, as well as interstellar dust. <br>These samples were later brought back to Earth via a detachable sample return capsule, which re-entered Earth’s atmosphere on January 15th, 2006. The sample capsule landed in Utah and the millions of dust particles are still being studied to this day.",
+                    "Stardust spacecraft approaching comet Wild 2",
                 },
               ],
               camera: [
@@ -58454,12 +58469,13 @@
             {
               id: "slide_8",
               type: "panel",
-              time: "2020-10-20T21:50:24Z",
+              time: "2020-10-20T21:48:00Z",
               content: [
                 {
                   type: "description",
+                  title: "OSIRIS-REx Mission",
                   description:
-                    "In October of 2020, the OSIRIS-REx mission successfully sampled the surface of the asteroid Bennu, collecting approximately 60 grams of surface material. The mission successfully dropped off the sample return capsule to Earth on September 24th, 2023, and is now on course to visit the asteroid Apophis.",
+                    "Sampling the surface of asteroid Bennu",
                 },
               ],
               camera: [
@@ -58475,15 +58491,27 @@
                         "sc_osiris_rex",
                         "101955_bennu",
                         {
-                          duration: 4,
-                          distance: 0.1,
+                          duration: 8,
+                          distance: 3,
                           verticalOffset: 30,
                           horizontalOffset: -80,
                         }
                       ),
-                      s.play());
+                      s.play(),
+                      await t.cameraScripts.alignObjects(
+                        "sc_osiris_rex",
+                        "101955_bennu",
+                        {
+                          duration: 10,
+                          distance: 0.05,
+                          verticalOffset: 30,
+                          horizontalOffset: -80,
+                        }
+                      )
+                    );
                 },
               ],
+              rate: 5,
               onEnter: (t, e) => {
                 t.getComponent("settings").toggleLightOptions("flood");
                 const s = t.getManager("camera");
@@ -58515,8 +58543,9 @@
               content: [
                 {
                   type: "description",
+                  title: "Psyche Mission",
                   description:
-                    "NASA has several new missions to investigate asteroids, including Lucy and Psyche. Each mission promises to unlock further secrets of the formation and evolution of our solar system by studying asteroids. The Lucy mission is investigating the ancient Trojan asteroids that share Jupiter’s orbit, and the Psyche mission (seen here) is en route to the unique metal asteroid 16 Psyche.",
+                    "Psyche mission en route to metal asteroid 16 Psyche.",
                 },
               ],
               camera: [
@@ -58536,6 +58565,7 @@
                       s.play());
                 },
               ],
+              rate: 1,
               onEnter: (t, e) => {
                 t.getComponent("settings").toggleLightOptions("flood");
                 const s = t.getManager("camera");
@@ -58562,12 +58592,13 @@
             {
               id: "slide_10",
               type: "panel",
-              time: "2022-09-26T23:14:11Z",
+              time: "2022-09-26T23:14:00Z",
               content: [
                 {
                   type: "description",
+                  title: "DART Mission",
                   description:
-                    "The Double Asteroid Redirection Test, or DART, is a NASA mission that could be a plot from a Hollywood movie. As the very first planetary defense test mission, DART will test whether a spacecraft impact could deflect the orbit of an asteroid. Even a slight change in the orbit of an asteroid could avert a collision with Earth if the change happens early enough. DART successfully impacted the asteroid moon Dimorphos, which is in a binary system with the larger asteroid Didymos. The orbital period of Dimorphos changed by 33 minutes.",
+                    "The Double Asteroid Redirection Test spacecraft impacting the asteroid moon Dimorphos",
                 },
                 { type: "replay" },
               ],
@@ -58580,14 +58611,28 @@
                     .isListReady(["65803_didymos", "dimorphos", "sc_dart"]),
                     e === i &&
                       (s.pause(),
+                      await t.cameraScripts.alignObjects(
+                        "sc_dart",
+                        "dimorphos",
+                        {
+                          cinematic: !1,
+                          duration: 8,
+                          distance: 100,
+                          verticalOffset: 15,
+                          horizontalOffset: 0,
+                        }
+                      ),
+                      s.play(),
                       await t.cameraScripts.goToSpacecraft("sc_dart", {
-                        cinematic: !1,
-                        duration: 3,
+                        cinematic: !0,
+                        distance: 0.04,
+                        duration: 20,
                         verticalOffset: 15,
-                      }),
-                      s.play());
+                      })
+                    );
                 },
               ],
+              rate: 1,
               onEnter: (t, e) => {
                 t.getManager("time").setMax("2022-09-26T23:14:18.054Z");
                 const s = t.getManager("camera");
@@ -58599,8 +58644,8 @@
                     const s = e?.getName();
                     ["dimorphos", "65803_didymos"].includes(s)
                       ? await t.cameraScripts.goToCelestialObject(s)
-                      : "sc_dart" === s &&
-                        (await t.cameraScripts.goToSpacecraft(s));
+                      : "sc_dart" === s && 
+                      (await t.cameraScripts.goToSpacecraft(s));
                   });
               },
               onLeave: (t, e) => {
