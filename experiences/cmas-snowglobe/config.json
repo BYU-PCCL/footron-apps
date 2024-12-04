@@ -1,0 +1,9 @@
+{
+    "id": "cmas-snowglobe",
+    "type": "web",
+    "title": "Christmas cheer",
+    "description": "Have a wonderful Christmas!",
+    "layout": "full",
+    "lifetime": 240,
+    "queueable": true
+}

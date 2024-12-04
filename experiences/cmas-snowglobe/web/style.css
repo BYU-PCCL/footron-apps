@@ -1,0 +1,44 @@
+
+html {
+    width: 2736px;
+    height: 1216px;
+    background: #444444;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 2736px;
+    height: 1216px;
+    background: #444444;
+
+}
+
+div#shift {
+    width: 2736px;
+    height: 1216px;
+    position: absolute;
+    left:0px;
+    top:-200px;
+}
+
+div#mc {
+    position: absolute;
+    left:1350px;
+    top:0px;
+    width:1200px;
+    height:1200px;
+    background-size: 1200px 1200px;
+    background-image: url("mc2.png");
+}
+
+.video-container {
+  height: 1216px;
+  width: 2736px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.video-container video {
+  transform: translateY(-10%);
+}
