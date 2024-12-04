@@ -36,6 +36,13 @@ tags = [ "cpms50" ]
 featured = "cpms50"
 visible = true
 
+[christmas]
+title = "Christmas"
+description = "Christmas"
+tags = [ "christmas" ]
+featured = "cmas-snowglobe"
+visible = true
+
 [lds]
 title = "Temple Photo Op"
 description = "LDS-themed experiences"
