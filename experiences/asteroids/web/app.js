@@ -5713,7 +5713,7 @@ __webpack_require__.r(__webpack_exports__);
 		name: 'breadcrumb',
 		options: {
 			params: {
-				title: 'Unminified and Edited'
+				title: 'Eyes on Asteroids'
 			}
 		}
 	},
