@@ -77,19 +77,19 @@ let currentTarget = null;
 
 /**
  * Moves the camera smoothly to destination specified
-*
-* @param {*} destination - The requested destination. Must have a parameters type and target
-*/
+ *
+ * @param {*} destination - The requested destination. Must have a parameters type and target
+ */
 async function flyTo(destination) {
   if (Object.values(entities).includes(destination) == null)
     throw "entities doesn't contain " + destination;
-  let destinationInfo = allInfo[destination]
+  let destinationInfo = allInfo[destination];
 
   if (destinationInfo == null) throw `${destination} not in allInfo`;
 
   // duration helps to make sure entities are loaded
-  const flyParameters = {duration: 3}
-  
+  const flyParameters = { duration: 3 };
+
   // change date if destination doesn't exist currently.
   if (destinationInfo.dates) {
     timeManager = app.getManager("time");
@@ -100,7 +100,8 @@ async function flyTo(destination) {
     if (!end.isValid()) end = timeManager.getLimits().max;
     if (currentTime.isBefore(start) || currentTime.isAfter(end)) {
       newTime = null;
-      if (destinationInfo.dates.highlight) newTime = destinationInfo.dates.highlight;
+      if (destinationInfo.dates.highlight)
+        newTime = destinationInfo.dates.highlight;
       else if (timeManager.getNow().isBefore(end))
         newTime = timeManager.getNow();
       else {
@@ -115,23 +116,30 @@ async function flyTo(destination) {
 
   // go to shared parent if it exists
   if (allInfo[destination].parent) {
-    await app.cameraScripts.goToSystem(allInfo[destination].parent, { duration: 3 });
+    await app.cameraScripts.goToSystem(allInfo[destination].parent, {
+      duration: 3,
+    });
   } else {
     await app.cameraScripts.goToSystem("inner_solar_system", { duration: 3 });
   }
 
   if (celestialObjects.includes(destination))
     await app.cameraScripts.goToCelestialObject(destination, flyParameters);
-  else if (spacecraft.includes(destination)) await app.cameraScripts.goToSpacecraft(destination, flyParameters);
+  else if (spacecraft.includes(destination))
+    await app.cameraScripts.goToSpacecraft(destination, flyParameters);
   else if (systems.includes(destination)) {
-    destination = systemToTarget[destination]
+    destination = systemToTarget[destination];
     await app.cameraScripts.goToSystem(destination, flyParameters);
   } else {
     try {
       await app.cameraScripts.goToCelestialObject(destination, flyParameters);
     } catch (error) {
-      destinationInfo.description = {blurb: "Error flying to entity. Please try again"}
-      console.error("destination " + destination + " is not in any confirmed lists.");
+      destinationInfo.description = {
+        blurb: "Error flying to entity. Please try again",
+      };
+      console.error(
+        "destination " + destination + " is not in any confirmed lists."
+      );
     }
   }
   client.sendMessage({ title: destination, content: destinationInfo });

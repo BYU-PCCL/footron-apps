@@ -22,7 +22,7 @@ const asteroidsSlides = [
       "Asteroids range in size from Vesta (shown on screen) – one of the largest at about 329 miles (530 kilometers)  \
       in diameter – to bodies that are as small as 3 feet (1 meter) across. Most asteroids are small: the total mass \
       of all of them combined is far less than that of the Earth’s Moon.",
-      
+
       "Asteroids less than about one meter across are called meteoroids, and are generally too small to be detected by\
       telescopes. Meteoroids (or asteroids) that happen to hit Earth’s atmosphere become visible as meteors and      \
       largely disintegrate. Larger asteroids (car-sized or bus-sized) produce bright meteors called fireballs or     \
@@ -37,7 +37,7 @@ const asteroidsSlides = [
       "Comets (like 67P/Churyumov-Gerasimenko, shown on screen) also have dust and rock, but also contain large       \
       amounts of various frozen ices. Comets generally follow long elliptical orbits in which they spend most of     \
       their time far from the Sun, where the ices can remain frozen.",
-      
+
       "When a comet’s orbit brings it closer to the Sun, the ices start heating up, creating explosive jets which spew\
       out gas and dust. The expelled material forms into a cloud around the solid nucleus called the “coma”, that can\
       be larger than a planet. The material is also swept back away from the Sun into diffuse tails that can stretch \
@@ -52,7 +52,7 @@ const asteroidsSlides = [
       "Many asteroids orbit nearby. On occasion, one impacts our planet. For example, the dinosaurs are thought to    \
       have been made extinct by the impact of a large asteroid 6-9 miles wide (10-15 km) that collided with Earth 66 \
       million years ago.",
-      
+
       "NASA established the\
       <a href='https://www.nasa.gov/planetarydefense/overview' target='_blank'>\
           Planetary Defense Coordination Office (PDCO)\
@@ -63,7 +63,7 @@ const asteroidsSlides = [
           Center for Near-Earth Object Studies (CNEOS)\
       </a>,\
       which is NASA’s center for computing asteroid and comet orbits and their odds of impacting Earth.",
-      
+
       'For more on close approaches, try the "Close Approach" lesson under the "Learn" tab.',
     ],
   },
@@ -109,7 +109,7 @@ const closeApproachesSlides = [
       surface. While that’s a safe distance, it’s close enough that the asteroid will come between Earth and our     \
       Moon, which is about 238,855 miles (384,400 kilometers) away. It’s also near the distance that some spacecraft \
       orbit Earth.",
-      
+
       "This asteroid has the official designation of being both a “Near Earth Object” and a “Potentially Hazardous    \
       Object.”",
     ],
@@ -209,7 +209,7 @@ const missionSlides = [
       "Dawn then traveled to Ceres, which is the largest object in the asteroid belt. (Ceres is still considered to be\
       an asteroid, but was designated as a dwarf planet in 2006.) The spacecraft arrived in 2015 and continued to    \
       collect data until running out of thruster fuel.",
-      
+
       "Dawn found abundant proof of water ice in the higher latitudes, as well as active geological features. Dawn    \
       remains in orbit around Ceres but will eventually impact the surface.",
     ],

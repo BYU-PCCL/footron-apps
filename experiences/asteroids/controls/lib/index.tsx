@@ -35,7 +35,7 @@ import {
 } from "./style";
 import { BroadcastOnHome } from "@mui/icons-material";
 import { Icon, Link } from "@mui/material";
-import { AppsRounded, Close } from "@material-ui/icons";
+import { AppsRounded } from "@material-ui/icons";
 import { ThemeProvider } from "@emotion/react";
 
 interface TabPanelProps {

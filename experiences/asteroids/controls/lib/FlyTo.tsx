@@ -14,7 +14,8 @@ import {
 } from "@material-ui/core"
 import { useMessaging } from "@footron/controls-client";
 import { flyTargets } from "./flytargets";
-import { definitionHeaderStyle, overlayMenuStyle, fullSizeStyle, halfWidthStyle, overlayStyle, standardContainerStyle, thinBottomWidgetStyle } from "./style";
+import { definitionHeaderStyle, overlayMenuStyle, fullSizeStyle, 
+  halfWidthStyle, overlayStyle, standardContainerStyle, thinBottomWidgetStyle } from "./style";
 import { Close } from "@material-ui/icons";
 
 interface DefinitionOverlayProps {
@@ -77,7 +78,7 @@ export default function FlyTo() {
             setInfoText("");
             setInfoTitle("");
             console.log(infoText, infoTitle)
-            }}>
+          }}>
             <Close />
           </IconButton>
         </Box>

@@ -4,9 +4,7 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import { IconButton } from "@mui/material";
 import {
   fabStyle,
-  fullSizeStyle,
   fullUIStyle,
-  largeBottomUiStyle,
   largeIconStyle,
   storyBoxStyle,
   thinWidgetStyle,
@@ -14,8 +12,6 @@ import {
 } from "./style";
 import { useCallback, useState } from "react";
 import { Close } from "@mui/icons-material";
-import MovementControls from "./Movement";
-import TimeSlider from "./time";
 import StandardBottomUi from "./standardBottomUi";
 import { SkipPrevious } from "@material-ui/icons";
 

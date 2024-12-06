@@ -1,36 +1,35 @@
 # Layout
 
-* Overall layout is easily controlled from the `view_info.json` file (actually implimented in `app.js`). Simply deleting a listed component causes it not to be rendered.
+- Overall layout is easily controlled from the `view_info.json` file (actually implimented in `app.js`). Simply deleting a listed component causes it not to be rendered.
 
 When individual components are used in non-standard ways UI layout can be odd. Things may not be in the correct locations.
 
 Footron shouldn't ever require the following:
 
-* `asteroid_menu_top`
-* `asteroid_menu_bottom`
-* `asteroid_modals`
-* `definitionOverlay`
-* `homeButton`
-* `layerPanel`
-* `search`
-* `settings`
-* `splashScreen` (Maybe)
-* `timeSlider`
-* `tutorialOverlay`
+- `asteroid_menu_top`
+- `asteroid_menu_bottom`
+- `asteroid_modals`
+- `definitionOverlay`
+- `homeButton`
+- `layerPanel`
+- `search`
+- `settings`
+- `splashScreen` (Maybe)
+- `timeSlider`
+- `tutorialOverlay`
 
 It will probably need these:
 
-* `asteroidPanel`
-* `breadcrumb`
-* `clock`
-* `clockShortcut`
-* `followingPanel`
-* `loadIcon`
-* `missionPanel`
-* `overlay`
-* `story`
-* `watchPanel`
-
+- `asteroidPanel`
+- `breadcrumb`
+- `clock`
+- `clockShortcut`
+- `followingPanel`
+- `loadIcon`
+- `missionPanel`
+- `overlay`
+- `story`
+- `watchPanel`
 
 ## `view_info.json` components
 
@@ -48,13 +47,14 @@ The pop-in menus used for `filters` and `learn`
 
 ### `breadcrumb`
 
-The *NASA Eyes on asteroids* button at the top of the page
+The _NASA Eyes on asteroids_ button at the top of the page
 
 configurable in `components_info.js`
 **Default Options**
+
 ```js
 params: {
-    title: 'Eyes on Asteroids'
+  title: "Eyes on Asteroids";
 }
 ```
 
@@ -70,13 +70,14 @@ altered in `components_info.js` to have a smaller font
 
 ### `clockShortcut`
 
-The *LIVE* button on the left of the time UI
+The _LIVE_ button on the left of the time UI
 
 ### `timeSlider`
 
 The time slider
 configurable in `components_info.js`
 **Default Options**
+
 ```js
 config: {
     // dynamic based off how close the camera is to an entity
@@ -95,7 +96,7 @@ The right settings panel.
 
 Something I did hid the actual ui; It's present, just transparent or rendering incorrectly.
 
-this is actually the `AsteroidsSettings` component after being remapped in `components_info.js` 
+this is actually the `AsteroidsSettings` component after being remapped in `components_info.js`
 
 ### `layerPanel`
 
@@ -103,6 +104,7 @@ The slide-in settings menu for toggling layers. (only accessable through setting
 
 configurable in `components_info.js`
 **Default Options**
+
 ```js
 layers: [['planets'], ['spacecraft'], ['trails', 'labels', 'icons', 'starfield'], ['ui']],
 checkboxType: 'eyes'
@@ -114,6 +116,7 @@ The search bar.
 
 configurable in `components_info.js`
 **Default Options**
+
 ```js
 config: {
     placeholderText: 'Search asteroids and comets...',
@@ -131,7 +134,7 @@ The pop-up definition windows
 
 ### `splashScreen`
 
-The Title screen with bennu and the "Scroll to Enter" instruction. 
+The Title screen with bennu and the "Scroll to Enter" instruction.
 
 ### `tutorialOverlay`
 
@@ -142,7 +145,7 @@ Without the definition overlay, the definition links will give an error to the c
 
 ### `loadIcon`
 
-I believe this is a placeholder while the model of an asteroid or spacecraft gets loaded. 
+I believe this is a placeholder while the model of an asteroid or spacecraft gets loaded.
 
 ### `watchPanel`
 
@@ -165,7 +168,7 @@ It looks like it only is used collapsed in this site.
 
 ### `story`
 
-This is the component used for the the Learn options. 
+This is the component used for the the Learn options.
 There is a lot in this component especially in the `blocks` sub component.
 
 ### `overlay`
@@ -185,110 +188,109 @@ I believe it just lets components link to other places on the site.
 
 ### `toast`
 
-Presumably a *toast* notification component.
+Presumably a _toast_ notification component.
 used by `CameraFollowManager` but that doesn't seem like it actually gets used itself.
 loads null component when retrieved.
-
 
 # App Functionality
 
 Script options
-`app` 
-    `.cameraScripts` // there is a way to set "cinematic to true"
-        `.goToCelestialObject("NAME")`
-        `.goToSpacecraft("NAME")`
-        `.goToSystem("NAME")`
-    `.getManager("time")`
-        `.setDisplayUTC(BOOL)`
-        `.parseTime(???, ???)`
-        `.getTime()`
-        `.getTimeUrl()`
-        `.getDateFormat(???)` "date"/"time"/"meridiem"
-        `.isUTC() ???`
-        `.forcedPause`
-        `.resetLimits()`
-        `.setTimeRate(SECONDS_PER_SECOND)`
-        `.setToNow()`
-        `.setToStart()` ???
-        `.isNow()`
-        `.getNow()`
-        `.isWithinLimits(???)`
-        `.momentToET()`
-        `.pause()`
-        `.play()`
-        `.setMax()`
-        `.resetMax()`
-    `.getManager("camera")`
-        `.zoomIn()` TRUE / FALSE for clicked or held
-        `.zoomOut()`
-        `.zoom(ratio)` zooms in or out according to the ratio given 0.5 = half way
-        `.getContext()`
-    `.getManager("scene")`
-    `.getManager("layer")`
-        layer = 
-            `"ui"`
-            `"planets"`
-            `"asteroids"`
-            `"comets"`
-            `"dwarfPlanets"`
-            `"spacecraft"`
-            `"trails"`
-            `"orbits"`
-            `"labels"`
-            `"icons"`
-            `"starfield"`
-            `"constelations"`
-        `.getLayer("LAYER")`
-        `.toggleLayer("LAYER")`
-        `.getLayerFromCategory(???)`
-        `.addCallback("LAYER", ???)`
-        `.resetTarget() ???`
-        `.setTarget(???)`
-    `.getManager("filters")`
 
-  `.getComponent(COMPONENT)`
-    `"asteroidPanel"`
-    `"asteroid_menu_bottom"`
-    `"asteroid_menu_top"`
-    `"asteroid_modals"`
-    `"auroras"`
-    `"basic"`
-    `"breadcrumb"`
-    `"cameraFollowSearch"`
-    `"clock"`
-    `"clockShortcut"`
-    `"contentPanel"`
-    `"definitionOverlay"`
-    `"filtersModal"`
-    `"followingPanel"`
-    `"infoPanel"`
-    `"kioskSessionClock"`
-    `"laser1"`
-    `"laser2"`
-    `"layerPanel"`
-    `"loadIcon"`
-    `"magnetosphere"`
-    `"microwave"`
-    `"missionPanel"`
-    `"overlay"`
-    `"radiation_belt_1"`
-    `"radiation_belt_2"`
-    `"radiation_belt_3"`
-    `"radiation_belt_4"`
-    `"search"`
-    `"searchDesktop"`
-    `"settings"`
-      `.toggleLightOptions("SETTING")  "flood", "natural", "shadow"`
-      `.toggleUnit()`
-    `"splashScreen"`
-    `"story"`
-        `.goToNextSlide()`
-        `.goToPreviousSlide()`
-    `"timeSlider"`
-    `"toast"`
-    `"tutorialOverlay"`
-    `"viewOptionsBlock"`
-    `"watchPanel"`
+- `app`
+  - `.cameraScripts` // there is a way to set "cinematic to true"
+    - `.goToCelestialObject("NAME")`
+    - `.goToSpacecraft("NAME")`
+    - `.goToSystem("NAME")`
+  - `.getManager("time")`
+    - `.setDisplayUTC(BOOL)`
+    - `.parseTime(???, ???)`
+    - `.getTime()`
+    - `.getTimeUrl()`
+    - `.getDateFormat(???)` "date"/"time"/"meridiem"
+    - `.isUTC() ???`
+    - `.forcedPause`
+    - `.resetLimits()`
+    - `.setTimeRate(SECONDS_PER_SECOND)`
+    - `.setToNow()`
+    - `.setToStart()` ???
+    - `.isNow()`
+    - `.getNow()`
+    - `.isWithinLimits(???)`
+    - `.momentToET()`
+    - `.pause()`
+    - `.play()`
+    - `.setMax()`
+    - `.resetMax()`
+  - `.getManager("camera")`
+    - `.zoomIn()` TRUE / FALSE for clicked or held
+    - `.zoomOut()`
+    - `.zoom(ratio)` zooms in or out according to the ratio given 0.5 = half way
+    - `.getContext()`
+  - `.getManager("scene")`
+  - `.getManager("layer")`
+    - layer =
+      - `"ui"`
+      - `"planets"`
+      - `"asteroids"`
+      - `"comets"`
+      - `"dwarfPlanets"`
+      - `"spacecraft"`
+      - `"trails"`
+      - `"orbits"`
+      - `"labels"`
+      - `"icons"`
+      - `"starfield"`
+      - `"constelations"`
+    - `.getLayer("LAYER")`
+    - `.toggleLayer("LAYER")`
+    - `.getLayerFromCategory(???)`
+    - `.addCallback("LAYER", ???)`
+    - `.resetTarget() ???`
+    - `.setTarget(???)`
+  - `.getManager("filters")`
+- - `.getComponent(COMPONENT)`
+    - `"asteroidPanel"`
+    - `"asteroid_menu_bottom"`
+    - `"asteroid_menu_top"`
+    - `"asteroid_modals"`
+    - `"auroras"`
+    - `"basic"`
+    - `"breadcrumb"`
+    - `"cameraFollowSearch"`
+    - `"clock"`
+    - `"clockShortcut"`
+    - `"contentPanel"`
+    - `"definitionOverlay"`
+    - `"filtersModal"`
+    - `"followingPanel"`
+    - `"infoPanel"`
+    - `"kioskSessionClock"`
+    - `"laser1"`
+    - `"laser2"`
+    - `"layerPanel"`
+    - `"loadIcon"`
+    - `"magnetosphere"`
+    - `"microwave"`
+    - `"missionPanel"`
+    - `"overlay"`
+    - `"radiation_belt_1"`
+    - `"radiation_belt_2"`
+    - `"radiation_belt_3"`
+    - `"radiation_belt_4"`
+    - `"search"`
+    - `"searchDesktop"`
+    - `"settings"`
+      - `.toggleLightOptions("SETTING")  "flood", "natural", "shadow"`
+      - `.toggleUnit()`
+    - `"splashScreen"`
+    - `"story"`
+      - `.goToNextSlide()`
+      - `.goToPreviousSlide()`
+    - `"timeSlider"`
+    - `"toast"`
+    - `"tutorialOverlay"`
+    - `"viewOptionsBlock"`
+    - `"watchPanel"`
 
 `app.camaeraScrips.gotoCelestialObject()`
 `app.getManager("time").setTimeRate(1)` (takes int seconds per second)

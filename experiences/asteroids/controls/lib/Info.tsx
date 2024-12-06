@@ -10,12 +10,8 @@ import {
 import { Divider, IconButton } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import {
-  // definitionHeaderStyle,
   overlayMenuWrapperStyle,
-  fullSizeStyle,
-  // largeTopUiStyle,
   overlayStyle,
-  thinWidgetStyle,
   fullUIStyle,
   standardBottomUiStyle,
   topUI,

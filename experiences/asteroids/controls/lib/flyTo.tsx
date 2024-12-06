@@ -4,7 +4,6 @@ import {
   Backdrop,
   IconButton,
   Divider,
-  TableBody,
 } from "@mui/material";
 import {
   Select,
@@ -31,7 +30,7 @@ import {
   fullUIStyle,
   definitionListStyle,
 } from "./style";
-import { Close, Description, EmailTwoTone } from "@material-ui/icons";
+import { Close } from "@material-ui/icons";
 import StandardBottomUi from "./standardBottomUi";
 
 interface DescriptionsProps {
@@ -164,8 +163,8 @@ export default function FlyTo() {
   const DefinitionOverlay: React.FC<Content> = (content: Content) => {
     const dataEntries = content.data
       ? Object.entries(content.data).filter(
-          (element) => element[0] !== "distance"
-        )
+        (element) => element[0] !== "distance"
+      )
       : [];
     const visibleEntries = expandData ? dataEntries : dataEntries.slice(0, 3);
     console.log(visibleEntries);
@@ -327,16 +326,16 @@ export default function FlyTo() {
             sortedFlyTargets[targetInfoID].name == selectedTarget) ||
           (sortedFlyTargets[preselectedTarget] &&
             infoText.title == sortedFlyTargets[preselectedTarget].name)) && (
-          <Box css={thinWidgetStyle}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => setMenuOpen(true)}
-            >
-              About
-            </Button>
-          </Box>
-        )}
+            <Box css={thinWidgetStyle}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setMenuOpen(true)}
+              >
+                About
+              </Button>
+            </Box>
+          )}
       </Box>
       <StandardBottomUi />
     </Box>

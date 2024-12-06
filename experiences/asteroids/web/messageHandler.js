@@ -1,6 +1,6 @@
 let defaultTime = setTimeout(() => {
   setTimeRate(432000);
-  console.log("TIME")
+  console.log("TIME");
 }, 3000);
 
 let automationTimer = setTimeout(automation, 30000);
@@ -20,11 +20,11 @@ let automationChoices = [
   () => flyTo("134340_pluto"),
   () => flyTo("sc_jwst"),
   () => flyTo("sc_parker_solar_probe"),
-]
+];
 
 async function automation() {
-  let choice = Math.floor(Math.random() * automationChoices.length)
-  automationChoices[choice]()
+  let choice = Math.floor(Math.random() * automationChoices.length);
+  automationChoices[choice]();
   live();
   resetTimer();
 }
