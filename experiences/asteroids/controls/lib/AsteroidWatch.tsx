@@ -1,8 +1,7 @@
 import { useMessaging } from "@footron/controls-client";
 import { Box, Button } from "@mui/material";
-import { fullSizeStyle, largeBottomUiStyle, smallTopUiStyle, thinBottomWidgetStyle } from "./style";
-import ZoomControls from "./zoom";
-import TimeSlider from "./timeSlider";
+import { thinWidgetStyle, topUI, fullUIStyle } from "./style";
+import StandardBottomUi from "./standardBottomUi";
 
 export default function AsteroidWatch() {
   const { sendMessage } = useMessaging();
@@ -16,22 +15,30 @@ export default function AsteroidWatch() {
   };
 
   return (
-    <div css={fullSizeStyle}>
-      <Box css={smallTopUiStyle}>
-        <h3>Select next close approach</h3>
+    <div css={fullUIStyle}>
+      <Box css={topUI}>
+        <h3>Select the next close approach</h3>
       </Box>
-      <Box css={largeBottomUiStyle}>
-        <Box css={thinBottomWidgetStyle}>
-          <Button color="primary" variant="contained" size="large" onClick={prev}>
+      <StandardBottomUi>
+        <Box css={thinWidgetStyle}>
+          <Button
+            color="primary"
+            variant="contained"
+            size="large"
+            onClick={prev}
+          >
             <strong>{"<"}</strong>
           </Button>
-          <Button color="primary" variant="contained" size="large" onClick={next}>
+          <Button
+            color="primary"
+            variant="contained"
+            size="large"
+            onClick={next}
+          >
             <strong>{">"}</strong>
           </Button>
         </Box>
-        <ZoomControls />
-        <TimeSlider />
-      </Box>
+      </StandardBottomUi>
     </div>
   );
 }

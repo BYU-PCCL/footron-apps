@@ -1,12 +1,17 @@
 import { Box } from "@material-ui/core";
 import { standardBottomUiStyle } from "./style";
-import ZoomControls from "./zoom";
-import TimeSlider from "./timeSlider";
+import MovementControls from "./Movement";
+import TimeSlider from "./time";
 
-export default function StandardBottomUi() {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export default function StandardBottomUi({ children }: Props) {
   return (
     <Box css={standardBottomUiStyle}>
-      <ZoomControls />
+      {children}
+      <MovementControls />
       <TimeSlider />
     </Box>
   );

@@ -2,13 +2,24 @@ import { Box, Button, Fab } from "@material-ui/core";
 import { useMessaging } from "@footron/controls-client";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { IconButton } from "@mui/material";
-import { fabStyle, fullSizeStyle, halfWidthStyle, largeBottomUiStyle, largeIconStyle, overflowContentStyle, smallTopUiStyle, storyBoxStyle, thinBottomWidgetStyle } from "./style";
+import {
+  fabStyle,
+  fullSizeStyle,
+  fullUIStyle,
+  largeBottomUiStyle,
+  largeIconStyle,
+  storyBoxStyle,
+  thinWidgetStyle,
+  topUI,
+} from "./style";
 import { useCallback, useState } from "react";
 import { Close } from "@mui/icons-material";
-import ZoomControls from "./zoom";
-import TimeSlider from "./timeSlider";
+import MovementControls from "./Movement";
+import TimeSlider from "./time";
+import StandardBottomUi from "./standardBottomUi";
+import { SkipPrevious } from "@material-ui/icons";
 
-const dummyText = ("Loading");
+const dummyText = "Loading";
 
 export default function Learn() {
   const [slideshowPlaying, setSlideShowPlaying] = useState(false);
@@ -19,9 +30,12 @@ export default function Learn() {
   const [nextSlide, setNextSlide] = useState(false);
   const [infoText, setInfoText] = useState(dummyText);
   const { sendMessage } = useMessaging((content: any) => {
+    if (content.type != "slideInfo") return;
+    content = content.slideInfo;
     console.log("Incoming info: ", content);
     if (content.title != null) setSlideShowTitle(content.title);
-    if (content.storyLength != null && content.index != null) setProgressString(`[${content.index} of ${content.storyLength}]`);
+    if (content.storyLength != null && content.index != null)
+      setProgressString(`[${content.index} of ${content.storyLength}]`);
     if (content == undefined) content = { info: "Error loading info" };
     if (content.replay != null) setShowReplay(true);
     else setShowReplay(false);
@@ -64,10 +78,10 @@ export default function Learn() {
   };
 
   return (
-    <div css={fullSizeStyle}>
+    <Box css={fullUIStyle}>
       {slideshowPlaying ? (
-        <Box css={fullSizeStyle}>
-          <Box css={smallTopUiStyle}>
+        <Box css={fullUIStyle}>
+          <Box css={topUI}>
             <Fab onClick={close} size="small" color="primary" css={fabStyle}>
               <Close />
             </Fab>
@@ -77,35 +91,43 @@ export default function Learn() {
               <div dangerouslySetInnerHTML={{ __html: infoText }}></div>
             </Box>
           </Box>
-          <Box css={largeBottomUiStyle}>
-            <Box css={thinBottomWidgetStyle}>
+          <StandardBottomUi>
+            <Box css={thinWidgetStyle}>
               {nextSlide && (
                 <IconButton color="primary" onClick={first}>
-                  <ReplayIcon css={largeIconStyle} />
+                  <SkipPrevious css={largeIconStyle} />
                 </IconButton>
               )}
-              <Button color="primary" variant="contained" disabled={prevSlide} size="large" onClick={prev}>
+              <Button
+                color="primary"
+                variant="contained"
+                disabled={prevSlide}
+                size="large"
+                onClick={prev}
+              >
                 <strong>{"<"}</strong>
               </Button>
-              <Button color="primary" variant="contained" disabled={nextSlide} size="large" onClick={next}>
+              <Button
+                color="primary"
+                variant="contained"
+                disabled={nextSlide}
+                size="large"
+                onClick={next}
+              >
                 <strong>{">"}</strong>
               </Button>
               {showReplay && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  startIcon={<ReplayIcon />}
-                  onClick={replay}>
-                  Replay Animation
-                </Button>
+                <IconButton color="primary" 
+                  onClick={replay}
+                >
+                  <ReplayIcon />
+                </IconButton>
               )}
             </Box>
-            <ZoomControls />
-            <TimeSlider />
-          </Box>
+          </StandardBottomUi>
         </Box>
       ) : (
-        <Box css={overflowContentStyle}>
+        <Box css={topUI}>
           <h3>Deep dives</h3>
           <p>Take a deeper dive into Asteroids with our interactive stories</p>
           <Box css={storyBoxStyle}>
@@ -113,7 +135,6 @@ export default function Learn() {
               variant="contained"
               color="primary"
               onClick={() => startShow("asteroids-101")}
-              css={halfWidthStyle}
             >
               Asteroids 101
             </Button>
@@ -125,7 +146,6 @@ export default function Learn() {
               variant="contained"
               color="primary"
               onClick={() => startShow("close-approaches")}
-              css={halfWidthStyle}
             >
               Close Approaches
             </Button>
@@ -137,7 +157,6 @@ export default function Learn() {
               variant="contained"
               color="primary"
               onClick={() => startShow("missions")}
-              css={halfWidthStyle}
             >
               Missions
             </Button>
@@ -146,6 +165,6 @@ export default function Learn() {
           </Box>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }

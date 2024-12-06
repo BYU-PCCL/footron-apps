@@ -9,7 +9,21 @@ import {
 } from "@mui/material";
 import { Divider, IconButton } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import { definitionHeaderStyle, overlayMenuStyle, fullSizeStyle, largeTopUiStyle, overlayStyle, thinBottomWidgetStyle } from "./style";
+import {
+  // definitionHeaderStyle,
+  overlayMenuWrapperStyle,
+  fullSizeStyle,
+  // largeTopUiStyle,
+  overlayStyle,
+  thinWidgetStyle,
+  fullUIStyle,
+  standardBottomUiStyle,
+  topUI,
+  paginationStyle,
+  overlayMenuHeaderStyle,
+  overlayMenuStyle,
+  definitionListStyle,
+} from "./style";
 
 interface InfoObject {
   [key: string]: definitionObject;
@@ -124,7 +138,7 @@ export default function Info() {
         like a pro. Happy Learning!
       </p>
       <div>
-        <h5>One last secret:</h5>
+        <h5>Learning can be addictive!</h5>
         <p>
           Watch out for any links; they may lead you down a rabbit hole of space
           knowledge...
@@ -150,12 +164,23 @@ export default function Info() {
           Solar System Dynamics
         </a>{" "}
         website. Visit the{" "}
-        <a href="https://www.nasa.gov/planetarydefense/overview" target="_blank">
+        <a
+          href="https://www.nasa.gov/planetarydefense/overview"
+          target="_blank"
+        >
           Planetary Defense Coordination Office
         </a>{" "}
         for more information on how NASA monitors for potentially hazardous
         asteroids and comets.
       </p>
+      <br/>
+      <b>One last secret:</b>
+      <br/>
+      <q>
+        I wonder what would happen if you spun the joysticks counterclockwise?
+      </q>
+      <br/>
+      -Christian
     </div>,
   ];
 
@@ -410,11 +435,14 @@ export default function Info() {
     event.preventDefault();
     event.stopPropagation();
     setMenuOpen(false);
+    console.log("Clicked away");
   };
 
   const ButtonList: React.FC<{ items: string[] }> = ({ items }) => {
     return (
-      <div>
+      <div
+        css={definitionListStyle}
+      >
         {items.map((item, index) => (
           <Button
             key={item}
@@ -434,7 +462,7 @@ export default function Info() {
   }) => {
     return (
       <Box css={overlayMenuStyle}>
-        <Box css={definitionHeaderStyle}>
+        <Box css={overlayMenuHeaderStyle}>
           <Box> </Box>
           <h3>{definitions[definition].title}</h3>
           <IconButton onClick={() => setMenuOpen(false)}>
@@ -450,29 +478,28 @@ export default function Info() {
   };
 
   return (
-    <Box css={fullSizeStyle}>
+    <Box css={fullUIStyle}>
       {menuOpen ? (
         <Backdrop open={true} css={overlayStyle}>
           <ClickAwayListener onClickAway={handleClickAwaySettings}>
-            <Box css={overlayMenuStyle}>
+            <Box css={overlayMenuWrapperStyle}>
               <DefinitionOverlay definition={currentDefinition} />
             </Box>
           </ClickAwayListener>
         </Backdrop>
       ) : null}
-      <Box css={largeTopUiStyle}>
-        {pages[currentPage - 1]}
+      <Box css={topUI}>{pages[currentPage - 1]}</Box>
+      <Box css={standardBottomUiStyle}>
+        <Pagination
+          size="medium"
+          count={pages.length}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+          variant="outlined"
+          css={paginationStyle}
+        />
       </Box>
-
-      <Pagination
-        size="medium"
-        count={pages.length}
-        page={currentPage}
-        onChange={handlePageChange}
-        color="primary"
-        variant="outlined"
-        css={thinBottomWidgetStyle}
-      />
     </Box>
   );
 }

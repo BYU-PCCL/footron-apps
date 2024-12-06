@@ -1,5 +1,7 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Box,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -14,6 +16,7 @@ import {
   PlanetIcon,
   NaturalLightingIcon,
   FloodLightingIcon,
+  ConstellationIcon,
 } from "./icons";
 import {
   AutoAwesome,
@@ -24,23 +27,32 @@ import {
 } from "@mui/icons-material";
 
 import { useMessaging } from "@footron/controls-client";
-import { fullSizeStyle, overlayMenuStyle } from "./style";
+import {
+  overlayMenuHeaderStyle,
+  overlayMenuStyle,
+  overlaySettingsMenuStyle,
+} from "./style";
+import { Close } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 
-export default function SettingsMenu() {
+interface Props {
+  toggle: boolean;
+  onToggle: () => void;
+}
+
+export default function SettingsMenu({ toggle, onToggle }: Props) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const { sendMessage } = useMessaging();
   const [state, setState] = useState({
-    asteroids: false,
-    comets: false,
-    phos: false,
-    planets: true,
-    spacecraft: true,
-    trails: true,
-    labels: true,
-    icons: true,
-    starfield: false,
-    userInterface: true,
+    asteroidsFilter: false,
+    cometsFilter: false,
+    phosFilter: false,
   });
-  const [lighting, setLighting] = useState("shadow");
+  const [lighting, setLighting] = useState("none");
+
+  useEffect(() => {
+    setMenuOpen(toggle);
+  }, [toggle]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     sendMessage({
@@ -54,6 +66,13 @@ export default function SettingsMenu() {
     });
   };
 
+  const toggleButton = (setting: string) => {
+    sendMessage({
+      type: "settings",
+      setting: setting,
+    });
+  };
+
   const handleLightingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     sendMessage({
       type: "settings",
@@ -64,18 +83,26 @@ export default function SettingsMenu() {
   };
 
   return (
-      <List css={fullSizeStyle}>
+    <Box css={overlaySettingsMenuStyle}>
+      <Box css={overlayMenuHeaderStyle}>
+        <Box> </Box>
+        <h4>Settings</h4>
+        <IconButton onClick={onToggle}>
+          <Close />
+        </IconButton>
+      </Box>
+      <List css={overlayMenuStyle}>
         <h5>Filters</h5>
         <ListItem>
           <ListItemIcon>
             <AsteroidIcon />
           </ListItemIcon>
-          <ListItemText primary="asteroids" />
+          <ListItemText primary="Asteroids" />
           <Switch
             edge="end"
             onChange={handleChange}
-            name="asteroids"
-            checked={state.asteroids}
+            name="asteroidsFilter"
+            checked={state.asteroidsFilter}
             inputProps={{
               "aria-labelledby": "switch-list-label-bluetooth",
             }}
@@ -85,12 +112,12 @@ export default function SettingsMenu() {
           <ListItemIcon>
             <CometIcon />
           </ListItemIcon>
-          <ListItemText primary="comets" />
+          <ListItemText primary="Comets" />
           <Switch
             edge="end"
             onChange={handleChange}
-            name="comets"
-            checked={state.comets}
+            name="cometsFilter"
+            checked={state.cometsFilter}
             inputProps={{
               "aria-labelledby": "switch-list-label-bluetooth",
             }}
@@ -100,12 +127,12 @@ export default function SettingsMenu() {
           <ListItemIcon>
             <Radar />
           </ListItemIcon>
-          <ListItemText primary="phos" />
+          <ListItemText primary="Only PHOs" />
           <Switch
             edge="end"
             onChange={handleChange}
-            name="phos"
-            checked={state.phos}
+            name="phosFilter"
+            checked={state.phosFilter}
             inputProps={{
               "aria-labelledby": "switch-list-label-bluetooth",
             }}
@@ -153,107 +180,99 @@ export default function SettingsMenu() {
           <ListItemIcon>
             <PlanetIcon />
           </ListItemIcon>
-          <ListItemText primary="Planets" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="planets"
-            checked={state.planets}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("planets")}
+          >
+            planets
+          </Button>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <SatelliteAlt />
           </ListItemIcon>
-          <ListItemText primary="spacecraft" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="spacecraft"
-            checked={state.spacecraft}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("spacecraft")}
+          >
+            spacecraft
+          </Button>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <OrbitIcon />
           </ListItemIcon>
-          <ListItemText primary="trails" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="trails"
-            checked={state.trails}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("trails")}
+          >
+            trails
+          </Button>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <Label />
           </ListItemIcon>
-          <ListItemText primary="labels" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="labels"
-            checked={state.labels}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("labels")}
+          >
+            labels
+          </Button>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <AsteroidIcon />
           </ListItemIcon>
-          <ListItemText primary="icons" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="icons"
-            checked={state.icons}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("icons")}
+          >
+            icons
+          </Button>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <AutoAwesome />
           </ListItemIcon>
-          <ListItemText primary="starfield" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="starfield"
-            checked={state.starfield}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("starfield")}
+          >
+            starfield
+          </Button>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <ConstellationIcon />
+          </ListItemIcon>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("constellations")}
+          >
+            constellations
+          </Button>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <Settings />
           </ListItemIcon>
-          <ListItemText primary="userInterface" />
-          <Switch
-            edge="end"
-            onChange={handleChange}
-            name="userInterface"
-            checked={state.userInterface}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => toggleButton("ui")}
+          >
+            userInterface
+          </Button>
         </ListItem>
       </List>
+    </Box>
   );
 }
