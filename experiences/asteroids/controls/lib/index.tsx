@@ -15,28 +15,15 @@ import AsteroidWatch from "./AsteroidWatch";
 import Learn from "./Learn";
 import Info from "./Info";
 import {
-  bottomTitleStyle,
-  controlsContainerStyle,
   dynamicUiwrapperStyle,
-  fixedFooterStyle,
-  footerInnerStyle,
-  footerStyle,
-  headerStyle,
   overlayMenuWrapperStyle,
   overlayStyle,
-  pageWidthStyle,
-  pageWrapperStyle,
   selectedTabStyle,
   tabPanelStyle,
   tabsStyle,
   tabStyle,
-  titleStyle,
   wrapperStyle,
 } from "./style";
-import { BroadcastOnHome } from "@mui/icons-material";
-import { Icon, Link } from "@mui/material";
-import { AppsRounded } from "@material-ui/icons";
-import { ThemeProvider } from "@emotion/react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -116,92 +103,53 @@ const ControlsComponent = (): JSX.Element => {
     );
   }
 
-  // TODO: Remove before prod
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#001E4C",
-        light: "#092b87",
-        dark: "#011221",
-      },
-    },
-  });
-
-  // TODO: Remove footron container stuff
-
   return (
-    <main css={pageWrapperStyle}>
-      <div css={pageWidthStyle}>
-        <div css={headerStyle}>
-          <h1 css={titleStyle}>Eyes on Asteroids</h1>
-          <Icon>
-            <BroadcastOnHome />
-          </Icon>
-        </div>
-        <div css={controlsContainerStyle}>
-          <ThemeProvider theme={theme}>
-            {/* Start normal controls */}
-            <Box css={wrapperStyle}>
-              {/* Settings overlay */}
-              {menuOpen ? (
-                <Backdrop open={true} css={overlayStyle}>
-                  <ClickAwayListener onClickAway={handleClickAwaySettings}>
-                    <Box css={overlayMenuWrapperStyle}>
-                      <SettingsMenu
-                        toggle={menuOpen}
-                        onToggle={handleOpenSettings}
-                      />
-                    </Box>
-                  </ClickAwayListener>
-                </Backdrop>
-              ) : null}
-              <Box css={dynamicUiwrapperStyle}>
-                <CustomTabPanel value={value} index={1}>
-                  <AsteroidWatch />
-                </CustomTabPanel>
-                <CustomTabPanel value={value} index={2}>
-                  <FlyTo />
-                </CustomTabPanel>
-                <CustomTabPanel value={value} index={3}>
-                  <Learn />
-                </CustomTabPanel>
-                <CustomTabPanel value={value} index={4}>
-                  <Info />
-                </CustomTabPanel>
-              </Box>
-              <Box css={tabsStyle}>
-                <Tab selected={false} onClick={handleOpenSettings}>
-                  {menuOpen ? <CloseIcon /> : <SettingsIcon />}
-                </Tab>
-                <Tab selected={value == 1} onClick={getWatch}>
-                  Watch
-                </Tab>
-                <Tab selected={value == 2} onClick={getFly}>
-                  Fly
-                </Tab>
-                <Tab selected={value == 3} onClick={getLearn}>
-                  Learn
-                </Tab>
-                <Tab selected={value == 4} onClick={getInfo}>
-                  Info
-                </Tab>
-              </Box>
+    <Box css={wrapperStyle}>
+      {/* Settings overlay */}
+      {menuOpen ? (
+        <Backdrop open={true} css={overlayStyle}>
+          <ClickAwayListener onClickAway={handleClickAwaySettings}>
+            <Box css={overlayMenuWrapperStyle}>
+              <SettingsMenu
+                toggle={menuOpen}
+                onToggle={handleOpenSettings}
+              />
             </Box>
-            {/* End normal controls */}
-          </ThemeProvider>
-        </div>
-        <div css={fixedFooterStyle}>
-          <Link style={{ textDecoration: "none" }}>
-            <div css={footerStyle}>
-              <div css={footerInnerStyle}>
-                <AppsRounded fontSize="large" style={{ fill: "#f0f6ff" }} />
-                <h1 css={bottomTitleStyle}>More Experiences</h1>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </div>
-    </main>
+          </ClickAwayListener>
+        </Backdrop>
+      ) : null}
+      <Box css={dynamicUiwrapperStyle}>
+        <CustomTabPanel value={value} index={1}>
+          <AsteroidWatch />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          <FlyTo />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={3}>
+          <Learn />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={4}>
+          <Info />
+        </CustomTabPanel>
+      </Box>
+      <Box css={tabsStyle}>
+        <Tab selected={false} onClick={handleOpenSettings}>
+          {menuOpen ? <CloseIcon /> : <SettingsIcon />}
+        </Tab>
+        <Tab selected={value == 1} onClick={getWatch}>
+          Watch
+        </Tab>
+        <Tab selected={value == 2} onClick={getFly}>
+          Fly
+        </Tab>
+        <Tab selected={value == 3} onClick={getLearn}>
+          Learn
+        </Tab>
+        <Tab selected={value == 4} onClick={getInfo}>
+          Info
+        </Tab>
+      </Box>
+    </Box>
   );
 };
 
