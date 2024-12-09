@@ -54,7 +54,7 @@ experiences = [
 
 [christmas]
 title = "Christmas"
-experiences = [ "cmas-snowglobe" ]
+experiences = [ "cmas-snowglobe", "cmas-finals" ]
 
 [cpms50]
 title = "CPMS is 50"

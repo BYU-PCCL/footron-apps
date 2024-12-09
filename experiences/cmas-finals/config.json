@@ -1,0 +1,9 @@
+{
+    "id": "cmas-finals",
+    "type": "web",
+    "title": "Good luck on finals!",
+    "description": "Good luck on finals!",
+    "layout": "full",
+    "lifetime": 600,
+    "queueable": true
+}
