@@ -1,0 +1,53 @@
+
+html {
+    width: 2736px;
+    height: 1216px;
+    background: #444444;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 2736px;
+    height: 1216px;
+    background: #444444;
+    overflow: hidden;
+}
+
+div#shift {
+    width: 2736px;
+    height: 1216px;
+    position: absolute;
+    left:0px;
+    top:-200px;
+}
+
+div#mc {
+    position: absolute;
+    left:12%;
+    top:10%;
+    width:2736px;
+    height:1216px;
+    background-image: url("glof3.png");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/*
+    background-size: 75% 75%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transform: translateY(-25%);
+*/
+
+.video-container {
+  height: 1216px;
+  width: 2736px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.video-container video {
+    transform: translateY(-2%);
+}
