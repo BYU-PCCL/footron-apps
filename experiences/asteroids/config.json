@@ -6,5 +6,5 @@
   "action_hints": ["Find a planet", "Take a tour", "Fly through the solar system"],
   "layout": "full",
   "lifetime": 180,
-  "queueable": true
+  "queueable": false
 }
