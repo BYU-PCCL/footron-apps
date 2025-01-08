@@ -5,5 +5,5 @@
     "description": "Good luck on finals!",
     "layout": "full",
     "lifetime": 600,
-    "queueable": true
+    "queueable": false
 }

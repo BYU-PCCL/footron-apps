@@ -5,5 +5,5 @@
     "description": "Have a wonderful Christmas!",
     "layout": "full",
     "lifetime": 240,
-    "queueable": true
+    "queueable": false
 }
